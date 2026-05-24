@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, ArrowLeft, Star, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 type FormStep = {
   question: string;
@@ -68,14 +69,38 @@ const reviews = [
   },
 ];
 
-// Client logos for marquee
+// Client logos for marquee - using actual client logos
 const clientLogos = [
-  "Trusted Company",
-  "Growth Partners",
-  "Scale Builders",
-  "Lead Masters",
-  "Revenue Pro",
-  "Sales Engine",
+  {
+    name: "Elegant Landscape Inc.",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/elegantlandscape-zNawjRmgECfVmbjmt3d6awGUv7of63.jpg",
+    width: 180,
+    height: 60,
+  },
+  {
+    name: "Desert Valley Structures",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_7g47uh7g47uh7g47-yNHwZKYa626uG35YqEowGmacLepuRy.png",
+    width: 140,
+    height: 70,
+  },
+  {
+    name: "AZ Sun Covers LLC",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cropped-azsuncovers-logo-EPo7JoRQjmntTksuDDwZsYcA3NbbGw.webp",
+    width: 120,
+    height: 70,
+  },
+  {
+    name: "CV",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-2x9THaqCFsJw1KVTsp59JOMtMgU0fF.png",
+    width: 70,
+    height: 70,
+  },
+  {
+    name: "5th Element Outdoor Creations",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3e0a1862-e2c1-4dd6-80ad-28b34939a073-dboighc4FISsE7mcKKrTAOvP76xN0w.png",
+    width: 140,
+    height: 70,
+  },
 ];
 
 export function HeroSection() {
@@ -90,6 +115,8 @@ export function HeroSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDisqualified, setIsDisqualified] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [hoveredOption, setHoveredOption] = useState<string | null>(null);
 
   const QUALIFIED_POSITION = "CEO/Owner";
 
@@ -299,8 +326,8 @@ export function HeroSection() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="min-h-screen flex flex-col items-center justify-center pt-20 pb-16 relative overflow-hidden gradient-bg">
+      {/* Hero Section with Integrated Form */}
+      <section className="min-h-screen flex flex-col items-center justify-start pt-24 pb-16 relative overflow-hidden gradient-bg">
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#1f5555] via-[#1a4a4a] to-[#0d2626]" />
         
@@ -339,8 +366,6 @@ export function HeroSection() {
         {/* Accent line decorations */}
         <div className="absolute top-32 left-8 w-px h-24 bg-gradient-to-b from-white/20 to-transparent hidden lg:block" />
         <div className="absolute top-32 right-8 w-px h-24 bg-gradient-to-b from-white/20 to-transparent hidden lg:block" />
-        <div className="absolute bottom-32 left-8 w-px h-24 bg-gradient-to-t from-white/20 to-transparent hidden lg:block" />
-        <div className="absolute bottom-32 right-8 w-px h-24 bg-gradient-to-t from-white/20 to-transparent hidden lg:block" />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
           {/* Tag line */}
@@ -348,7 +373,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-white/60 text-sm uppercase tracking-[0.2em] mb-8"
+            className="text-white/60 text-sm uppercase tracking-[0.2em] mb-6"
           >
             A Growth Partner for Home Service Contractors
           </motion.p>
@@ -358,7 +383,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-8 tracking-tight"
+            className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 tracking-tight"
           >
             Precision is the<br />strategy.
           </motion.h1>
@@ -368,39 +393,320 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-white/70 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed"
           >
             We build contractor businesses the way they should be built. With data guiding every decision and nothing left to guesswork.
           </motion.p>
 
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <Button
-              size="lg"
-              onClick={() => document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white text-[#1a4a4a] hover:bg-white/90 text-base px-8 py-6 rounded-full group font-medium"
-            >
-              Apply Now
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </motion.div>
+          {/* CTA Button - Shows form when clicked */}
+          <AnimatePresence mode="wait">
+            {!showForm ? (
+              <motion.div
+                key="cta-button"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+              >
+                <Button
+                  size="lg"
+                  onClick={() => setShowForm(true)}
+                  className="bg-white text-[#1a4a4a] hover:bg-white/90 text-base px-8 py-6 rounded-full group font-medium shadow-lg shadow-black/20"
+                >
+                  <Sparkles className="mr-2 w-5 h-5" />
+                  Apply Now
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="max-w-lg mx-auto mt-4"
+              >
+                {/* Form Card with enhanced styling */}
+                <div className="relative">
+                  {/* Glow effect behind form */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9999]/30 via-white/20 to-[#4a9999]/30 rounded-3xl blur-xl opacity-70" />
+                  
+                  <div className="relative glass-card rounded-3xl p-6 md:p-8 border border-white/20 backdrop-blur-xl bg-white/[0.08]">
+                    {isSubmitted ? (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center py-8"
+                      >
+                        {isDisqualified ? (
+                          <>
+                            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                              <span className="text-2xl">Thank you</span>
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-2">Thanks for Your Interest</h3>
+                            <p className="text-white/60 text-sm">
+                              Based on your responses, we may not be the best fit right now. We appreciate your time.
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <motion.div 
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                              className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30"
+                            >
+                              <Check className="w-8 h-8 text-white" />
+                            </motion.div>
+                            <h3 className="text-xl font-bold text-white mb-2">Application Received!</h3>
+                            <p className="text-white/60 text-sm">
+                              We will review your application and get back to you within 24-48 hours.
+                            </p>
+                          </>
+                        )}
+                      </motion.div>
+                    ) : (
+                      <>
+                        {/* Progress indicator with step dots */}
+                        <div className="mb-6">
+                          <div className="flex items-center justify-center gap-2 mb-3">
+                            {formSteps.map((_, index) => (
+                              <motion.div
+                                key={index}
+                                initial={false}
+                                animate={{
+                                  scale: index === currentStep ? 1.2 : 1,
+                                  backgroundColor: index <= currentStep ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.2)",
+                                }}
+                                className={`h-2 rounded-full transition-all duration-300 ${
+                                  index === currentStep ? "w-8" : "w-2"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                          <p className="text-white/50 text-xs text-center">
+                            Step {currentStep + 1} of {formSteps.length}
+                          </p>
+                        </div>
+
+                        {/* Question */}
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={currentStep}
+                            initial={{ opacity: 0, x: 30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -30 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <h3 className="text-lg md:text-xl font-semibold text-white mb-5 text-center">
+                              {currentFormStep.question}
+                            </h3>
+
+                            {/* Radio Options - Enhanced */}
+                            {currentFormStep.type === "radio" && currentFormStep.options && (
+                              <div className="space-y-2">
+                                {currentFormStep.options.map((option, index) => (
+                                  <motion.button
+                                    key={option}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                    onClick={() => handleOptionSelect(option)}
+                                    onMouseEnter={() => setHoveredOption(option)}
+                                    onMouseLeave={() => setHoveredOption(null)}
+                                    className={`w-full p-4 rounded-xl text-left transition-all duration-200 flex items-center justify-between group ${
+                                      formData[currentStep] === option
+                                        ? "bg-white text-[#1a4a4a] shadow-lg shadow-white/20"
+                                        : "bg-white/10 text-white hover:bg-white/20 border border-white/10 hover:border-white/30"
+                                    }`}
+                                  >
+                                    <span className="font-medium">{option}</span>
+                                    <motion.div
+                                      initial={false}
+                                      animate={{
+                                        scale: formData[currentStep] === option ? 1 : 0,
+                                        opacity: formData[currentStep] === option ? 1 : 0,
+                                      }}
+                                      className="w-6 h-6 bg-[#1a4a4a] rounded-full flex items-center justify-center"
+                                    >
+                                      <Check className="w-4 h-4 text-white" />
+                                    </motion.div>
+                                  </motion.button>
+                                ))}
+                              </div>
+                            )}
+
+                            {/* Dropdown - Enhanced */}
+                            {currentFormStep.type === "dropdown" && currentFormStep.options && (
+                              <div className="relative">
+                                <button
+                                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                                  className={`w-full p-4 rounded-xl text-left flex items-center justify-between transition-all duration-200 border ${
+                                    dropdownOpen 
+                                      ? "bg-white/20 border-white/40" 
+                                      : "bg-white/10 border-white/10 hover:bg-white/15 hover:border-white/20"
+                                  }`}
+                                >
+                                  <span className={formData[currentStep] ? "text-white font-medium" : "text-white/50"}>
+                                    {formData[currentStep] || "Select your industry"}
+                                  </span>
+                                  <motion.div
+                                    animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                                    transition={{ duration: 0.2 }}
+                                  >
+                                    <ChevronDown className="w-5 h-5 text-white/70" />
+                                  </motion.div>
+                                </button>
+                                <AnimatePresence>
+                                  {dropdownOpen && (
+                                    <motion.div
+                                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                      transition={{ duration: 0.2 }}
+                                      className="absolute top-full left-0 right-0 mt-2 bg-[#1a4a4a]/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden z-20 max-h-48 overflow-y-auto shadow-xl"
+                                    >
+                                      {currentFormStep.options.map((option, index) => (
+                                        <motion.button
+                                          key={option}
+                                          initial={{ opacity: 0 }}
+                                          animate={{ opacity: 1 }}
+                                          transition={{ delay: index * 0.03 }}
+                                          onClick={() => {
+                                            handleOptionSelect(option);
+                                            setDropdownOpen(false);
+                                          }}
+                                          className={`w-full p-3 text-left text-white hover:bg-white/10 transition-colors flex items-center justify-between ${
+                                            formData[currentStep] === option ? "bg-white/10" : ""
+                                          }`}
+                                        >
+                                          {option}
+                                          {formData[currentStep] === option && (
+                                            <Check className="w-4 h-4 text-white/70" />
+                                          )}
+                                        </motion.button>
+                                      ))}
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            )}
+
+                            {/* Text Input - Enhanced */}
+                            {currentFormStep.type === "text" && (
+                              <div className="relative">
+                                <Input
+                                  type="text"
+                                  value={formData[currentStep] || ""}
+                                  onChange={(e) => handleTextChange(e.target.value)}
+                                  placeholder={currentFormStep.placeholder}
+                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl text-center text-lg focus:bg-white/15 focus:border-white/40 transition-all"
+                                />
+                              </div>
+                            )}
+
+                            {/* Email Input - Enhanced */}
+                            {currentFormStep.type === "email" && (
+                              <div className="relative">
+                                <Input
+                                  type="email"
+                                  value={formData[currentStep] || ""}
+                                  onChange={(e) => handleTextChange(e.target.value)}
+                                  placeholder={currentFormStep.placeholder}
+                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl text-center text-lg focus:bg-white/15 focus:border-white/40 transition-all"
+                                />
+                              </div>
+                            )}
+
+                            {/* Phone Input - Enhanced */}
+                            {currentFormStep.type === "phone" && (
+                              <div className="relative">
+                                <Input
+                                  type="tel"
+                                  value={formData[currentStep] || ""}
+                                  onChange={(e) => handleTextChange(e.target.value)}
+                                  placeholder={currentFormStep.placeholder}
+                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl text-center text-lg focus:bg-white/15 focus:border-white/40 transition-all"
+                                />
+                              </div>
+                            )}
+
+                            {/* Error message */}
+                            {showError && (
+                              <motion.p 
+                                initial={{ opacity: 0, y: -5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="text-red-400 text-sm mt-3 text-center"
+                              >
+                                {getValidationErrorMessage()}
+                              </motion.p>
+                            )}
+                          </motion.div>
+                        </AnimatePresence>
+
+                        {/* Navigation - Enhanced */}
+                        <div className="flex gap-3 mt-6">
+                          {currentStep > 0 && (
+                            <Button
+                              variant="outline"
+                              onClick={handlePrevious}
+                              className="flex-1 bg-transparent border-white/20 text-white hover:bg-white/10 h-12 rounded-xl"
+                            >
+                              <ArrowLeft className="mr-2 w-4 h-4" />
+                              Back
+                            </Button>
+                          )}
+                          <Button
+                            onClick={handleNext}
+                            disabled={isSubmitting}
+                            className={`flex-1 bg-white text-[#1a4a4a] hover:bg-white/90 h-12 rounded-xl font-semibold shadow-lg shadow-white/10 ${currentStep === 0 ? "w-full" : ""}`}
+                          >
+                            {isSubmitting ? (
+                              <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                className="w-5 h-5 border-2 border-[#1a4a4a]/30 border-t-[#1a4a4a] rounded-full"
+                              />
+                            ) : currentStep === formSteps.length - 1 ? (
+                              "Submit Application"
+                            ) : (
+                              <>
+                                Continue
+                                <ArrowRight className="ml-2 w-4 h-4" />
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
-      {/* Logo Marquee */}
-      <section className="py-8 bg-[#0d2626] overflow-hidden border-y border-white/5">
+      {/* Logo Marquee - Client Logos */}
+      <section className="py-6 bg-[#0d2626] overflow-hidden border-y border-white/5">
         <div className="relative">
+          {/* Fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0d2626] to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0d2626] to-transparent z-10" />
+          
           <div className="flex animate-marquee">
-            {[...clientLogos, ...clientLogos].map((logo, index) => (
+            {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 mx-12 text-white/30 text-lg font-medium tracking-wide"
+                className="flex-shrink-0 mx-8 md:mx-12 flex items-center justify-center h-16 md:h-20"
               >
-                {logo}
+                <Image
+                  src={logo.src}
+                  alt={logo.name}
+                  width={logo.width}
+                  height={logo.height}
+                  className="object-contain h-12 md:h-16 w-auto opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                />
               </div>
             ))}
           </div>
@@ -531,225 +837,15 @@ export function HeroSection() {
             className="text-center mt-12"
           >
             <Button
-              onClick={() => document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => {
+                setShowForm(true);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className="bg-white text-[#1a4a4a] hover:bg-white/90 rounded-full px-8 py-6 font-medium"
             >
               Apply Now
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Form Section */}
-      <section id="hero-form" className="py-20 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d2626 0%, #143838 50%, #0d2626 100%)' }}>
-        {/* Decorative elements */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-[#2a5555]/20 to-transparent rounded-full blur-[100px]" />
-        <div className="absolute top-10 left-10 w-2 h-2 bg-white/20 rounded-full hidden lg:block" />
-        <div className="absolute top-20 left-20 w-1 h-1 bg-white/30 rounded-full hidden lg:block" />
-        <div className="absolute bottom-10 right-10 w-2 h-2 bg-white/20 rounded-full hidden lg:block" />
-        <div className="absolute bottom-20 right-20 w-1 h-1 bg-white/30 rounded-full hidden lg:block" />
-        <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="glass-card rounded-3xl p-8"
-          >
-            {isSubmitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-12"
-              >
-                {isDisqualified ? (
-                  <>
-                    <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <span className="text-3xl">Thank you</span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">Thanks for Your Interest</h3>
-                    <p className="text-white/60">
-                      Based on your responses, we may not be the best fit right now. We appreciate your time.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Check className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">Application Received!</h3>
-                    <p className="text-white/60">
-                      We will review your application and get back to you within 24-48 hours.
-                    </p>
-                  </>
-                )}
-              </motion.div>
-            ) : (
-              <>
-                {/* Progress bar */}
-                <div className="mb-8">
-                  <div className="flex justify-between text-sm text-white/50 mb-2">
-                    <span>Step {currentStep + 1} of {formSteps.length}</span>
-                    <span>{Math.round(progress)}%</span>
-                  </div>
-                  <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full bg-white rounded-full"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${progress}%` }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </div>
-                </div>
-
-                {/* Question */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentStep}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3 className="text-xl font-semibold text-white mb-6">
-                      {currentFormStep.question}
-                    </h3>
-
-                    {/* Radio Options */}
-                    {currentFormStep.type === "radio" && currentFormStep.options && (
-                      <div className="space-y-3">
-                        {currentFormStep.options.map((option) => (
-                          <button
-                            key={option}
-                            onClick={() => handleOptionSelect(option)}
-                            className={`w-full p-4 rounded-xl text-left transition-all ${
-                              formData[currentStep] === option
-                                ? "bg-white text-[#1a4a4a]"
-                                : "bg-white/10 text-white hover:bg-white/20"
-                            }`}
-                          >
-                            {option}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Dropdown */}
-                    {currentFormStep.type === "dropdown" && currentFormStep.options && (
-                      <div className="relative">
-                        <button
-                          onClick={() => setDropdownOpen(!dropdownOpen)}
-                          className="w-full p-4 rounded-xl bg-white/10 text-white text-left flex items-center justify-between hover:bg-white/20 transition-colors"
-                        >
-                          <span className={formData[currentStep] ? "text-white" : "text-white/50"}>
-                            {formData[currentStep] || "Select an option"}
-                          </span>
-                          <ChevronDown className={`w-5 h-5 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
-                        </button>
-                        {dropdownOpen && (
-                          <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a4a4a] border border-white/20 rounded-xl overflow-hidden z-10 max-h-60 overflow-y-auto">
-                            {currentFormStep.options.map((option) => (
-                              <button
-                                key={option}
-                                onClick={() => {
-                                  handleOptionSelect(option);
-                                  setDropdownOpen(false);
-                                }}
-                                className="w-full p-4 text-left text-white hover:bg-white/10 transition-colors"
-                              >
-                                {option}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Number Input */}
-                    {currentFormStep.type === "number" && (
-                      <Input
-                        type="text"
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        value={formData[currentStep] || ""}
-                        onChange={(e) => handleNumberChange(e.target.value)}
-                        placeholder="Enter a number"
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl"
-                      />
-                    )}
-
-                    {/* Text Input */}
-                    {currentFormStep.type === "text" && (
-                      <Input
-                        type="text"
-                        value={formData[currentStep] || ""}
-                        onChange={(e) => handleTextChange(e.target.value)}
-                        placeholder={currentFormStep.placeholder}
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl"
-                      />
-                    )}
-
-                    {/* Email Input */}
-                    {currentFormStep.type === "email" && (
-                      <Input
-                        type="email"
-                        value={formData[currentStep] || ""}
-                        onChange={(e) => handleTextChange(e.target.value)}
-                        placeholder={currentFormStep.placeholder}
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl"
-                      />
-                    )}
-
-                    {/* Phone Input */}
-                    {currentFormStep.type === "phone" && (
-                      <Input
-                        type="tel"
-                        value={formData[currentStep] || ""}
-                        onChange={(e) => handleTextChange(e.target.value)}
-                        placeholder={currentFormStep.placeholder}
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl"
-                      />
-                    )}
-
-                    {/* Error message */}
-                    {showError && (
-                      <p className="text-red-400 text-sm mt-3">{getValidationErrorMessage()}</p>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Navigation */}
-                <div className="flex gap-4 mt-8">
-                  {currentStep > 0 && (
-                    <Button
-                      variant="outline"
-                      onClick={handlePrevious}
-                      className="flex-1 bg-transparent border-white/20 text-white hover:bg-white/10 h-14 rounded-xl"
-                    >
-                      <ArrowLeft className="mr-2 w-5 h-5" />
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    onClick={handleNext}
-                    disabled={isSubmitting}
-                    className={`flex-1 bg-white text-[#1a4a4a] hover:bg-white/90 h-14 rounded-xl ${currentStep === 0 ? "w-full" : ""}`}
-                  >
-                    {isSubmitting ? (
-                      "Submitting..."
-                    ) : currentStep === formSteps.length - 1 ? (
-                      "Submit Application"
-                    ) : (
-                      <>
-                        Continue
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </>
-            )}
           </motion.div>
         </div>
       </section>
