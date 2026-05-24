@@ -54,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${lora.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${lora.variable} ${poppins.variable} bg-background`}>
       <head>
         {/* Facebook Pixel Code */}
         <script
