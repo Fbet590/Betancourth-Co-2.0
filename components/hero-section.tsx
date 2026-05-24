@@ -28,23 +28,6 @@ const formSteps: FormStep[] = [
     required: true,
   },
   {
-    question: "What is the average number of jobs you handle each month?",
-    type: "number",
-    required: true,
-  },
-  {
-    question: "What is your total annual revenue?",
-    type: "dropdown",
-    options: ["$300K - $500K", "$500K - $1M", "$1M - $5M", "$5M - $10M", "$10M - $20M"],
-    required: true,
-  },
-  {
-    question: "What monthly amount are you looking to dedicate to your marketing?",
-    type: "radio",
-    options: ["$1,500 - $2,000", "$2,000 - $4,000", "$5,000+"],
-    required: true,
-  },
-  {
     question: "What's your full name?",
     type: "text",
     placeholder: "John Smith",
@@ -183,12 +166,9 @@ export function HeroSection() {
       const payload = {
         position: formData[0],
         companyType: formData[1],
-        jobsPerMonth: formData[2],
-        annualRevenue: formData[3],
-        marketingBudget: formData[4],
-        fullName: formData[5],
-        email: formData[6],
-        phone: formData[7],
+        fullName: formData[2],
+        email: formData[3],
+        phone: formData[4],
         submittedAt: new Date().toISOString(),
       };
 
@@ -324,8 +304,43 @@ export function HeroSection() {
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#1f5555] via-[#1a4a4a] to-[#0d2626]" />
         
-        {/* Subtle radial gradient for depth */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-[#2a6a6a]/30 to-transparent rounded-full blur-3xl" />
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px'
+        }} />
+        
+        {/* Animated gradient orbs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-20 right-[10%] w-[400px] h-[400px] bg-gradient-to-br from-[#3d8a8a] to-transparent rounded-full blur-[100px]" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-20 left-[5%] w-[500px] h-[500px] bg-gradient-to-tr from-[#2a6666] to-transparent rounded-full blur-[120px]" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.3, 1],
+            opacity: [0.15, 0.3, 0.15]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-[#4a9999]/20 to-transparent rounded-full blur-[80px]" 
+        />
+        
+        {/* Accent line decorations */}
+        <div className="absolute top-32 left-8 w-px h-24 bg-gradient-to-b from-white/20 to-transparent hidden lg:block" />
+        <div className="absolute top-32 right-8 w-px h-24 bg-gradient-to-b from-white/20 to-transparent hidden lg:block" />
+        <div className="absolute bottom-32 left-8 w-px h-24 bg-gradient-to-t from-white/20 to-transparent hidden lg:block" />
+        <div className="absolute bottom-32 right-8 w-px h-24 bg-gradient-to-t from-white/20 to-transparent hidden lg:block" />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
           {/* Tag line */}
@@ -393,7 +408,10 @@ export function HeroSection() {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-[#0d2626]">
+      <section id="testimonials" className="py-20 bg-[#0d2626] relative overflow-hidden">
+        {/* Accent gradient */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-[#2a5555]/30 to-transparent rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-[#1f4545]/40 to-transparent rounded-full blur-[80px]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -524,7 +542,13 @@ export function HeroSection() {
       </section>
 
       {/* Form Section */}
-      <section id="hero-form" className="py-20 bg-[#0d2626]">
+      <section id="hero-form" className="py-20 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d2626 0%, #143838 50%, #0d2626 100%)' }}>
+        {/* Decorative elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-[#2a5555]/20 to-transparent rounded-full blur-[100px]" />
+        <div className="absolute top-10 left-10 w-2 h-2 bg-white/20 rounded-full hidden lg:block" />
+        <div className="absolute top-20 left-20 w-1 h-1 bg-white/30 rounded-full hidden lg:block" />
+        <div className="absolute bottom-10 right-10 w-2 h-2 bg-white/20 rounded-full hidden lg:block" />
+        <div className="absolute bottom-20 right-20 w-1 h-1 bg-white/30 rounded-full hidden lg:block" />
         <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

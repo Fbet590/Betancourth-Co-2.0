@@ -40,8 +40,17 @@ const pricingModels = [
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="py-24 bg-[#143838]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="py-24 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d2626 0%, #183838 50%, #143838 100%)' }}>
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-[#2a5555]/20 to-transparent rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tl from-[#1f4545]/30 to-transparent rounded-full blur-[100px]" />
+      
+      {/* Subtle dot pattern */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)`,
+        backgroundSize: '40px 40px'
+      }} />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

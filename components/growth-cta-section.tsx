@@ -13,8 +13,12 @@ const benefits = [
 
 export function GrowthCTASection() {
   return (
-    <section className="py-24 bg-[#143838]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #143838 0%, #1a4545 50%, #143838 100%)' }}>
+      {/* Decorative gradient orbs */}
+      <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-gradient-to-r from-[#2a5555]/25 to-transparent rounded-full blur-[100px]" />
+      <div className="absolute bottom-1/3 right-0 w-[500px] h-[500px] bg-gradient-to-l from-[#1f4545]/30 to-transparent rounded-full blur-[100px]" />
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}

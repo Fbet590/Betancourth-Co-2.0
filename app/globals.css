@@ -166,3 +166,24 @@
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* Glow effect for buttons/accents */
+.glow-accent {
+  box-shadow: 0 0 40px rgba(74, 154, 154, 0.3);
+}
+
+/* Animated gradient border */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-border {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(74,154,154,0.3), rgba(255,255,255,0.1));
+  background-size: 200% 100%;
+  animation: gradient-shift 4s ease infinite;
+}
