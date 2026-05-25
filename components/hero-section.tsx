@@ -29,36 +29,28 @@ const reviews = [
 // Portfolio examples - websites we've made
 const portfolioExamples = [
   {
-    title: "Desert Valley Patio Covers",
-    category: "Patio Installation",
-    image: "/portfolio/desert-valley.jpg",
-    color: "from-amber-500/20 to-orange-600/20",
-    borderColor: "border-amber-500/30",
-    accentColor: "bg-amber-500",
-  },
-  {
-    title: "Vibrant Vistas Landscape",
-    category: "Landscaping",
-    image: "/portfolio/vibrant-vistas.jpg",
-    color: "from-emerald-500/20 to-teal-600/20",
+    title: "5-O Turf & Pavers",
+    category: "Turf & Paver Installation",
+    url: "https://5oturf.nocostestimate.com/",
+    color: "from-emerald-500/20 to-green-600/20",
     borderColor: "border-emerald-500/30",
     accentColor: "bg-emerald-500",
   },
   {
-    title: "AZ Elite Granite",
-    category: "Countertop Installation",
-    image: "/portfolio/az-elite.jpg",
-    color: "from-slate-500/20 to-zinc-600/20",
-    borderColor: "border-slate-500/30",
-    accentColor: "bg-slate-500",
+    title: "Saucedo's Landscape",
+    category: "Landscaping",
+    url: "https://saucedo.nocostestimate.com/",
+    color: "from-lime-500/20 to-green-600/20",
+    borderColor: "border-lime-500/30",
+    accentColor: "bg-lime-500",
   },
   {
-    title: "5th Element Outdoor",
-    category: "Outdoor Living",
-    image: "/portfolio/5th-element.jpg",
-    color: "from-sky-500/20 to-blue-600/20",
-    borderColor: "border-sky-500/30",
-    accentColor: "bg-sky-500",
+    title: "AZ Elite Granite",
+    category: "Countertop Installation",
+    url: "https://azelitegranite.nocostestimate.com/",
+    color: "from-amber-500/20 to-orange-600/20",
+    borderColor: "border-amber-500/30",
+    accentColor: "bg-amber-500",
   },
 ];
 
@@ -345,14 +337,14 @@ export function HeroSection() {
                 }}
                 onMouseEnter={() => setHoveredOption(option)}
                 onMouseLeave={() => setHoveredOption(null)}
-                whileHover={{ scale: 1.03, x: 8, boxShadow: "0 8px 25px rgba(61, 138, 138, 0.2)" }}
+                whileHover={{ scale: 1.03, x: 8, boxShadow: "0 8px 25px rgba(255, 255, 255, 0.1)" }}
                 whileTap={{ scale: 0.97 }}
-                className={`w-full px-5 py-4 text-left border-2 rounded-xl transition-all duration-300 flex items-center justify-between group ${
+                className={`w-full px-5 py-4 text-left border rounded-xl transition-all duration-300 flex items-center justify-between group ${
                   currentValue === option
-                    ? "border-[#3d8a8a] bg-[#1a4a4a] text-white shadow-lg shadow-[#1a4a4a]/30"
+                    ? "border-white bg-white text-[#1a4a4a] shadow-lg"
                     : hoveredOption === option
-                    ? "border-[#3d8a8a]/50 bg-[#1a4a4a]/10 text-[#1A1A1A]"
-                    : "border-[#1A1A1A]/15 bg-white/50 text-[#1A1A1A]"
+                    ? "border-white/40 bg-white/10 text-white"
+                    : "border-white/20 bg-white/5 text-white"
                 }`}
               >
                 <span className="text-sm font-medium">{option}</span>
@@ -377,20 +369,20 @@ export function HeroSection() {
           <div className="relative">
             <motion.button
               whileTap={{ scale: 0.99 }}
-              whileHover={{ borderColor: "rgba(61, 138, 138, 0.5)" }}
+              whileHover={{ borderColor: "rgba(255, 255, 255, 0.6)" }}
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className={`w-full px-5 py-4 text-left border-2 rounded-xl transition-all duration-300 flex items-center justify-between bg-white/50 ${
-                dropdownOpen ? "border-[#3d8a8a] shadow-lg shadow-[#1a4a4a]/20" : "border-[#1A1A1A]/15"
+              className={`w-full px-5 py-4 text-left border rounded-xl transition-all duration-300 flex items-center justify-between ${
+                dropdownOpen ? "border-white/60 bg-white/10" : "border-white/20 bg-white/5"
               }`}
             >
-              <span className={`text-sm ${currentValue ? "text-[#1A1A1A]" : "text-[#1A1A1A]/50"}`}>
+              <span className={`text-sm ${currentValue ? "text-white" : "text-white/50"}`}>
                 {currentValue || "Select an option"}
               </span>
               <motion.div
                 animate={{ rotate: dropdownOpen ? 180 : 0 }}
                 transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
               >
-                <ChevronDown className={`w-5 h-5 ${dropdownOpen ? "text-[#3d8a8a]" : "text-[#1A1A1A]/50"}`} />
+                <ChevronDown className={`w-5 h-5 ${dropdownOpen ? "text-white" : "text-white/50"}`} />
               </motion.div>
             </motion.button>
             
@@ -401,7 +393,7 @@ export function HeroSection() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2, type: "spring", stiffness: 400, damping: 25 }}
-                  className="fixed left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-lg mt-2 border-2 border-[#3d8a8a]/30 bg-white rounded-xl shadow-2xl shadow-[#1a4a4a]/10 z-[100] max-h-80 overflow-y-auto"
+                  className="fixed left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-lg mt-2 border border-white/20 bg-[#1a4a4a] rounded-xl shadow-2xl z-[100] max-h-80 overflow-y-auto"
                   style={{ top: "auto" }}
                 >
                   {step.options?.map((option, idx) => (
@@ -421,11 +413,11 @@ export function HeroSection() {
                           }
                         }, 300);
                       }}
-                      whileHover={{ backgroundColor: "rgba(61, 138, 138, 0.1)", x: 4 }}
+                      whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.1)", x: 4 }}
                       className={`w-full px-5 py-3.5 text-left text-sm transition-all duration-200 ${
                         currentValue === option
-                          ? "bg-[#1a4a4a] text-white font-medium"
-                          : "text-[#1A1A1A] hover:text-[#1a4a4a]"
+                          ? "bg-white text-[#1a4a4a] font-medium"
+                          : "text-white hover:text-white"
                       }`}
                     >
                       {option}
@@ -455,7 +447,7 @@ export function HeroSection() {
                   handleNext();
                 }
               }}
-              className="w-full px-5 py-4 border-2 border-[#1A1A1A]/15 bg-white/50 rounded-xl text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#3d8a8a] focus:bg-white focus:shadow-lg focus:shadow-[#1a4a4a]/10 transition-all duration-300"
+              className="w-full px-5 py-4 border border-white/20 bg-white/5 rounded-xl text-white text-sm placeholder:text-white/40 focus:outline-none focus:border-white/60 focus:bg-white/10 transition-all duration-300"
               autoFocus
             />
           </motion.div>
@@ -478,7 +470,7 @@ export function HeroSection() {
                   handleNext();
                 }
               }}
-              className="w-full px-5 py-4 border-2 border-[#1A1A1A]/15 bg-white/50 rounded-xl text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#3d8a8a] focus:bg-white focus:shadow-lg focus:shadow-[#1a4a4a]/10 transition-all duration-300"
+              className="w-full px-5 py-4 border border-white/20 bg-white/5 rounded-xl text-white text-sm placeholder:text-white/40 focus:outline-none focus:border-white/60 focus:bg-white/10 transition-all duration-300"
               autoFocus
             />
           </motion.div>
@@ -526,17 +518,17 @@ export function HeroSection() {
             $300 Flat Pricing instead of overpaying insane prices.
           </motion.p>
 
-          {/* Multi-step Form - Teal/Green Aesthetic Style */}
+          {/* Multi-step Form - Solid Dark Teal Style */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             className="max-w-lg mx-auto mt-4"
           >
-            {/* Form with teal gradient and border */}
+            {/* Form with solid teal background */}
             <div className="relative">
               <motion.div 
-                className="relative bg-gradient-to-br from-[#1a4a4a]/20 to-[#0d2626]/30 rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a]/50 backdrop-blur-xl"
+                className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a]/50 overflow-hidden"
                 whileHover={{ borderColor: "rgba(61, 138, 138, 0.7)" }}
                 transition={{ duration: 0.3 }}
               >
@@ -568,28 +560,28 @@ export function HeroSection() {
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                      className="w-20 h-20 bg-gradient-to-br from-[#3d8a8a] to-[#1a4a4a] rounded-full flex items-center justify-center mx-auto mb-6"
+                      className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6"
                     >
                       <Check className="w-10 h-10 text-white" />
                     </motion.div>
-                    <h3 className="font-serif text-2xl text-[#1A1A1A] mb-3">Application Received!</h3>
-                    <p className="text-[#1A1A1A]/60 text-sm">
+                    <h3 className="font-serif text-2xl text-white mb-3">Application Received!</h3>
+                    <p className="text-white/60 text-sm">
                       We&apos;ll review your application and get back to you within 24-48 hours.
                     </p>
                   </motion.div>
                 ) : (
                   <div className="relative z-10">
                     {/* Form headline */}
-                    <h2 className="font-serif text-xl md:text-[28px] text-[#1A1A1A] text-center mb-2 leading-tight">
+                    <h2 className="font-serif text-xl md:text-[28px] text-white text-center mb-2 leading-tight">
                       Get Your Website Made ASAP Without Overpaying for It!
                     </h2>
                     
                     {/* Form subheadline */}
-                    <p className="text-[#1A1A1A]/50 text-sm text-center mb-6">
+                    <p className="text-white/50 text-sm text-center mb-6">
                       Fill Out our quick form! Less than 12 seconds
                     </p>
 
-                    {/* Animated step dots - teal themed */}
+                    {/* Animated step dots - white themed */}
                     <div className="flex justify-center gap-3 mb-6">
                       {formSteps.map((_, index) => (
                         <motion.button
@@ -607,10 +599,10 @@ export function HeroSection() {
                           transition={{ type: "spring", stiffness: 400, damping: 17 }}
                           className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                             index === currentStep 
-                              ? "w-10 bg-[#3d8a8a]" 
+                              ? "w-10 bg-white" 
                               : index < currentStep 
-                              ? "w-2.5 bg-[#3d8a8a]/70 hover:bg-[#3d8a8a]" 
-                              : "w-2.5 bg-[#1A1A1A]/20"
+                              ? "w-2.5 bg-white/70 hover:bg-white" 
+                              : "w-2.5 bg-white/30"
                           }`}
                         />
                       ))}
@@ -621,7 +613,7 @@ export function HeroSection() {
                       key={`step-${currentStep}`}
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="text-[#1A1A1A]/40 text-xs uppercase tracking-[0.2em] mb-4 text-center"
+                      className="text-white/40 text-xs uppercase tracking-[0.2em] mb-4 text-center"
                     >
                       Step {currentStep + 1} of {formSteps.length}
                     </motion.p>
@@ -635,7 +627,7 @@ export function HeroSection() {
                         exit={{ opacity: 0, x: -30, scale: 0.98 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                       >
-                        <h3 className="font-serif text-xl md:text-2xl text-[#1A1A1A] mb-6 text-center">
+                        <h3 className="font-serif text-xl md:text-2xl text-white mb-6 text-center">
                           {formSteps[currentStep].question}
                         </h3>
 
@@ -648,7 +640,7 @@ export function HeroSection() {
                               initial={{ opacity: 0, y: -10, scale: 0.95 }}
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                              className="text-red-600 text-xs mt-4 text-center bg-red-500/10 py-2 px-4 rounded-lg border border-red-500/20"
+                              className="text-red-400 text-xs mt-4 text-center bg-red-500/10 py-2 px-4 rounded-lg border border-red-500/20"
                             >
                               {error}
                             </motion.p>
@@ -661,10 +653,10 @@ export function HeroSection() {
                     <div className="flex items-center justify-between mt-10">
                       {currentStep > 0 ? (
                         <motion.button
-                          whileHover={{ x: -3, color: "#1A1A1A" }}
+                          whileHover={{ x: -3 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={handleBack}
-                          className="flex items-center text-[#1A1A1A]/60 text-sm transition-colors duration-300"
+                          className="flex items-center text-white/60 hover:text-white text-sm transition-colors duration-300"
                         >
                           <ArrowLeft className="w-4 h-4 mr-2" />
                           Back
@@ -674,18 +666,18 @@ export function HeroSection() {
                       )}
 
                       <motion.button
-                        whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(61, 138, 138, 0.4)" }}
+                        whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(255, 255, 255, 0.2)" }}
                         whileTap={{ scale: 0.95 }}
                         onClick={handleNext}
                         disabled={isSubmitting}
-                        className="inline-flex items-center bg-[#1a4a4a] text-white hover:bg-[#0d2626] px-8 py-4 rounded-full text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 shadow-lg shadow-[#1a4a4a]/30"
+                        className="inline-flex items-center bg-white text-[#1a4a4a] hover:bg-white/90 px-8 py-4 rounded-full text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 shadow-lg shadow-black/20"
                       >
                         {isSubmitting ? (
                           <span className="flex items-center">
                             <motion.div
                               animate={{ rotate: 360 }}
                               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                              className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full mr-2"
+                              className="w-5 h-5 border-2 border-[#1a4a4a]/30 border-t-[#1a4a4a] rounded-full mr-2"
                             />
                             Submitting...
                           </span>
@@ -752,8 +744,8 @@ export function HeroSection() {
             </h2>
           </motion.div>
 
-          {/* Desktop: Show all portfolio items in a grid - Mobile phone style */}
-          <div className="hidden lg:grid grid-cols-4 gap-6">
+          {/* Desktop: Show all portfolio items in a grid - Mobile phone style with live websites */}
+          <div className="hidden lg:grid grid-cols-3 gap-8">
             {portfolioExamples.map((item, index) => (
               <motion.div
                 key={index}
@@ -761,29 +753,31 @@ export function HeroSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -12 }}
+                whileHover={{ scale: 1.02, y: -8 }}
                 className={`group relative overflow-hidden rounded-[2.5rem] border-2 ${item.borderColor} bg-gradient-to-br ${item.color} backdrop-blur-xl cursor-pointer transition-all duration-500`}
               >
                 {/* Animated glow effect on hover */}
                 <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color}`} />
                 
-                {/* Mobile phone screenshot placeholder */}
-                <div className="relative aspect-[9/16] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-3 rounded-[1.5rem] bg-white/5 border border-white/10 flex items-center justify-center">
-                    <div className="text-center px-4">
-                      <div className={`w-14 h-14 ${item.accentColor} rounded-xl mx-auto mb-4 flex items-center justify-center`}>
-                        <span className="text-white text-xl font-bold">{item.title.charAt(0)}</span>
-                      </div>
-                      <p className="text-white/40 text-xs">Screenshot Coming Soon</p>
-                    </div>
-                  </div>
+                {/* Live website iframe in phone frame */}
+                <div className="relative aspect-[9/19] bg-black overflow-hidden">
+                  <iframe
+                    src={item.url}
+                    title={item.title}
+                    className="absolute inset-0 w-full h-full border-0"
+                    style={{
+                      pointerEvents: 'auto',
+                    }}
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin"
+                  />
                   
                   {/* Phone notch/dynamic island */}
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black/80 rounded-full" />
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-10" />
                 </div>
                 
                 {/* Info overlay */}
-                <div className="p-4 bg-black/40 backdrop-blur-sm">
+                <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
                   <h3 className="text-white font-medium text-sm mb-1 truncate">{item.title}</h3>
                   <p className="text-white/50 text-xs uppercase tracking-wide truncate">{item.category}</p>
                 </div>
@@ -791,7 +785,7 @@ export function HeroSection() {
             ))}
           </div>
 
-          {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style */}
+          {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style with live website */}
           <div className="lg:hidden flex justify-center">
             <div className="w-[280px]">
               <AnimatePresence mode="wait">
@@ -803,23 +797,25 @@ export function HeroSection() {
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   className={`relative overflow-hidden rounded-[2.5rem] border-2 ${portfolioExamples[currentPortfolioIndex].borderColor} bg-gradient-to-br ${portfolioExamples[currentPortfolioIndex].color} backdrop-blur-xl`}
                 >
-                  {/* Mobile phone screenshot placeholder */}
-                  <div className="relative aspect-[9/16] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
-                    <div className="absolute inset-3 rounded-[1.5rem] bg-white/5 border border-white/10 flex items-center justify-center">
-                      <div className="text-center px-4">
-                        <div className={`w-12 h-12 ${portfolioExamples[currentPortfolioIndex].accentColor} rounded-xl mx-auto mb-3 flex items-center justify-center`}>
-                          <span className="text-white text-lg font-bold">{portfolioExamples[currentPortfolioIndex].title.charAt(0)}</span>
-                        </div>
-                        <p className="text-white/40 text-xs">Screenshot Coming Soon</p>
-                      </div>
-                    </div>
+                  {/* Live website iframe in phone frame */}
+                  <div className="relative aspect-[9/19] bg-black overflow-hidden">
+                    <iframe
+                      src={portfolioExamples[currentPortfolioIndex].url}
+                      title={portfolioExamples[currentPortfolioIndex].title}
+                      className="absolute inset-0 w-full h-full border-0"
+                      style={{
+                        pointerEvents: 'auto',
+                      }}
+                      loading="lazy"
+                      sandbox="allow-scripts allow-same-origin"
+                    />
                     
                     {/* Phone notch/dynamic island */}
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black/80 rounded-full" />
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black rounded-full z-10" />
                   </div>
                   
                   {/* Info overlay */}
-                  <div className="p-4 bg-black/40 backdrop-blur-sm">
+                  <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
                     <h3 className="text-white font-medium text-sm mb-1">{portfolioExamples[currentPortfolioIndex].title}</h3>
                     <p className="text-white/50 text-xs uppercase tracking-wide">{portfolioExamples[currentPortfolioIndex].category}</p>
                   </div>
@@ -864,26 +860,6 @@ export function HeroSection() {
                 <ChevronRight className="w-5 h-5" />
               </button>
           </div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center mt-16 md:mt-24"
-          >
-            <p className="text-white/50 text-sm mb-8">
-              Ready to get a website that actually converts?
-            </p>
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="inline-flex items-center border border-white/30 bg-white text-[#0d1a1a] hover:bg-transparent hover:text-white px-10 py-4 text-sm tracking-wide transition-all duration-400 group rounded-full font-medium"
-            >
-              Get Started
-              <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
-            </button>
-          </motion.div>
         </div>
       </section>
     </>
