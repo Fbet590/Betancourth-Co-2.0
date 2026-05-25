@@ -572,7 +572,7 @@ export function HeroSection() {
                 ) : (
                   <div className="relative z-10">
                     {/* Form headline */}
-                    <h2 className="font-serif text-xl md:text-[28px] text-white text-center mb-2 leading-tight">
+                    <h2 className="font-serif text-xl md:text-[36px] text-white text-center mb-2 leading-tight">
                       Get Your Website Made ASAP Without Overpaying for It!
                     </h2>
                     
@@ -627,7 +627,7 @@ export function HeroSection() {
                         exit={{ opacity: 0, x: -30, scale: 0.98 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                       >
-                        <h3 className="font-serif text-xl md:text-2xl text-white mb-6 text-center">
+                        <h3 className="font-serif text-xl md:text-[28px] text-white mb-6 text-center">
                           {formSteps[currentStep].question}
                         </h3>
 
@@ -786,8 +786,8 @@ export function HeroSection() {
           </div>
 
           {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style with live website */}
-          <div className="lg:hidden flex justify-center">
-            <div className="w-[280px]">
+          <div className="lg:hidden flex justify-center px-4">
+            <div className="w-full max-w-[360px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPortfolioIndex}
