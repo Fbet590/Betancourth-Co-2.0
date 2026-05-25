@@ -345,13 +345,13 @@ export function HeroSection() {
                 }}
                 onMouseEnter={() => setHoveredOption(option)}
                 onMouseLeave={() => setHoveredOption(null)}
-                whileHover={{ scale: 1.03, x: 8, boxShadow: "0 8px 25px rgba(245, 158, 11, 0.2)" }}
+                whileHover={{ scale: 1.03, x: 8, boxShadow: "0 8px 25px rgba(61, 138, 138, 0.2)" }}
                 whileTap={{ scale: 0.97 }}
                 className={`w-full px-5 py-4 text-left border-2 rounded-xl transition-all duration-300 flex items-center justify-between group ${
                   currentValue === option
-                    ? "border-amber-500 bg-amber-500 text-white shadow-lg shadow-amber-500/30"
+                    ? "border-[#3d8a8a] bg-[#1a4a4a] text-white shadow-lg shadow-[#1a4a4a]/30"
                     : hoveredOption === option
-                    ? "border-amber-500/50 bg-amber-500/10 text-[#1A1A1A]"
+                    ? "border-[#3d8a8a]/50 bg-[#1a4a4a]/10 text-[#1A1A1A]"
                     : "border-[#1A1A1A]/15 bg-white/50 text-[#1A1A1A]"
                 }`}
               >
@@ -377,10 +377,10 @@ export function HeroSection() {
           <div className="relative">
             <motion.button
               whileTap={{ scale: 0.99 }}
-              whileHover={{ borderColor: "rgba(245, 158, 11, 0.5)" }}
+              whileHover={{ borderColor: "rgba(61, 138, 138, 0.5)" }}
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className={`w-full px-5 py-4 text-left border-2 rounded-xl transition-all duration-300 flex items-center justify-between bg-white/50 ${
-                dropdownOpen ? "border-amber-500 shadow-lg shadow-amber-500/20" : "border-[#1A1A1A]/15"
+                dropdownOpen ? "border-[#3d8a8a] shadow-lg shadow-[#1a4a4a]/20" : "border-[#1A1A1A]/15"
               }`}
             >
               <span className={`text-sm ${currentValue ? "text-[#1A1A1A]" : "text-[#1A1A1A]/50"}`}>
@@ -390,7 +390,7 @@ export function HeroSection() {
                 animate={{ rotate: dropdownOpen ? 180 : 0 }}
                 transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
               >
-                <ChevronDown className={`w-5 h-5 ${dropdownOpen ? "text-amber-500" : "text-[#1A1A1A]/50"}`} />
+                <ChevronDown className={`w-5 h-5 ${dropdownOpen ? "text-[#3d8a8a]" : "text-[#1A1A1A]/50"}`} />
               </motion.div>
             </motion.button>
             
@@ -401,7 +401,7 @@ export function HeroSection() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2, type: "spring", stiffness: 400, damping: 25 }}
-                  className="fixed left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-lg mt-2 border-2 border-amber-500/30 bg-white rounded-xl shadow-2xl shadow-amber-500/10 z-[100] max-h-80 overflow-y-auto"
+                  className="fixed left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-lg mt-2 border-2 border-[#3d8a8a]/30 bg-white rounded-xl shadow-2xl shadow-[#1a4a4a]/10 z-[100] max-h-80 overflow-y-auto"
                   style={{ top: "auto" }}
                 >
                   {step.options?.map((option, idx) => (
@@ -421,11 +421,11 @@ export function HeroSection() {
                           }
                         }, 300);
                       }}
-                      whileHover={{ backgroundColor: "rgba(245, 158, 11, 0.1)", x: 4 }}
+                      whileHover={{ backgroundColor: "rgba(61, 138, 138, 0.1)", x: 4 }}
                       className={`w-full px-5 py-3.5 text-left text-sm transition-all duration-200 ${
                         currentValue === option
-                          ? "bg-amber-500 text-white font-medium"
-                          : "text-[#1A1A1A] hover:text-amber-600"
+                          ? "bg-[#1a4a4a] text-white font-medium"
+                          : "text-[#1A1A1A] hover:text-[#1a4a4a]"
                       }`}
                     >
                       {option}
@@ -455,7 +455,7 @@ export function HeroSection() {
                   handleNext();
                 }
               }}
-              className="w-full px-5 py-4 border-2 border-[#1A1A1A]/15 bg-white/50 rounded-xl text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-amber-500 focus:bg-white focus:shadow-lg focus:shadow-amber-500/10 transition-all duration-300"
+              className="w-full px-5 py-4 border-2 border-[#1A1A1A]/15 bg-white/50 rounded-xl text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#3d8a8a] focus:bg-white focus:shadow-lg focus:shadow-[#1a4a4a]/10 transition-all duration-300"
               autoFocus
             />
           </motion.div>
@@ -478,7 +478,7 @@ export function HeroSection() {
                   handleNext();
                 }
               }}
-              className="w-full px-5 py-4 border-2 border-[#1A1A1A]/15 bg-white/50 rounded-xl text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-amber-500 focus:bg-white focus:shadow-lg focus:shadow-amber-500/10 transition-all duration-300"
+              className="w-full px-5 py-4 border-2 border-[#1A1A1A]/15 bg-white/50 rounded-xl text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#3d8a8a] focus:bg-white focus:shadow-lg focus:shadow-[#1a4a4a]/10 transition-all duration-300"
               autoFocus
             />
           </motion.div>
@@ -526,28 +526,28 @@ export function HeroSection() {
             $300 Flat Pricing instead of overpaying insane prices.
           </motion.p>
 
-          {/* Multi-step Form - Orange Aesthetic Style */}
+          {/* Multi-step Form - Teal/Green Aesthetic Style */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             className="max-w-lg mx-auto mt-4"
           >
-            {/* Form with orange gradient and border */}
+            {/* Form with teal gradient and border */}
             <div className="relative">
               <motion.div 
-                className="relative bg-gradient-to-br from-amber-500/20 to-orange-600/30 rounded-2xl p-8 md:p-10 border-2 border-amber-500/40 backdrop-blur-xl"
-                whileHover={{ borderColor: "rgba(245, 158, 11, 0.6)" }}
+                className="relative bg-gradient-to-br from-[#1a4a4a]/20 to-[#0d2626]/30 rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a]/50 backdrop-blur-xl"
+                whileHover={{ borderColor: "rgba(61, 138, 138, 0.7)" }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Animated background orbs - orange themed */}
+                {/* Animated background orbs - teal themed */}
                 <motion.div 
                   animate={{ 
                     scale: [1, 1.2, 1],
                     opacity: [0.15, 0.25, 0.15]
                   }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-amber-500/30 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" 
+                  className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#3d8a8a]/30 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" 
                 />
                 <motion.div 
                   animate={{ 
@@ -555,7 +555,7 @@ export function HeroSection() {
                     opacity: [0.1, 0.2, 0.1]
                   }}
                   transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-orange-600/30 to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" 
+                  className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#2a6666]/30 to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" 
                 />
 
                 {isSubmitted ? (
@@ -568,7 +568,7 @@ export function HeroSection() {
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                      className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6"
+                      className="w-20 h-20 bg-gradient-to-br from-[#3d8a8a] to-[#1a4a4a] rounded-full flex items-center justify-center mx-auto mb-6"
                     >
                       <Check className="w-10 h-10 text-white" />
                     </motion.div>
@@ -589,7 +589,7 @@ export function HeroSection() {
                       Fill Out our quick form! Less than 12 seconds
                     </p>
 
-                    {/* Animated step dots - orange themed */}
+                    {/* Animated step dots - teal themed */}
                     <div className="flex justify-center gap-3 mb-6">
                       {formSteps.map((_, index) => (
                         <motion.button
@@ -607,9 +607,9 @@ export function HeroSection() {
                           transition={{ type: "spring", stiffness: 400, damping: 17 }}
                           className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                             index === currentStep 
-                              ? "w-10 bg-amber-500" 
+                              ? "w-10 bg-[#3d8a8a]" 
                               : index < currentStep 
-                              ? "w-2.5 bg-amber-500/70 hover:bg-amber-500" 
+                              ? "w-2.5 bg-[#3d8a8a]/70 hover:bg-[#3d8a8a]" 
                               : "w-2.5 bg-[#1A1A1A]/20"
                           }`}
                         />
@@ -674,11 +674,11 @@ export function HeroSection() {
                       )}
 
                       <motion.button
-                        whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(245, 158, 11, 0.4)" }}
+                        whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(61, 138, 138, 0.4)" }}
                         whileTap={{ scale: 0.95 }}
                         onClick={handleNext}
                         disabled={isSubmitting}
-                        className="inline-flex items-center bg-amber-500 text-white hover:bg-amber-600 px-8 py-4 rounded-full text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 shadow-lg shadow-amber-500/30"
+                        className="inline-flex items-center bg-[#1a4a4a] text-white hover:bg-[#0d2626] px-8 py-4 rounded-full text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 shadow-lg shadow-[#1a4a4a]/30"
                       >
                         {isSubmitting ? (
                           <span className="flex items-center">
@@ -752,8 +752,8 @@ export function HeroSection() {
             </h2>
           </motion.div>
 
-          {/* Desktop: Show all portfolio items in a grid */}
-          <div className="hidden lg:grid grid-cols-2 gap-6">
+          {/* Desktop: Show all portfolio items in a grid - Mobile phone style */}
+          <div className="hidden lg:grid grid-cols-4 gap-6">
             {portfolioExamples.map((item, index) => (
               <motion.div
                 key={index}
@@ -761,90 +761,75 @@ export function HeroSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.02, y: -8 }}
-                className={`group relative overflow-hidden rounded-2xl border-2 ${item.borderColor} bg-gradient-to-br ${item.color} backdrop-blur-xl cursor-pointer transition-all duration-500`}
+                whileHover={{ scale: 1.05, y: -12 }}
+                className={`group relative overflow-hidden rounded-[2.5rem] border-2 ${item.borderColor} bg-gradient-to-br ${item.color} backdrop-blur-xl cursor-pointer transition-all duration-500`}
               >
                 {/* Animated glow effect on hover */}
                 <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color}`} />
                 
-                {/* Website screenshot placeholder */}
-                <div className="relative aspect-[16/10] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className={`w-16 h-16 ${item.accentColor} rounded-xl mx-auto mb-4 flex items-center justify-center`}>
-                        <span className="text-white text-2xl font-bold">{item.title.charAt(0)}</span>
-                      </div>
-                      <p className="text-white/40 text-sm">Screenshot Coming Soon</p>
-                    </div>
-                  </div>
-                  
-                  {/* Decorative browser chrome */}
-                  <div className="absolute top-4 left-4 right-4 h-8 bg-white/10 rounded-t-lg flex items-center px-3 gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-400/60" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-                    <div className="w-3 h-3 rounded-full bg-green-400/60" />
-                  </div>
-                </div>
-                
-                {/* Info overlay */}
-                <div className="p-6 bg-black/40 backdrop-blur-sm">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-white font-medium text-lg mb-1">{item.title}</h3>
-                      <p className="text-white/50 text-sm uppercase tracking-wide">{item.category}</p>
-                    </div>
-                    <motion.div 
-                      whileHover={{ scale: 1.1, rotate: -45 }}
-                      className={`w-10 h-10 ${item.accentColor} rounded-full flex items-center justify-center`}
-                    >
-                      <ArrowRight className="w-5 h-5 text-white" />
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Mobile: Show 1 portfolio item at a time with swipe */}
-          <div className="lg:hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentPortfolioIndex}
-                initial={{ opacity: 0, x: 50, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -50, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className={`relative overflow-hidden rounded-2xl border-2 ${portfolioExamples[currentPortfolioIndex].borderColor} bg-gradient-to-br ${portfolioExamples[currentPortfolioIndex].color} backdrop-blur-xl`}
-              >
-                {/* Website screenshot placeholder */}
-                <div className="relative aspect-[16/10] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className={`w-14 h-14 ${portfolioExamples[currentPortfolioIndex].accentColor} rounded-xl mx-auto mb-3 flex items-center justify-center`}>
-                        <span className="text-white text-xl font-bold">{portfolioExamples[currentPortfolioIndex].title.charAt(0)}</span>
+                {/* Mobile phone screenshot placeholder */}
+                <div className="relative aspect-[9/16] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-3 rounded-[1.5rem] bg-white/5 border border-white/10 flex items-center justify-center">
+                    <div className="text-center px-4">
+                      <div className={`w-14 h-14 ${item.accentColor} rounded-xl mx-auto mb-4 flex items-center justify-center`}>
+                        <span className="text-white text-xl font-bold">{item.title.charAt(0)}</span>
                       </div>
                       <p className="text-white/40 text-xs">Screenshot Coming Soon</p>
                     </div>
                   </div>
                   
-                  {/* Decorative browser chrome */}
-                  <div className="absolute top-4 left-4 right-4 h-6 bg-white/10 rounded-t-lg flex items-center px-2 gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-red-400/60" />
-                    <div className="w-2 h-2 rounded-full bg-yellow-400/60" />
-                    <div className="w-2 h-2 rounded-full bg-green-400/60" />
-                  </div>
+                  {/* Phone notch/dynamic island */}
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black/80 rounded-full" />
                 </div>
                 
                 {/* Info overlay */}
-                <div className="p-5 bg-black/40 backdrop-blur-sm">
-                  <h3 className="text-white font-medium text-lg mb-1">{portfolioExamples[currentPortfolioIndex].title}</h3>
-                  <p className="text-white/50 text-sm uppercase tracking-wide">{portfolioExamples[currentPortfolioIndex].category}</p>
+                <div className="p-4 bg-black/40 backdrop-blur-sm">
+                  <h3 className="text-white font-medium text-sm mb-1 truncate">{item.title}</h3>
+                  <p className="text-white/50 text-xs uppercase tracking-wide truncate">{item.category}</p>
                 </div>
               </motion.div>
-            </AnimatePresence>
-            
-            {/* Navigation controls */}
-            <div className="flex items-center justify-center gap-6 mt-8">
+            ))}
+          </div>
+
+          {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style */}
+          <div className="lg:hidden flex justify-center">
+            <div className="w-[280px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentPortfolioIndex}
+                  initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -50, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className={`relative overflow-hidden rounded-[2.5rem] border-2 ${portfolioExamples[currentPortfolioIndex].borderColor} bg-gradient-to-br ${portfolioExamples[currentPortfolioIndex].color} backdrop-blur-xl`}
+                >
+                  {/* Mobile phone screenshot placeholder */}
+                  <div className="relative aspect-[9/16] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
+                    <div className="absolute inset-3 rounded-[1.5rem] bg-white/5 border border-white/10 flex items-center justify-center">
+                      <div className="text-center px-4">
+                        <div className={`w-12 h-12 ${portfolioExamples[currentPortfolioIndex].accentColor} rounded-xl mx-auto mb-3 flex items-center justify-center`}>
+                          <span className="text-white text-lg font-bold">{portfolioExamples[currentPortfolioIndex].title.charAt(0)}</span>
+                        </div>
+                        <p className="text-white/40 text-xs">Screenshot Coming Soon</p>
+                      </div>
+                    </div>
+                    
+                    {/* Phone notch/dynamic island */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black/80 rounded-full" />
+                  </div>
+                  
+                  {/* Info overlay */}
+                  <div className="p-4 bg-black/40 backdrop-blur-sm">
+                    <h3 className="text-white font-medium text-sm mb-1">{portfolioExamples[currentPortfolioIndex].title}</h3>
+                    <p className="text-white/50 text-xs uppercase tracking-wide">{portfolioExamples[currentPortfolioIndex].category}</p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+          
+          {/* Mobile navigation controls */}
+          <div className="lg:hidden flex items-center justify-center gap-6 mt-8">
               <button
                 onClick={goToPrevPortfolio}
                 className="w-12 h-12 border border-white/20 text-white/60 flex items-center justify-center hover:border-white/40 hover:bg-white/5 transition-all duration-400 rounded-full"
