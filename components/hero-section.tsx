@@ -530,10 +530,9 @@ export function HeroSection() {
             <span className="block h-4 md:h-6" />
             No, you{" "}
             <span className="relative inline-block">
-              don&apos;t
-              {/* Hand-drawn mustard yellow ink pen circle */}
+              {/* Hand-drawn mustard yellow ink pen circle - behind text */}
               <svg
-                className="absolute -inset-1 md:-inset-2 w-[calc(100%+8px)] md:w-[calc(100%+16px)] h-[calc(100%+16px)] md:h-[calc(100%+24px)] -left-1 md:-left-2 -top-2 md:-top-3 pointer-events-none"
+                className="absolute -inset-1 md:-inset-2 w-[calc(100%+8px)] md:w-[calc(100%+16px)] h-[calc(100%+16px)] md:h-[calc(100%+24px)] -left-1 md:-left-2 -top-2 md:-top-3 pointer-events-none -z-10"
                 viewBox="0 0 120 70"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -556,6 +555,7 @@ export function HeroSection() {
                   transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
                 />
               </svg>
+              <span className="relative z-10">don&apos;t</span>
             </span>
             {" "}need to spend $3,000.
           </motion.h1>
