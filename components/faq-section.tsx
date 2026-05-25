@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import {
   Accordion,
@@ -39,41 +38,43 @@ const faqs = [
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-24 bg-[#143838]">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-24 md:py-40 bg-[#FAFAF7]">
+      <div className="max-w-3xl mx-auto px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-16 md:mb-24"
         >
-          <p className="text-white/50 text-sm uppercase tracking-[0.15em] mb-4">FAQ</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Frequently Asked Questions
+          {/* Section number as design element */}
+          <span className="font-serif text-[80px] md:text-[120px] font-light text-[#1A1A1A]/10 block leading-none mb-4">005</span>
+          <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-6">FAQ</p>
+          <h2 className="font-serif text-[#1A1A1A] text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em] mb-6">
+            Frequently Asked <em className="italic">Questions</em>
           </h2>
-          <p className="text-white/60 text-lg">
+          <p className="text-[#1A1A1A]/60 text-base leading-[1.6]">
             Additional information about our lead generation service.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <Accordion type="single" collapsible className="space-y-3">
+          <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="glass-card border border-white/10 rounded-xl px-6 data-[state=open]:border-white/20"
+                className="border border-[#1A1A1A]/10 px-8 data-[state=open]:border-[#1A1A1A]/20"
               >
-                <AccordionTrigger className="text-left text-white font-medium hover:no-underline py-5 text-base">
+                <AccordionTrigger className="text-left text-[#1A1A1A] font-medium hover:no-underline py-6 text-base tracking-[-0.01em]">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-white/60 pb-5 leading-relaxed">
+                <AccordionContent className="text-[#1A1A1A]/60 pb-6 leading-[1.6]">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -82,20 +83,20 @@ export function FAQSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-16 md:mt-24"
         >
-          <p className="text-white/50 mb-4 text-sm">Still have questions?</p>
-          <Button 
-            onClick={() => document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-white text-[#1a4a4a] hover:bg-white/90 px-8 py-6 rounded-full group"
+          <p className="text-[#1A1A1A]/50 mb-8 text-sm">Still have questions?</p>
+          <button 
+            onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+            className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
           >
             Book a Free Discovery Call
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
+            <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
+          </button>
         </motion.div>
       </div>
     </section>

@@ -1,52 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-
-type FormStep = {
-  question: string;
-  type: "radio" | "number" | "dropdown" | "text" | "email" | "phone";
-  options?: string[];
-  placeholder?: string;
-  required: boolean;
-};
-
-const formSteps: FormStep[] = [
-  {
-    question: "What's your position?",
-    type: "radio",
-    options: ["CEO/Owner", "Manager", "Sales Rep"],
-    required: true,
-  },
-  {
-    question: "What kind of company do you own?",
-    type: "dropdown",
-    options: ["Welding", "Hardscape", "Patio Covers", "Home Remodeling", "Concrete", "Plumbing", "Fencing", "Roofing", "Painting"],
-    required: true,
-  },
-  {
-    question: "What's your full name?",
-    type: "text",
-    placeholder: "John Smith",
-    required: true,
-  },
-  {
-    question: "What's your email address?",
-    type: "email",
-    placeholder: "john@company.com",
-    required: true,
-  },
-  {
-    question: "What's your phone number?",
-    type: "phone",
-    placeholder: "(555) 123-4567",
-    required: true,
-  },
-];
 
 const reviews = [
   {
@@ -69,7 +26,7 @@ const reviews = [
   },
 ];
 
-// Client logos for marquee - using actual client logos with black backgrounds (sizes increased by 25%)
+// Client logos for marquee (sizes increased by 25% on desktop, now 25% bigger on mobile too)
 const clientLogos = [
   {
     name: "Vibrant Vistas Landscape",
@@ -116,20 +73,10 @@ const clientLogos = [
 ];
 
 export function HeroSection() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState<Record<number, string>>({});
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [userInteracted, setUserInteracted] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isDisqualified, setIsDisqualified] = useState(false);
-  const [hoveredOption, setHoveredOption] = useState<string | null>(null);
-
-  const QUALIFIED_POSITION = "CEO/Owner";
 
   // Swipe handlers for mobile review carousel
   const minSwipeDistance = 50;
@@ -171,70 +118,6 @@ export function HeroSection() {
     setCurrentReviewIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
-  const isQualifiedLead = (): boolean => {
-    const position = formData[0];
-    if (!position || typeof position !== 'string') return false;
-    return position.trim() === QUALIFIED_POSITION;
-  };
-
-  const trackFacebookConversion = () => {
-    if (!isQualifiedLead()) {
-      return;
-    }
-    
-    if (typeof window !== 'undefined' && (window as { fbq?: (...args: unknown[]) => void }).fbq) {
-      (window as { fbq?: (...args: unknown[]) => void }).fbq?.('track', 'Lead', {
-        content_name: 'Form Submission',
-        content_category: formData[1] || 'Unknown',
-        value: formData[3] || 'Unknown',
-        currency: 'USD',
-      });
-    }
-  };
-
-  const submitToWebhook = async () => {
-    if (!isQualifiedLead()) {
-      setIsDisqualified(true);
-      setIsSubmitted(true);
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const payload = {
-        position: formData[0],
-        companyType: formData[1],
-        fullName: formData[2],
-        email: formData[3],
-        phone: formData[4],
-        submittedAt: new Date().toISOString(),
-      };
-
-      const response = await fetch('/api/submit-lead', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        trackFacebookConversion();
-        setIsSubmitted(true);
-      } else {
-        console.error('Submission failed:', result.error);
-        setIsSubmitted(true);
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setIsSubmitted(true);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   // Auto-rotate reviews (pauses when user interacts)
   useEffect(() => {
     if (userInteracted) return;
@@ -244,456 +127,78 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, [userInteracted]);
 
-  const currentFormStep = formSteps[currentStep];
-
-  const isValidEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email.trim());
-  };
-
-  const isValidPhone = (phone: string): boolean => {
-    const digitsOnly = phone.replace(/\D/g, '');
-    return digitsOnly.length >= 10;
-  };
-
-  const isStepValid = () => {
-    const value = formData[currentStep];
-    if (value === undefined || value.trim() === "") {
-      return false;
-    }
-
-    if (currentFormStep.type === "email") {
-      return isValidEmail(value);
-    }
-
-    if (currentFormStep.type === "phone") {
-      return isValidPhone(value);
-    }
-
-    return true;
-  };
-
-  const getValidationErrorMessage = () => {
-    const value = formData[currentStep];
-    
-    if (!value || value.trim() === "") {
-      return "Please fill in all required fields before continuing.";
-    }
-
-    if (currentFormStep.type === "email" && !isValidEmail(value)) {
-      return "Please enter a valid email address (e.g., john@company.com).";
-    }
-
-    if (currentFormStep.type === "phone" && !isValidPhone(value)) {
-      return "Please enter a valid phone number with at least 10 digits.";
-    }
-
-    return "Please fill in all required fields before continuing.";
-  };
-
-  const handleOptionSelect = (option: string) => {
-    setFormData({ ...formData, [currentStep]: option });
-    setShowError(false);
-  };
-
-  const handleNumberChange = (value: string) => {
-    const numericValue = value.replace(/\D/g, "");
-    setFormData({ ...formData, [currentStep]: numericValue });
-    setShowError(false);
-  };
-
-  const handleTextChange = (value: string) => {
-    setFormData({ ...formData, [currentStep]: value });
-    setShowError(false);
-  };
-
-  const handleNext = async () => {
-    if (!isStepValid()) {
-      setShowError(true);
-      return;
-    }
-    
-    if (currentStep < formSteps.length - 1) {
-      setCurrentStep(currentStep + 1);
-      setShowError(false);
-    } else {
-      if (isQualifiedLead()) {
-        await submitToWebhook();
-      } else {
-        setIsDisqualified(true);
-        setIsSubmitted(true);
-      }
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-      setShowError(false);
-    }
-  };
-
-  const progress = ((currentStep + 1) / formSteps.length) * 100;
-
   return (
     <>
-      {/* Hero Section with Integrated Form */}
-      <section className="min-h-screen flex flex-col items-center justify-start pt-24 pb-16 relative overflow-hidden gradient-bg">
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1f5555] via-[#1a4a4a] to-[#0d2626]" />
-        
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px'
-        }} />
-        
-        {/* Animated gradient orbs */}
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 right-[10%] w-[400px] h-[400px] bg-gradient-to-br from-[#3d8a8a] to-transparent rounded-full blur-[100px]" 
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-20 left-[5%] w-[500px] h-[500px] bg-gradient-to-tr from-[#2a6666] to-transparent rounded-full blur-[120px]" 
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.3, 1],
-            opacity: [0.15, 0.3, 0.15]
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-[#4a9999]/20 to-transparent rounded-full blur-[80px]" 
-        />
-        
-        {/* Accent line decorations */}
-        <div className="absolute top-32 left-8 w-px h-24 bg-gradient-to-b from-white/20 to-transparent hidden lg:block" />
-        <div className="absolute top-32 right-8 w-px h-24 bg-gradient-to-b from-white/20 to-transparent hidden lg:block" />
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
-          {/* Tag line */}
+      {/* Hero Section - Minimal Editorial Style */}
+      <section className="min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-24 md:pt-40 md:pb-32 relative bg-[#FAFAF7]">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10 w-full text-center">
+          {/* Eyebrow text */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-white/60 text-sm uppercase tracking-[0.2em] mb-6"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8"
           >
             A Growth Partner for Home Service Contractors
           </motion.p>
 
-          {/* Main headline */}
+          {/* Main headline - Fraunces serif */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 tracking-tight"
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+            className="font-serif text-[#1A1A1A] text-[56px] md:text-[72px] lg:text-[96px] font-medium leading-[1.0] tracking-[-0.03em] mb-8"
           >
-            Yeah, you need a website.<br />No, you don&apos;t need to spend $3,000.
+            Yeah, you need a <em className="italic">website.</em><br />
+            No, you don&apos;t need to spend $3,000.
           </motion.h1>
 
           {/* Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-white/70 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed"
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="text-[#1A1A1A]/60 text-base leading-[1.6] max-w-2xl mx-auto mb-12"
           >
             We build contractor businesses the way they should be built. With data guiding every decision and nothing left to guesswork.
           </motion.p>
 
-          {/* Form - Always visible below headline */}
+          {/* Single CTA Button - Editorial style */}
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-            className="max-w-lg mx-auto mt-4"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
           >
-            {/* Form Card with enhanced styling */}
-            <div className="relative">
-              {/* Glow effect behind form */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9999]/30 via-white/20 to-[#4a9999]/30 rounded-3xl blur-xl opacity-70" />
-              
-              <div className="relative glass-card rounded-3xl p-6 md:p-8 border border-white/20 backdrop-blur-xl bg-white/[0.08]">
-                {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-8"
-                  >
-                    {isDisqualified ? (
-                      <>
-                        <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <span className="text-2xl">Thank you</span>
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Thanks for Your Interest</h3>
-                        <p className="text-white/60 text-sm">
-                          Based on your responses, we may not be the best fit right now. We appreciate your time.
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <motion.div 
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                          className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30"
-                        >
-                          <Check className="w-8 h-8 text-white" />
-                        </motion.div>
-                        <h3 className="text-xl font-bold text-white mb-2">Application Received!</h3>
-                        <p className="text-white/60 text-sm">
-                          We will review your application and get back to you within 24-48 hours.
-                        </p>
-                      </>
-                    )}
-                  </motion.div>
-                ) : (
-                  <>
-                        {/* Progress indicator with step dots */}
-                        <div className="mb-6">
-                          <div className="flex items-center justify-center gap-2 mb-3">
-                            {formSteps.map((_, index) => (
-                              <motion.div
-                                key={index}
-                                initial={false}
-                                animate={{
-                                  scale: index === currentStep ? 1.2 : 1,
-                                  backgroundColor: index <= currentStep ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.2)",
-                                }}
-                                className={`h-2 rounded-full transition-all duration-300 ${
-                                  index === currentStep ? "w-8" : "w-2"
-                                }`}
-                              />
-                            ))}
-                          </div>
-                          <p className="text-white/50 text-xs text-center">
-                            Step {currentStep + 1} of {formSteps.length}
-                          </p>
-                        </div>
-
-                        {/* Question */}
-                        <AnimatePresence mode="wait">
-                          <motion.div
-                            key={currentStep}
-                            initial={{ opacity: 0, x: 30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -30 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <h3 className="text-lg md:text-xl font-semibold text-white mb-5 text-center">
-                              {currentFormStep.question}
-                            </h3>
-
-                            {/* Radio Options - Enhanced */}
-                            {currentFormStep.type === "radio" && currentFormStep.options && (
-                              <div className="space-y-2">
-                                {currentFormStep.options.map((option, index) => (
-                                  <motion.button
-                                    key={option}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                    onClick={() => handleOptionSelect(option)}
-                                    onMouseEnter={() => setHoveredOption(option)}
-                                    onMouseLeave={() => setHoveredOption(null)}
-                                    className={`w-full p-4 rounded-xl text-left transition-all duration-200 flex items-center justify-between group ${
-                                      formData[currentStep] === option
-                                        ? "bg-white text-[#1a4a4a] shadow-lg shadow-white/20"
-                                        : "bg-white/10 text-white hover:bg-white/20 border border-white/10 hover:border-white/30"
-                                    }`}
-                                  >
-                                    <span className="font-medium">{option}</span>
-                                    <motion.div
-                                      initial={false}
-                                      animate={{
-                                        scale: formData[currentStep] === option ? 1 : 0,
-                                        opacity: formData[currentStep] === option ? 1 : 0,
-                                      }}
-                                      className="w-6 h-6 bg-[#1a4a4a] rounded-full flex items-center justify-center"
-                                    >
-                                      <Check className="w-4 h-4 text-white" />
-                                    </motion.div>
-                                  </motion.button>
-                                ))}
-                              </div>
-                            )}
-
-                            {/* Dropdown - Enhanced */}
-                            {currentFormStep.type === "dropdown" && currentFormStep.options && (
-                              <div className="relative">
-                                <button
-                                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                                  className={`w-full p-4 rounded-xl text-left flex items-center justify-between transition-all duration-200 border ${
-                                    dropdownOpen 
-                                      ? "bg-white/20 border-white/40" 
-                                      : "bg-white/10 border-white/10 hover:bg-white/15 hover:border-white/20"
-                                  }`}
-                                >
-                                  <span className={formData[currentStep] ? "text-white font-medium" : "text-white/50"}>
-                                    {formData[currentStep] || "Select your industry"}
-                                  </span>
-                                  <motion.div
-                                    animate={{ rotate: dropdownOpen ? 180 : 0 }}
-                                    transition={{ duration: 0.2 }}
-                                  >
-                                    <ChevronDown className="w-5 h-5 text-white/70" />
-                                  </motion.div>
-                                </button>
-                                <AnimatePresence>
-                                  {dropdownOpen && (
-                                    <motion.div
-                                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                                      transition={{ duration: 0.2 }}
-                                      className="absolute top-full left-0 right-0 mt-2 bg-[#1a4a4a]/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden z-20 max-h-48 overflow-y-auto shadow-xl"
-                                    >
-                                      {currentFormStep.options.map((option, index) => (
-                                        <motion.button
-                                          key={option}
-                                          initial={{ opacity: 0 }}
-                                          animate={{ opacity: 1 }}
-                                          transition={{ delay: index * 0.03 }}
-                                          onClick={() => {
-                                            handleOptionSelect(option);
-                                            setDropdownOpen(false);
-                                          }}
-                                          className={`w-full p-3 text-left text-white hover:bg-white/10 transition-colors flex items-center justify-between ${
-                                            formData[currentStep] === option ? "bg-white/10" : ""
-                                          }`}
-                                        >
-                                          {option}
-                                          {formData[currentStep] === option && (
-                                            <Check className="w-4 h-4 text-white/70" />
-                                          )}
-                                        </motion.button>
-                                      ))}
-                                    </motion.div>
-                                  )}
-                                </AnimatePresence>
-                              </div>
-                            )}
-
-                            {/* Text Input - Enhanced */}
-                            {currentFormStep.type === "text" && (
-                              <div className="relative">
-                                <Input
-                                  type="text"
-                                  value={formData[currentStep] || ""}
-                                  onChange={(e) => handleTextChange(e.target.value)}
-                                  placeholder={currentFormStep.placeholder}
-                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl text-center text-lg focus:bg-white/15 focus:border-white/40 transition-all"
-                                />
-                              </div>
-                            )}
-
-                            {/* Email Input - Enhanced */}
-                            {currentFormStep.type === "email" && (
-                              <div className="relative">
-                                <Input
-                                  type="email"
-                                  value={formData[currentStep] || ""}
-                                  onChange={(e) => handleTextChange(e.target.value)}
-                                  placeholder={currentFormStep.placeholder}
-                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl text-center text-lg focus:bg-white/15 focus:border-white/40 transition-all"
-                                />
-                              </div>
-                            )}
-
-                            {/* Phone Input - Enhanced */}
-                            {currentFormStep.type === "phone" && (
-                              <div className="relative">
-                                <Input
-                                  type="tel"
-                                  value={formData[currentStep] || ""}
-                                  onChange={(e) => handleTextChange(e.target.value)}
-                                  placeholder={currentFormStep.placeholder}
-                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-14 rounded-xl text-center text-lg focus:bg-white/15 focus:border-white/40 transition-all"
-                                />
-                              </div>
-                            )}
-
-                            {/* Error message */}
-                            {showError && (
-                              <motion.p 
-                                initial={{ opacity: 0, y: -5 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-red-400 text-sm mt-3 text-center"
-                              >
-                                {getValidationErrorMessage()}
-                              </motion.p>
-                            )}
-                          </motion.div>
-                        </AnimatePresence>
-
-                        {/* Navigation - Enhanced */}
-                        <div className="flex gap-3 mt-6">
-                          {currentStep > 0 && (
-                            <Button
-                              variant="outline"
-                              onClick={handlePrevious}
-                              className="flex-1 bg-transparent border-white/20 text-white hover:bg-white/10 h-12 rounded-xl"
-                            >
-                              <ArrowLeft className="mr-2 w-4 h-4" />
-                              Back
-                            </Button>
-                          )}
-                          <Button
-                            onClick={handleNext}
-                            disabled={isSubmitting}
-                            className={`flex-1 bg-white text-[#1a4a4a] hover:bg-white/90 h-12 rounded-xl font-semibold shadow-lg shadow-white/10 ${currentStep === 0 ? "w-full" : ""}`}
-                          >
-                            {isSubmitting ? (
-                              <motion.div
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                className="w-5 h-5 border-2 border-[#1a4a4a]/30 border-t-[#1a4a4a] rounded-full"
-                              />
-                            ) : currentStep === formSteps.length - 1 ? (
-                              "Submit Application"
-                            ) : (
-                              <>
-                                Continue
-                                <ArrowRight className="ml-2 w-4 h-4" />
-                              </>
-                            )}
-                          </Button>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
+            <button 
+              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
+            >
+              Apply Now
+              <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
+            </button>
+          </motion.div>
         </div>
       </section>
 
-      {/* Logo Marquee - Client Logos */}
-      <section className="py-6 bg-[#0d2626] overflow-hidden border-y border-white/5">
+      {/* Logo Marquee - Moved below hero, not in it */}
+      <section className="py-16 md:py-24 bg-[#FAFAF7] overflow-hidden border-y border-[#1A1A1A]/10">
         <div className="relative">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0d2626] to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0d2626] to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#FAFAF7] to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#FAFAF7] to-transparent z-10" />
           
           <div className="flex animate-marquee">
             {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 mx-8 md:mx-12 flex items-center justify-center h-20 md:h-24"
+                className="flex-shrink-0 mx-10 md:mx-16 flex items-center justify-center h-24 md:h-28"
               >
                 <Image
                   src={logo.src}
                   alt={logo.name}
                   width={logo.width}
                   height={logo.height}
-                  className="object-contain h-16 md:h-20 w-auto brightness-0 invert opacity-60 hover:opacity-100 transition-opacity"
+                  className="object-contain h-20 md:h-24 w-auto opacity-40 hover:opacity-70 transition-opacity duration-400"
                 />
               </div>
             ))}
@@ -702,45 +207,46 @@ export function HeroSection() {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-[#0d2626] relative overflow-hidden">
-        {/* Accent gradient */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-[#2a5555]/30 to-transparent rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-[#1f4545]/40 to-transparent rounded-full blur-[80px]" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="testimonials" className="py-24 md:py-40 bg-[#FAFAF7] relative overflow-hidden">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16 md:mb-24"
           >
-            <p className="text-white/50 text-sm uppercase tracking-[0.15em] mb-4">Client Wins</p>
-            <h2 className="text-white text-4xl md:text-5xl font-bold">Results that speak.</h2>
+            {/* Section number as design element */}
+            <span className="font-serif text-[80px] md:text-[120px] font-light text-[#1A1A1A]/10 block leading-none mb-4">001</span>
+            <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-6">Client Wins</p>
+            <h2 className="font-serif text-[#1A1A1A] text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em]">
+              Results that <em className="italic">speak.</em>
+            </h2>
           </motion.div>
 
           {/* Desktop: Show 3 reviews */}
-          <div className="hidden lg:grid grid-cols-3 gap-6">
+          <div className="hidden lg:grid grid-cols-3 gap-8">
             {reviews.map((review, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="glass-card rounded-2xl p-6"
+                className="border border-[#1A1A1A]/10 p-8"
               >
-                <p className="text-white/80 text-base leading-relaxed mb-6 line-clamp-4">
+                <p className="text-[#1A1A1A]/70 text-base leading-[1.6] mb-8 line-clamp-4">
                   &quot;{review.text}&quot;
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
-                    <span className="text-white/70 text-sm font-semibold">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-[#1A1A1A]/5 flex items-center justify-center">
+                    <span className="text-[#1A1A1A]/60 text-sm font-medium">
                       {review.name.split(" ").map(n => n[0]).join("")}
                     </span>
                   </div>
                   <div>
-                    <p className="font-medium text-white text-sm">{review.name}</p>
-                    <p className="text-xs text-white/50">{review.company}</p>
+                    <p className="font-medium text-[#1A1A1A] text-sm">{review.name}</p>
+                    <p className="text-xs text-[#1A1A1A]/50 uppercase tracking-wide">{review.company}</p>
                   </div>
                 </div>
               </motion.div>
@@ -761,36 +267,36 @@ export function HeroSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="glass-card rounded-2xl p-6"
+                className="border border-[#1A1A1A]/10 p-8"
               >
-                <p className="text-white/80 text-base leading-relaxed mb-6">
+                <p className="text-[#1A1A1A]/70 text-base leading-[1.6] mb-8">
                   &quot;{reviews[currentReviewIndex].text}&quot;
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
-                    <span className="text-white/70 text-sm font-semibold">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-[#1A1A1A]/5 flex items-center justify-center">
+                    <span className="text-[#1A1A1A]/60 text-sm font-medium">
                       {reviews[currentReviewIndex].name.split(" ").map(n => n[0]).join("")}
                     </span>
                   </div>
                   <div>
-                    <p className="font-medium text-white text-sm">{reviews[currentReviewIndex].name}</p>
-                    <p className="text-xs text-white/50">{reviews[currentReviewIndex].company}</p>
+                    <p className="font-medium text-[#1A1A1A] text-sm">{reviews[currentReviewIndex].name}</p>
+                    <p className="text-xs text-[#1A1A1A]/50 uppercase tracking-wide">{reviews[currentReviewIndex].company}</p>
                   </div>
                 </div>
               </motion.div>
             </AnimatePresence>
             
             {/* Navigation controls */}
-            <div className="flex items-center justify-center gap-4 mt-6">
+            <div className="flex items-center justify-center gap-6 mt-8">
               <button
                 onClick={goToPrevReview}
-                className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+                className="w-12 h-12 border border-[#1A1A1A]/20 text-[#1A1A1A]/60 flex items-center justify-center hover:border-[#1A1A1A]/40 transition-colors duration-400"
                 aria-label="Previous review"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 {reviews.map((_, index) => (
                   <button
                     key={index}
@@ -798,8 +304,8 @@ export function HeroSection() {
                       setUserInteracted(true);
                       setCurrentReviewIndex(index);
                     }}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentReviewIndex ? "bg-white" : "bg-white/30"
+                    className={`w-2 h-2 transition-colors duration-400 ${
+                      index === currentReviewIndex ? "bg-[#1A1A1A]" : "bg-[#1A1A1A]/20"
                     }`}
                     aria-label={`Go to review ${index + 1}`}
                   />
@@ -808,7 +314,7 @@ export function HeroSection() {
               
               <button
                 onClick={goToNextReview}
-                className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+                className="w-12 h-12 border border-[#1A1A1A]/20 text-[#1A1A1A]/60 flex items-center justify-center hover:border-[#1A1A1A]/40 transition-colors duration-400"
                 aria-label="Next review"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -818,21 +324,19 @@ export function HeroSection() {
 
           {/* CTA */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-center mt-12"
+            className="text-center mt-16 md:mt-24"
           >
-            <Button
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="bg-white text-[#1a4a4a] hover:bg-white/90 rounded-full px-8 py-6 font-medium"
+            <button
+              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
             >
               Apply Now
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+              <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
+            </button>
           </motion.div>
         </div>
       </section>
