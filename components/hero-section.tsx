@@ -760,20 +760,17 @@ export function HeroSection() {
                 <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color}`} />
                 
                 {/* Live website iframe in phone frame */}
-                <div className="relative aspect-[9/16] bg-black overflow-hidden">
-                  <div className="absolute inset-0 overflow-hidden">
-                    <iframe
-                      src={item.url}
-                      title={item.title}
-                      className="w-[375px] h-[812px] origin-top-left border-0"
-                      style={{
-                        transform: 'scale(0.48)',
-                        pointerEvents: 'auto',
-                      }}
-                      loading="lazy"
-                      sandbox="allow-scripts allow-same-origin"
-                    />
-                  </div>
+                <div className="relative aspect-[9/19] bg-black overflow-hidden">
+                  <iframe
+                    src={item.url}
+                    title={item.title}
+                    className="absolute inset-0 w-full h-full border-0"
+                    style={{
+                      pointerEvents: 'auto',
+                    }}
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin"
+                  />
                   
                   {/* Phone notch/dynamic island */}
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-10" />
@@ -801,20 +798,17 @@ export function HeroSection() {
                   className={`relative overflow-hidden rounded-[2.5rem] border-2 ${portfolioExamples[currentPortfolioIndex].borderColor} bg-gradient-to-br ${portfolioExamples[currentPortfolioIndex].color} backdrop-blur-xl`}
                 >
                   {/* Live website iframe in phone frame */}
-                  <div className="relative aspect-[9/16] bg-black overflow-hidden">
-                    <div className="absolute inset-0 overflow-hidden">
-                      <iframe
-                        src={portfolioExamples[currentPortfolioIndex].url}
-                        title={portfolioExamples[currentPortfolioIndex].title}
-                        className="w-[375px] h-[812px] origin-top-left border-0"
-                        style={{
-                          transform: 'scale(0.43)',
-                          pointerEvents: 'auto',
-                        }}
-                        loading="lazy"
-                        sandbox="allow-scripts allow-same-origin"
-                      />
-                    </div>
+                  <div className="relative aspect-[9/19] bg-black overflow-hidden">
+                    <iframe
+                      src={portfolioExamples[currentPortfolioIndex].url}
+                      title={portfolioExamples[currentPortfolioIndex].title}
+                      className="absolute inset-0 w-full h-full border-0"
+                      style={{
+                        pointerEvents: 'auto',
+                      }}
+                      loading="lazy"
+                      sandbox="allow-scripts allow-same-origin"
+                    />
                     
                     {/* Phone notch/dynamic island */}
                     <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black rounded-full z-10" />
@@ -866,26 +860,6 @@ export function HeroSection() {
                 <ChevronRight className="w-5 h-5" />
               </button>
           </div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center mt-16 md:mt-24"
-          >
-            <p className="text-white/50 text-sm mb-8">
-              Ready to get a website that actually converts?
-            </p>
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="inline-flex items-center border border-white/30 bg-white text-[#0d1a1a] hover:bg-transparent hover:text-white px-10 py-4 text-sm tracking-wide transition-all duration-400 group rounded-full font-medium"
-            >
-              Get Started
-              <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
-            </button>
-          </motion.div>
         </div>
       </section>
     </>
