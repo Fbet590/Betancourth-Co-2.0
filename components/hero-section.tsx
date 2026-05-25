@@ -26,22 +26,37 @@ const reviews = [
   },
 ];
 
-// Portfolio examples - websites we've made
+// Portfolio examples - websites we've made (scrollable screenshots)
 const portfolioExamples = [
   {
-    title: "5-O Turf & Pavers",
-    category: "Turf & Paver Installation",
-    url: "https://5oturf.nocostestimate.com/",
+    title: "Aluma Covers",
+    category: "Patio Covers",
+    image: "/portfolio/aluma-covers.jpg",
   },
   {
-    title: "Saucedo's Landscape",
-    category: "Landscaping",
-    url: "https://saucedo.nocostestimate.com/",
+    title: "360 Backyards",
+    category: "Patio Covers",
+    image: "/portfolio/360-backyards.jpg",
   },
   {
-    title: "AZ Elite Granite",
-    category: "Countertop Installation",
-    url: "https://azelitegranite.nocostestimate.com/",
+    title: "Luis Painting",
+    category: "House Painting",
+    image: "/portfolio/luis-painting.jpg",
+  },
+  {
+    title: "Deco Abrusci",
+    category: "Patio Covers",
+    image: "/portfolio/deco-abrusci.jpg",
+  },
+  {
+    title: "Deluxe Blinds",
+    category: "Awnings & Outscreens",
+    image: "/portfolio/deluxe-blinds.jpg",
+  },
+  {
+    title: "Swanson",
+    category: "Kitchen & Bath Remodeling",
+    image: "/portfolio/swanson.jpg",
   },
 ];
 
@@ -787,7 +802,7 @@ export function HeroSection() {
             </h2>
           </motion.div>
 
-          {/* Desktop: Show all portfolio items in a grid - Mobile phone style with live websites */}
+          {/* Desktop: Show all portfolio items in a grid - Scrollable screenshots */}
           <div className="hidden lg:grid grid-cols-3 gap-8">
             {portfolioExamples.map((item, index) => (
               <motion.div
@@ -802,18 +817,18 @@ export function HeroSection() {
                 {/* Animated glow effect on hover */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-emerald-500/20 to-green-600/20" />
                 
-                {/* Live website iframe in phone frame */}
-                <div className="relative aspect-[9/19] bg-black overflow-hidden">
-                  <iframe
-                    src={item.url}
-                    title={item.title}
-                    className="absolute inset-0 w-full h-full border-0"
-                    style={{
-                      pointerEvents: 'auto',
-                    }}
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin"
-                  />
+                {/* Scrollable screenshot in phone frame */}
+                <div className="relative aspect-[9/19] bg-white overflow-hidden">
+                  <div className="absolute inset-0 overflow-y-auto scrollbar-hide">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={400}
+                      height={2000}
+                      className="w-full h-auto"
+                      style={{ minHeight: '100%' }}
+                    />
+                  </div>
                   
                   {/* Phone notch/dynamic island */}
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-10" />
@@ -828,9 +843,9 @@ export function HeroSection() {
             ))}
           </div>
 
-          {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style with live website */}
+          {/* Mobile: Show 1 portfolio item at a time - Scrollable screenshot */}
           <div className="lg:hidden flex justify-center px-4">
-            <div className="w-full max-w-[260px]">
+            <div className="w-full max-w-[220px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPortfolioIndex}
@@ -840,25 +855,30 @@ export function HeroSection() {
                   transition={{ duration: 0.2 }}
                   className="relative overflow-hidden rounded-[2rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl"
                 >
-                  {/* Live website iframe in phone frame */}
-                  <div className="relative aspect-[9/16] bg-black overflow-hidden">
-                    <iframe
-                      src={portfolioExamples[currentPortfolioIndex].url}
-                      title={portfolioExamples[currentPortfolioIndex].title}
-                      className="absolute inset-0 w-full h-full border-0"
-                      style={{
-                        pointerEvents: 'auto',
-                      }}
-                      loading="lazy"
-                      sandbox="allow-scripts allow-same-origin"
-                    />
+                  {/* Scrollable screenshot in phone frame */}
+                  <div className="relative aspect-[9/16] bg-white overflow-hidden">
+                    <div className="absolute inset-0 overflow-y-auto scrollbar-hide">
+                      <Image
+                        src={portfolioExamples[currentPortfolioIndex].image}
+                        alt={portfolioExamples[currentPortfolioIndex].title}
+                        width={300}
+                        height={1500}
+                        className="w-full h-auto"
+                        style={{ minHeight: '100%' }}
+                      />
+                    </div>
                     
                     {/* Phone notch/dynamic island */}
                     <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black rounded-full z-10" />
+                    
+                    {/* Scroll indicator */}
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 animate-bounce">
+                      <ChevronDown className="w-4 h-4 text-black/40" />
+                    </div>
                   </div>
                   
                   {/* Info overlay */}
-                  <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
+                  <div className="p-3 bg-black/60 backdrop-blur-sm relative z-10">
                     <h3 className="text-white font-medium text-sm mb-1">{portfolioExamples[currentPortfolioIndex].title}</h3>
                     <p className="text-white/50 text-xs uppercase tracking-wide">{portfolioExamples[currentPortfolioIndex].category}</p>
                   </div>
