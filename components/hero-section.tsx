@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -26,22 +26,22 @@ const reviews = [
   },
 ];
 
-// Portfolio examples - websites we've made (using screenshots)
+// Portfolio examples - websites we've made
 const portfolioExamples = [
   {
     title: "5-O Turf & Pavers",
     category: "Turf & Paver Installation",
-    image: "/portfolio/5th-element.jpg",
+    url: "https://5oturf.nocostestimate.com/",
   },
   {
     title: "Saucedo's Landscape",
     category: "Landscaping",
-    image: "/portfolio/saucedo.jpg",
+    url: "https://saucedo.nocostestimate.com/",
   },
   {
     title: "AZ Elite Granite",
     category: "Countertop Installation",
-    image: "/portfolio/az-elite.jpg",
+    url: "https://azelitegranite.nocostestimate.com/",
   },
 ];
 
@@ -141,10 +141,6 @@ export function HeroSection() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [userInteracted, setUserInteracted] = useState(false);
   const [portfolioUserInteracted, setPortfolioUserInteracted] = useState(false);
-  
-  // Lightbox state
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   // Form state
   const [currentStep, setCurrentStep] = useState(0);
@@ -166,45 +162,6 @@ export function HeroSection() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownOpen]);
-
-  // Lightbox keyboard navigation and body scroll lock
-  useEffect(() => {
-    if (lightboxOpen) {
-      document.body.style.overflow = 'hidden';
-      
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          setLightboxOpen(false);
-        } else if (e.key === 'ArrowRight') {
-          setLightboxIndex((prev) => (prev + 1) % portfolioExamples.length);
-        } else if (e.key === 'ArrowLeft') {
-          setLightboxIndex((prev) => (prev - 1 + portfolioExamples.length) % portfolioExamples.length);
-        }
-      };
-      
-      document.addEventListener('keydown', handleKeyDown);
-      return () => {
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', handleKeyDown);
-      };
-    } else {
-      document.body.style.overflow = '';
-    }
-  }, [lightboxOpen]);
-
-  // Lightbox navigation functions
-  const openLightbox = (index: number) => {
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  };
-
-  const goToPrevLightbox = () => {
-    setLightboxIndex((prev) => (prev - 1 + portfolioExamples.length) % portfolioExamples.length);
-  };
-
-  const goToNextLightbox = () => {
-    setLightboxIndex((prev) => (prev + 1) % portfolioExamples.length);
-  };
 
   // Swipe handlers for mobile review carousel
   const minSwipeDistance = 50;
@@ -809,129 +766,145 @@ export function HeroSection() {
         </div>
       </section>
 
-      {/* See What's Possible Section */}
-      <section id="portfolio" className="py-12 md:py-20 bg-[#FAFAF7]">
-        <div className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8">
-          {/* Header */}
+      {/* Examples of Our Work Section */}
+      <section id="portfolio" className="py-24 md:py-40 bg-[#0d1a1a] relative overflow-hidden">
+        {/* Background gradient effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a4a4a]/20 via-transparent to-[#6B1F2B]/10" />
+        
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="text-center mb-12 md:mb-18"
+            className="text-center mb-16 md:mb-24"
           >
-            {/* Eyebrow text - mustard/gold accent */}
-            <p className="text-[#D4A017] text-xs md:text-sm font-bold uppercase tracking-[0.05em] mb-4 leading-relaxed">
-              TAKE A LOOK AT OUR RECENT PROJECTS AND<br />
-              GET INSPIRED FOR YOUR BUSINESS
-            </p>
-            {/* Heading */}
-            <h2 className="font-serif text-[#1A1A1A] text-[32px] md:text-[48px] lg:text-[56px] font-bold leading-[1.1]">
-              See What&apos;s Possible
+            {/* Section number as design element */}
+            <span className="font-serif text-[80px] md:text-[120px] font-light text-white/5 block leading-none mb-4">001</span>
+            <p className="text-white/50 text-xs uppercase tracking-[0.2em] mb-6">Our Portfolio</p>
+            <h2 className="font-serif text-white text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em]">
+              Examples of Our <em className="italic">Work.</em>
             </h2>
           </motion.div>
 
-          {/* Portfolio Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+          {/* Desktop: Show all portfolio items in a grid - Mobile phone style with live websites */}
+          <div className="hidden lg:grid grid-cols-3 gap-8">
             {portfolioExamples.map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
                 viewport={{ once: true }}
-                onClick={() => openLightbox(index)}
-                className="group cursor-pointer"
+                whileHover={{ scale: 1.02, y: -8 }}
+                className="group relative overflow-hidden rounded-[2.5rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl cursor-pointer transition-all duration-500"
               >
-                <div 
-                  className="relative aspect-[4/5] rounded-lg overflow-hidden bg-white transition-all duration-200 ease-out hover:-translate-y-[3px]"
-                  style={{ boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.08)';
-                  }}
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover object-top"
+                {/* Animated glow effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-emerald-500/20 to-green-600/20" />
+                
+                {/* Live website iframe in phone frame */}
+                <div className="relative aspect-[9/19] bg-black overflow-hidden">
+                  <iframe
+                    src={item.url}
+                    title={item.title}
+                    className="absolute inset-0 w-full h-full border-0"
+                    style={{
+                      pointerEvents: 'auto',
+                    }}
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin"
                   />
+                  
+                  {/* Phone notch/dynamic island */}
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-10" />
+                </div>
+                
+                {/* Info overlay */}
+                <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
+                  <h3 className="text-white font-medium text-sm mb-1 truncate">{item.title}</h3>
+                  <p className="text-white/50 text-xs uppercase tracking-wide truncate">{item.category}</p>
                 </div>
               </motion.div>
             ))}
           </div>
+
+          {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style with live website */}
+          <div className="lg:hidden flex justify-center px-4">
+            <div className="w-full max-w-[360px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentPortfolioIndex}
+                  initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -50, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="relative overflow-hidden rounded-[2.5rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl"
+                >
+                  {/* Live website iframe in phone frame */}
+                  <div className="relative aspect-[9/19] bg-black overflow-hidden">
+                    <iframe
+                      src={portfolioExamples[currentPortfolioIndex].url}
+                      title={portfolioExamples[currentPortfolioIndex].title}
+                      className="absolute inset-0 w-full h-full border-0"
+                      style={{
+                        pointerEvents: 'auto',
+                      }}
+                      loading="lazy"
+                      sandbox="allow-scripts allow-same-origin"
+                    />
+                    
+                    {/* Phone notch/dynamic island */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black rounded-full z-10" />
+                  </div>
+                  
+                  {/* Info overlay */}
+                  <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
+                    <h3 className="text-white font-medium text-sm mb-1">{portfolioExamples[currentPortfolioIndex].title}</h3>
+                    <p className="text-white/50 text-xs uppercase tracking-wide">{portfolioExamples[currentPortfolioIndex].category}</p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+          
+          {/* Mobile navigation controls */}
+          <div className="lg:hidden flex items-center justify-center gap-6 mt-8">
+              <button
+                onClick={goToPrevPortfolio}
+                className="w-12 h-12 border border-white/20 text-white/60 flex items-center justify-center hover:border-white/40 hover:bg-white/5 transition-all duration-400 rounded-full"
+                aria-label="Previous project"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              
+              <div className="flex gap-3">
+                {portfolioExamples.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setPortfolioUserInteracted(true);
+                      setCurrentPortfolioIndex(index);
+                    }}
+                    className={`h-2 rounded-full transition-all duration-400 ${
+                      index === currentPortfolioIndex 
+                        ? "w-8 bg-emerald-500" 
+                        : "w-2 bg-white/20"
+                    }`}
+                    aria-label={`Go to project ${index + 1}`}
+                  />
+                ))}
+              </div>
+              
+              <button
+                onClick={goToNextPortfolio}
+                className="w-12 h-12 border border-white/20 text-white/60 flex items-center justify-center hover:border-white/40 hover:bg-white/5 transition-all duration-400 rounded-full"
+                aria-label="Next project"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+          </div>
         </div>
       </section>
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {lightboxOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex items-center justify-center"
-            style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}
-            onClick={() => setLightboxOpen(false)}
-          >
-            {/* Close button */}
-            <button
-              onClick={() => setLightboxOpen(false)}
-              className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 flex items-center justify-center text-white hover:text-white/80 transition-colors z-10"
-              aria-label="Close lightbox"
-            >
-              <X className="w-8 h-8" />
-            </button>
-
-            {/* Previous arrow */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goToPrevLightbox();
-              }}
-              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center text-white hover:text-white/80 transition-colors z-10"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-8 h-8" />
-            </button>
-
-            {/* Next arrow */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goToNextLightbox();
-              }}
-              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center text-white hover:text-white/80 transition-colors z-10"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-8 h-8" />
-            </button>
-
-            {/* Image */}
-            <motion.div
-              key={lightboxIndex}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="relative max-w-[90vw] max-h-[90vh]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={portfolioExamples[lightboxIndex].image}
-                alt={portfolioExamples[lightboxIndex].title}
-                width={800}
-                height={1000}
-                className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain rounded-lg"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
