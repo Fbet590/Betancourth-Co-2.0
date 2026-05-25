@@ -58,6 +58,16 @@ const portfolioExamples = [
     category: "Kitchen & Bath Remodeling",
     image: "/portfolio/swanson.jpg",
   },
+  {
+    title: "Saucedo's Landscape",
+    category: "Landscaping",
+    image: "/portfolio/saucedo-landscape.jpg",
+  },
+  {
+    title: "CV Property Solutions",
+    category: "Patio Covers",
+    image: "/portfolio/cv-property-solutions.jpg",
+  },
 ];
 
 // Client logos for marquee (sizes increased by 25% on desktop, now 25% bigger on mobile too)
