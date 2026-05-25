@@ -616,7 +616,7 @@ export function HeroSection() {
                   <div className="relative z-10">
                     {/* Form headline */}
                     <h2 className="font-serif text-2xl md:text-[36px] text-white text-center mb-2 leading-tight">
-                      Get Your Website Made ASAP Without Overpaying for It!
+                      Get Your Website Made ASAP - Forget Overpaying!
                     </h2>
                     
                     {/* Form subheadline */}
