@@ -69,49 +69,49 @@ const reviews = [
   },
 ];
 
-// Client logos for marquee - using actual client logos with black backgrounds
+// Client logos for marquee - using actual client logos with black backgrounds (sizes increased by 25%)
 const clientLogos = [
   {
     name: "Vibrant Vistas Landscape",
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed-BZdqK19fjOZy4B9ZmSV9RpmOmLTcZg.png",
-    width: 180,
-    height: 50,
+    width: 225,
+    height: 63,
   },
   {
     name: "Desert Valley Patio Covers",
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-desert-valley_prev_ui-m7VkBygKrrIxOE6E-aOp0plN2hDuzWstFcSLP63mFIecNuA.png",
-    width: 160,
-    height: 60,
+    width: 200,
+    height: 75,
   },
   {
     name: "AZ Elite Granite LLC",
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_16_36%20PM-5nS8Ow08sgZs9FyUk2TgA6vzMcB4o5.png",
-    width: 140,
-    height: 70,
+    width: 175,
+    height: 88,
   },
   {
     name: "5th Element Outdoor Creations",
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_15_05%20PM-M7d24da4J7zflIL4lOa2zulphLVW54.png",
-    width: 140,
-    height: 70,
+    width: 175,
+    height: 88,
   },
   {
     name: "CV",
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_19_28%20PM-5FDfsJO1iGLSJmEze6VOYfDlFsVNg1.png",
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
   },
   {
     name: "Desert Valley Structures LLC",
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_21_06%20PM-TdlOu6IpB8ZmZI0EFZ3yNLAfV12FiI.png",
-    width: 160,
-    height: 70,
+    width: 200,
+    height: 88,
   },
   {
     name: "Landscaping Perez LLC",
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_18_00%20PM-yGj5qGvn3Td5xog2qZwIFGaH7D6KhC.png",
-    width: 160,
-    height: 70,
+    width: 200,
+    height: 88,
   },
 ];
 
@@ -396,7 +396,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 tracking-tight"
           >
-            Precision is the<br />strategy.
+            Yeah, you need a website.<br />No, you don&apos;t need to spend $3,000.
           </motion.h1>
 
           {/* Subheadline */}
@@ -686,14 +686,14 @@ export function HeroSection() {
             {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 mx-8 md:mx-12 flex items-center justify-center h-16 md:h-20"
+                className="flex-shrink-0 mx-8 md:mx-12 flex items-center justify-center h-20 md:h-24"
               >
                 <Image
                   src={logo.src}
                   alt={logo.name}
                   width={logo.width}
                   height={logo.height}
-                  className="object-contain h-12 md:h-16 w-auto brightness-0 invert opacity-60 hover:opacity-100 transition-opacity"
+                  className="object-contain h-16 md:h-20 w-auto brightness-0 invert opacity-60 hover:opacity-100 transition-opacity"
                 />
               </div>
             ))}
