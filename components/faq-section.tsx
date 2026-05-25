@@ -39,8 +39,8 @@ const faqs = [
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-20 bg-card/50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-24 bg-[#143838]">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -48,13 +48,11 @@ export function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
-            <span className="text-[20px] text-primary font-medium">FAQ</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground mb-4">
+          <p className="text-white/50 text-sm uppercase tracking-[0.15em] mb-4">FAQ</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-muted-foreground text-[20px]">
+          <p className="text-white/60 text-lg">
             Additional information about our lead generation service.
           </p>
         </motion.div>
@@ -65,17 +63,17 @@ export function FAQSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <Accordion type="single" collapsible className="space-y-4 pb-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/50"
+                className="glass-card border border-white/10 rounded-xl px-6 data-[state=open]:border-white/20"
               >
-                <AccordionTrigger className="text-left text-foreground font-medium hover:no-underline py-6 text-[22px]">
+                <AccordionTrigger className="text-left text-white font-medium hover:no-underline py-5 text-base">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6 leading-relaxed text-[18px]">
+                <AccordionContent className="text-white/60 pb-5 leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -90,13 +88,13 @@ export function FAQSection() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <p className="text-muted-foreground mb-4">Still have questions?</p>
+          <p className="text-white/50 mb-4 text-sm">Still have questions?</p>
           <Button 
             onClick={() => document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 rounded-lg group text-[20px]"
+            className="bg-white text-[#1a4a4a] hover:bg-white/90 px-8 py-6 rounded-full group"
           >
             Book a Free Discovery Call
-            <ArrowRight className="ml-2 w-5 h-5 animate-[bounceX_1s_ease-in-out_infinite]" />
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </motion.div>
       </div>

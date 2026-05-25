@@ -40,8 +40,17 @@ const pricingModels = [
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="py-20 bg-secondary/30">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="py-24 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d2626 0%, #183838 50%, #143838 100%)' }}>
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-[#2a5555]/20 to-transparent rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tl from-[#1f4545]/30 to-transparent rounded-full blur-[100px]" />
+      
+      {/* Subtle dot pattern */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)`,
+        backgroundSize: '40px 40px'
+      }} />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,16 +58,16 @@ export function PricingSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-primary font-semibold mb-3 text-[18px] tracking-wide uppercase">How We Work</p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground mb-4 text-balance">
+          <p className="text-white/50 text-sm uppercase tracking-[0.15em] mb-4">How We Work</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 text-balance">
             Two Ways to Partner With Us
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-[20px]">
+          <p className="text-white/60 max-w-2xl mx-auto text-lg">
             Choose the pricing model that fits your business goals. Both options deliver measurable results.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {pricingModels.map((model, index) => (
             <motion.div
               key={index}
@@ -66,51 +75,51 @@ export function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
               viewport={{ once: true }}
-              className={`relative bg-card rounded-2xl p-8 ${
+              className={`relative glass-card rounded-2xl p-8 ${
                 model.featured 
-                  ? "border-[3px] border-black shadow-lg" 
-                  : "border-[3px] border-black"
+                  ? "border border-white/30" 
+                  : "border border-white/10"
               }`}
             >
               {model.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-full uppercase tracking-wide">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-white text-[#1a4a4a] text-xs font-semibold rounded-full uppercase tracking-wide">
                   Popular Choice
                 </div>
               )}
               
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <model.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
+                  <model.icon className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-[14px] text-muted-foreground uppercase tracking-wide">{model.subtitle}</p>
-                  <h3 className="text-[24px] font-extrabold text-foreground">{model.title}</h3>
+                  <p className="text-sm text-white/50 uppercase tracking-wide">{model.subtitle}</p>
+                  <h3 className="text-xl font-bold text-white">{model.title}</h3>
                 </div>
               </div>
 
-              <p className="text-muted-foreground mb-6 leading-relaxed text-[18px]">
+              <p className="text-white/60 mb-6 leading-relaxed">
                 {model.description}
               </p>
 
               <ul className="space-y-3 mb-8">
                 {model.highlights.map((highlight, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-foreground text-[18px]">{highlight}</span>
+                    <Check className="w-5 h-5 text-white/70 mt-0.5 flex-shrink-0" />
+                    <span className="text-white/80">{highlight}</span>
                   </li>
                 ))}
               </ul>
 
-              <p className="text-[14px] text-muted-foreground mb-4 italic">
+              <p className="text-sm text-white/40 mb-4 italic">
                 {model.ideal}
               </p>
 
               <Button 
                 onClick={() => document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })}
-                className={`w-full py-6 group text-[18px] ${
+                className={`w-full py-6 group rounded-full ${
                   model.featured 
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                    : "bg-foreground text-background hover:bg-foreground/90"
+                    ? "bg-white text-[#1a4a4a] hover:bg-white/90" 
+                    : "bg-white/10 text-white hover:bg-white/20 border border-white/20"
                 }`}
               >
                 {model.cta}
@@ -125,7 +134,7 @@ export function PricingSection() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center text-muted-foreground mt-12 text-sm"
+          className="text-center text-white/40 mt-12 text-sm"
         >
           Not sure which model is right for you? Book a free consultation and we will help you decide.
         </motion.p>

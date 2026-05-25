@@ -33,15 +33,15 @@ const expectations = [
 
 export function StrategySessionSection() {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="py-24 bg-[#0d2626]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-[18px] font-medium text-muted-foreground uppercase tracking-widest mb-4"
+            className="text-white/50 text-sm uppercase tracking-[0.15em] mb-4"
           >
             Free Consultation
           </motion.p>
@@ -50,7 +50,7 @@ export function StrategySessionSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-[50px] font-extrabold text-foreground mb-4 text-balance"
+            className="text-4xl md:text-5xl font-bold text-white mb-4 text-balance"
           >
             Growth Strategy Session
           </motion.h2>
@@ -59,7 +59,7 @@ export function StrategySessionSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-muted-foreground max-w-2xl mx-auto text-[20px]"
+            className="text-white/60 max-w-2xl mx-auto text-lg"
           >
             A no-pressure, 30-minute call to see if we can help you grow.
           </motion.p>
@@ -73,7 +73,7 @@ export function StrategySessionSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mb-12"
         >
-          <h3 className="text-[30px] font-extrabold text-foreground text-center mb-10">
+          <h3 className="text-2xl font-bold text-white text-center mb-10">
             What to expect on the call?
           </h3>
 
@@ -85,15 +85,15 @@ export function StrategySessionSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.1 * index }}
-                className="bg-card border-[3px] border-black rounded-2xl p-6 text-center"
+                className="glass-card rounded-2xl p-6 text-center border border-white/10"
               >
                 <div className="flex flex-col items-center">
-                  <span className="text-3xl font-bold text-muted-foreground mb-3">{item.number}</span>
-                  <div className="w-12 h-12 bg-foreground rounded-full flex items-center justify-center mb-4">
-                    <item.icon className="w-6 h-6 text-background" />
+                  <span className="text-2xl font-bold text-white/30 mb-3">{item.number}</span>
+                  <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4">
+                    <item.icon className="w-6 h-6 text-white" />
                   </div>
-                  <h4 className="text-[22px] font-extrabold text-foreground mb-2">{item.title}</h4>
-                  <p className="text-muted-foreground text-[18px]">{item.description}</p>
+                  <h4 className="text-lg font-semibold text-white mb-2">{item.title}</h4>
+                  <p className="text-white/60 text-sm">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -111,12 +111,12 @@ export function StrategySessionSection() {
           <Button
             size="lg"
             onClick={() => document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-foreground text-background hover:bg-foreground/90 text-lg px-8 py-6 rounded-lg group"
+            className="bg-white text-[#1a4a4a] hover:bg-white/90 px-8 py-6 rounded-full group"
           >
             Book Your Free Strategy Session
-            <ArrowRight className="ml-2 w-5 h-5 animate-[bounceX_1s_ease-in-out_infinite]" />
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
-          <p className="text-sm text-muted-foreground mt-4">
+          <p className="text-sm text-white/40 mt-4">
             No commitment required. Just a conversation about your growth.
           </p>
         </motion.div>
