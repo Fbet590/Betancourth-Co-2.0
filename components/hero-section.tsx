@@ -29,36 +29,28 @@ const reviews = [
 // Portfolio examples - websites we've made
 const portfolioExamples = [
   {
-    title: "Desert Valley Patio Covers",
-    category: "Patio Installation",
-    image: "/portfolio/desert-valley.jpg",
-    color: "from-amber-500/20 to-orange-600/20",
-    borderColor: "border-amber-500/30",
-    accentColor: "bg-amber-500",
-  },
-  {
-    title: "Vibrant Vistas Landscape",
-    category: "Landscaping",
-    image: "/portfolio/vibrant-vistas.jpg",
-    color: "from-emerald-500/20 to-teal-600/20",
+    title: "5-O Turf & Pavers",
+    category: "Turf & Paver Installation",
+    image: "/portfolio/5th-element.jpg",
+    color: "from-emerald-500/20 to-green-600/20",
     borderColor: "border-emerald-500/30",
     accentColor: "bg-emerald-500",
+  },
+  {
+    title: "Saucedo's Landscape",
+    category: "Landscaping",
+    image: "/portfolio/saucedo.jpg",
+    color: "from-lime-500/20 to-green-600/20",
+    borderColor: "border-lime-500/30",
+    accentColor: "bg-lime-500",
   },
   {
     title: "AZ Elite Granite",
     category: "Countertop Installation",
     image: "/portfolio/az-elite.jpg",
-    color: "from-slate-500/20 to-zinc-600/20",
-    borderColor: "border-slate-500/30",
-    accentColor: "bg-slate-500",
-  },
-  {
-    title: "5th Element Outdoor",
-    category: "Outdoor Living",
-    image: "/portfolio/5th-element.jpg",
-    color: "from-sky-500/20 to-blue-600/20",
-    borderColor: "border-sky-500/30",
-    accentColor: "bg-sky-500",
+    color: "from-amber-500/20 to-orange-600/20",
+    borderColor: "border-amber-500/30",
+    accentColor: "bg-amber-500",
   },
 ];
 
@@ -753,7 +745,7 @@ export function HeroSection() {
           </motion.div>
 
           {/* Desktop: Show all portfolio items in a grid - Mobile phone style */}
-          <div className="hidden lg:grid grid-cols-4 gap-6">
+          <div className="hidden lg:grid grid-cols-3 gap-8">
             {portfolioExamples.map((item, index) => (
               <motion.div
                 key={index}
@@ -767,19 +759,17 @@ export function HeroSection() {
                 {/* Animated glow effect on hover */}
                 <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color}`} />
                 
-                {/* Mobile phone screenshot placeholder */}
-                <div className="relative aspect-[9/16] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-3 rounded-[1.5rem] bg-white/5 border border-white/10 flex items-center justify-center">
-                    <div className="text-center px-4">
-                      <div className={`w-14 h-14 ${item.accentColor} rounded-xl mx-auto mb-4 flex items-center justify-center`}>
-                        <span className="text-white text-xl font-bold">{item.title.charAt(0)}</span>
-                      </div>
-                      <p className="text-white/40 text-xs">Screenshot Coming Soon</p>
-                    </div>
-                  </div>
+                {/* Mobile phone screenshot */}
+                <div className="relative aspect-[9/16] bg-black overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover object-top"
+                  />
                   
                   {/* Phone notch/dynamic island */}
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black/80 rounded-full" />
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black/80 rounded-full z-10" />
                 </div>
                 
                 {/* Info overlay */}
@@ -803,19 +793,17 @@ export function HeroSection() {
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   className={`relative overflow-hidden rounded-[2.5rem] border-2 ${portfolioExamples[currentPortfolioIndex].borderColor} bg-gradient-to-br ${portfolioExamples[currentPortfolioIndex].color} backdrop-blur-xl`}
                 >
-                  {/* Mobile phone screenshot placeholder */}
-                  <div className="relative aspect-[9/16] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
-                    <div className="absolute inset-3 rounded-[1.5rem] bg-white/5 border border-white/10 flex items-center justify-center">
-                      <div className="text-center px-4">
-                        <div className={`w-12 h-12 ${portfolioExamples[currentPortfolioIndex].accentColor} rounded-xl mx-auto mb-3 flex items-center justify-center`}>
-                          <span className="text-white text-lg font-bold">{portfolioExamples[currentPortfolioIndex].title.charAt(0)}</span>
-                        </div>
-                        <p className="text-white/40 text-xs">Screenshot Coming Soon</p>
-                      </div>
-                    </div>
+                  {/* Mobile phone screenshot */}
+                  <div className="relative aspect-[9/16] bg-black overflow-hidden">
+                    <Image
+                      src={portfolioExamples[currentPortfolioIndex].image}
+                      alt={portfolioExamples[currentPortfolioIndex].title}
+                      fill
+                      className="object-cover object-top"
+                    />
                     
                     {/* Phone notch/dynamic island */}
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black/80 rounded-full" />
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black/80 rounded-full z-10" />
                   </div>
                   
                   {/* Info overlay */}
