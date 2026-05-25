@@ -127,19 +127,13 @@ interface FormStep {
 
 const formSteps: FormStep[] = [
   {
-    question: "What's your position?",
-    type: "radio",
-    options: ["CEO/Owner", "Manager", "Sales Rep"],
-    required: true,
+  question: "What kind of company do you own?",
+  type: "dropdown",
+  options: ["Hardscape", "Photography", "Carpet Cleaning", "Jewelry Brand", "Clothing Brand", "Plumbing", "Vet Clinic", "Restaurant"],
+  required: true,
   },
   {
-    question: "What kind of company do you own?",
-    type: "dropdown",
-    options: ["Welding", "Hardscape", "Patio Covers", "Home Remodeling", "Concrete", "Plumbing", "Fencing", "Roofing", "Painting"],
-    required: true,
-  },
-  {
-    question: "What's your full name?",
+  question: "What's your full name?",
     type: "text",
     placeholder: "John Smith",
     required: true,
