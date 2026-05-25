@@ -834,10 +834,10 @@ export function HeroSection() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPortfolioIndex}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
                   className="relative overflow-hidden rounded-[2rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl"
                 >
                   {/* Live website iframe in phone frame */}
