@@ -530,30 +530,30 @@ export function HeroSection() {
             <span className="block h-4 md:h-6" />
             No, you{" "}
             <span className="relative inline-block">
-              don&apos;t
-              {/* Hand-drawn mustard yellow ink pen circle */}
+              <span className="relative z-10">don&apos;t</span>
+              {/* Hand-drawn marker underline - graffiti style */}
               <svg
-                className="absolute -inset-1 md:-inset-2 w-[calc(100%+8px)] md:w-[calc(100%+16px)] h-[calc(100%+16px)] md:h-[calc(100%+24px)] -left-1 md:-left-2 -top-2 md:-top-3 pointer-events-none"
-                viewBox="0 0 120 70"
+                className="absolute left-0 -bottom-1 md:-bottom-2 w-full h-3 md:h-4 pointer-events-none"
+                viewBox="0 0 100 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="none"
               >
                 <motion.path
-                  d="M 15 35 
-                     C 12 20, 30 8, 60 10 
-                     C 90 12, 110 22, 108 38 
-                     C 106 54, 85 62, 55 60 
-                     C 25 58, 8 48, 12 35
-                     C 14 28, 25 22, 35 25"
-                  stroke="#D4A017"
-                  strokeWidth="2.5"
+                  d="M 2 7 
+                     C 8 5, 15 8, 25 6 
+                     C 35 4, 45 7, 55 5 
+                     C 65 3, 75 6, 85 4 
+                     C 92 3, 96 5, 98 6"
+                  stroke="#5EE085"
+                  strokeWidth="4"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   fill="none"
                   initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
                 />
               </svg>
             </span>
