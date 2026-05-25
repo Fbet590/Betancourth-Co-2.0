@@ -69,13 +69,13 @@ const reviews = [
   },
 ];
 
-// Client logos for marquee - using actual client logos
+// Client logos for marquee - using actual client logos with black backgrounds
 const clientLogos = [
   {
-    name: "AZ Elite Granite LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-G6kegAD164ugND1GXJp5JvtQVtzwlz.png",
-    width: 120,
-    height: 60,
+    name: "Vibrant Vistas Landscape",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed-BZdqK19fjOZy4B9ZmSV9RpmOmLTcZg.png",
+    width: 180,
+    height: 50,
   },
   {
     name: "Desert Valley Patio Covers",
@@ -84,51 +84,33 @@ const clientLogos = [
     height: 60,
   },
   {
-    name: "Landscaping Perez LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2%20copy-eVx7J8BLedihjJMFsLQhz0QBfkEr87.png",
+    name: "AZ Elite Granite LLC",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_16_36%20PM-5nS8Ow08sgZs9FyUk2TgA6vzMcB4o5.png",
     width: 140,
-    height: 70,
-  },
-  {
-    name: "Vibrant Vistas Landscape",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed-BZdqK19fjOZy4B9ZmSV9RpmOmLTcZg.png",
-    width: 180,
-    height: 50,
-  },
-  {
-    name: "Abrusci Interior & Exterior",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura_de_Pantalla_2019-04-09_a_la_s_11.07.45_a._m._360x-8miT5Db211qW5gkO5AoQeJbJDoBMdp.png",
-    width: 150,
-    height: 50,
-  },
-  {
-    name: "Elegant Landscape Inc.",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/elegantlandscape-zNawjRmgECfVmbjmt3d6awGUv7of63.jpg",
-    width: 180,
-    height: 60,
-  },
-  {
-    name: "Desert Valley Structures",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_7g47uh7g47uh7g47-yNHwZKYa626uG35YqEowGmacLepuRy.png",
-    width: 140,
-    height: 70,
-  },
-  {
-    name: "AZ Sun Covers LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cropped-azsuncovers-logo-EPo7JoRQjmntTksuDDwZsYcA3NbbGw.webp",
-    width: 120,
-    height: 70,
-  },
-  {
-    name: "CV",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-2x9THaqCFsJw1KVTsp59JOMtMgU0fF.png",
-    width: 70,
     height: 70,
   },
   {
     name: "5th Element Outdoor Creations",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3e0a1862-e2c1-4dd6-80ad-28b34939a073-dboighc4FISsE7mcKKrTAOvP76xN0w.png",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_15_05%20PM-M7d24da4J7zflIL4lOa2zulphLVW54.png",
     width: 140,
+    height: 70,
+  },
+  {
+    name: "CV",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_19_28%20PM-5FDfsJO1iGLSJmEze6VOYfDlFsVNg1.png",
+    width: 80,
+    height: 80,
+  },
+  {
+    name: "Desert Valley Structures LLC",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_21_06%20PM-TdlOu6IpB8ZmZI0EFZ3yNLAfV12FiI.png",
+    width: 160,
+    height: 70,
+  },
+  {
+    name: "Landscaping Perez LLC",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_18_00%20PM-yGj5qGvn3Td5xog2qZwIFGaH7D6KhC.png",
+    width: 160,
     height: 70,
   },
 ];
