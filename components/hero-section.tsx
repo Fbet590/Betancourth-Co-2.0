@@ -830,18 +830,18 @@ export function HeroSection() {
 
           {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style with live website */}
           <div className="lg:hidden flex justify-center px-4">
-            <div className="w-full max-w-[360px]">
+            <div className="w-full max-w-[260px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPortfolioIndex}
-                  initial={{ opacity: 0, x: 50, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -50, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="relative overflow-hidden rounded-[2.5rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="relative overflow-hidden rounded-[2rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl"
                 >
                   {/* Live website iframe in phone frame */}
-                  <div className="relative aspect-[9/19] bg-black overflow-hidden">
+                  <div className="relative aspect-[9/16] bg-black overflow-hidden">
                     <iframe
                       src={portfolioExamples[currentPortfolioIndex].url}
                       title={portfolioExamples[currentPortfolioIndex].title}
