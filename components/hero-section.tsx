@@ -786,8 +786,8 @@ export function HeroSection() {
           </div>
 
           {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style with live website */}
-          <div className="lg:hidden flex justify-center">
-            <div className="w-[280px]">
+          <div className="lg:hidden flex justify-center px-4">
+            <div className="w-full max-w-[360px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPortfolioIndex}
