@@ -160,6 +160,18 @@ export function HeroSection() {
   const [error, setError] = useState("");
   const [hoveredOption, setHoveredOption] = useState<string | null>(null);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (dropdownOpen && !target.closest('.dropdown-container')) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [dropdownOpen]);
+
   // Swipe handlers for mobile review carousel
   const minSwipeDistance = 50;
 
@@ -378,7 +390,7 @@ export function HeroSection() {
 
       case "dropdown":
         return (
-          <div className="relative">
+          <div className="relative dropdown-container">
             <motion.button
               whileTap={{ scale: 0.99 }}
               whileHover={{ borderColor: "rgba(255, 255, 255, 0.6)" }}
@@ -405,8 +417,7 @@ export function HeroSection() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2, type: "spring", stiffness: 400, damping: 25 }}
-                  className="fixed left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-lg mt-2 border border-white/20 bg-[#1a4a4a] rounded-xl shadow-2xl z-[100] max-h-80 overflow-y-auto"
-                  style={{ top: "auto" }}
+                  className="absolute left-0 right-0 mt-2 border border-white/20 bg-[#1a4a4a] rounded-xl shadow-2xl z-[100] max-h-60 overflow-y-auto"
                 >
                   {step.options?.map((option, idx) => (
                     <motion.button
@@ -517,7 +528,36 @@ export function HeroSection() {
           >
             Yeah, you need a <em className="italic">website.</em>
             <span className="block h-4 md:h-6" />
-            No, you don&apos;t need to spend $3,000.
+            No, you{" "}
+            <span className="relative inline-block">
+              don&apos;t
+              {/* Hand-drawn mustard yellow ink pen circle */}
+              <svg
+                className="absolute -inset-1 md:-inset-2 w-[calc(100%+8px)] md:w-[calc(100%+16px)] h-[calc(100%+16px)] md:h-[calc(100%+24px)] -left-1 md:-left-2 -top-2 md:-top-3 pointer-events-none"
+                viewBox="0 0 120 70"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+              >
+                <motion.path
+                  d="M 15 35 
+                     C 12 20, 30 8, 60 10 
+                     C 90 12, 110 22, 108 38 
+                     C 106 54, 85 62, 55 60 
+                     C 25 58, 8 48, 12 35
+                     C 14 28, 25 22, 35 25"
+                  stroke="#D4A017"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                />
+              </svg>
+            </span>
+            {" "}need to spend $3,000.
           </motion.h1>
 
           {/* Subheadline */}
@@ -540,7 +580,7 @@ export function HeroSection() {
             {/* Form with solid teal background */}
             <div className="relative">
               <motion.div 
-                className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a]/50 overflow-hidden"
+                className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a]/50"
                 whileHover={{ borderColor: "rgba(61, 138, 138, 0.7)" }}
                 transition={{ duration: 0.3 }}
               >
