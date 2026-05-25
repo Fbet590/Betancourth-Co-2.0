@@ -531,30 +531,29 @@ export function HeroSection() {
             No, you{" "}
             <span className="relative inline-block">
               don&apos;t
-              {/* Mustard yellow ink pen circle */}
+              {/* Hand-drawn mustard yellow ink pen circle */}
               <svg
-                className="absolute -inset-2 md:-inset-3 w-[calc(100%+16px)] md:w-[calc(100%+24px)] h-[calc(100%+16px)] md:h-[calc(100%+24px)] -left-2 md:-left-3 -top-2 md:-top-3"
-                viewBox="0 0 100 60"
+                className="absolute -inset-1 md:-inset-2 w-[calc(100%+8px)] md:w-[calc(100%+16px)] h-[calc(100%+16px)] md:h-[calc(100%+24px)] -left-1 md:-left-2 -top-2 md:-top-3 pointer-events-none"
+                viewBox="0 0 120 70"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="none"
               >
-                <motion.ellipse
-                  cx="50"
-                  cy="30"
-                  rx="46"
-                  ry="24"
+                <motion.path
+                  d="M 15 35 
+                     C 12 20, 30 8, 60 10 
+                     C 90 12, 110 22, 108 38 
+                     C 106 54, 85 62, 55 60 
+                     C 25 58, 8 48, 12 35
+                     C 14 28, 25 22, 35 25"
                   stroke="#D4A017"
                   strokeWidth="2.5"
                   strokeLinecap="round"
+                  strokeLinejoin="round"
                   fill="none"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
-                  style={{
-                    transform: "rotate(-3deg)",
-                    transformOrigin: "center",
-                  }}
+                  transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
                 />
               </svg>
             </span>
@@ -581,7 +580,7 @@ export function HeroSection() {
             {/* Form with solid teal background */}
             <div className="relative">
               <motion.div 
-                className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a]/50 overflow-hidden"
+                className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a]/50"
                 whileHover={{ borderColor: "rgba(61, 138, 138, 0.7)" }}
                 transition={{ duration: 0.3 }}
               >
