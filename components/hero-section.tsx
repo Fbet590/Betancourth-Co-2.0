@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -156,7 +156,11 @@ export function HeroSection() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [userInteracted, setUserInteracted] = useState(false);
   const [portfolioUserInteracted, setPortfolioUserInteracted] = useState(false);
-
+  
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  
   // Form state
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<string[]>(new Array(formSteps.length).fill(""));
@@ -245,7 +249,41 @@ export function HeroSection() {
     setPortfolioUserInteracted(true);
     setCurrentPortfolioIndex((prev) => (prev - 1 + portfolioExamples.length) % portfolioExamples.length);
   };
-
+  
+  // Lightbox functions
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+  
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = '';
+  };
+  
+  const goToNextLightbox = () => {
+    setLightboxIndex((prev) => (prev + 1) % portfolioExamples.length);
+  };
+  
+  const goToPrevLightbox = () => {
+    setLightboxIndex((prev) => (prev - 1 + portfolioExamples.length) % portfolioExamples.length);
+  };
+  
+  // Lightbox keyboard navigation
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') goToNextLightbox();
+      else if (e.key === 'ArrowLeft') goToPrevLightbox();
+    };
+    
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen]);
+  
   // Form handlers
   const handleInputChange = (value: string) => {
     const newFormData = [...formData];
@@ -812,26 +850,29 @@ export function HeroSection() {
                 transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, y: -8 }}
+                onClick={() => openLightbox(index)}
                 className="group relative overflow-hidden rounded-[2.5rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl cursor-pointer transition-all duration-500"
               >
                 {/* Animated glow effect on hover */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-emerald-500/20 to-green-600/20" />
                 
-                {/* Scrollable screenshot in phone frame */}
+                {/* Screenshot preview in phone frame */}
                 <div className="relative aspect-[9/19] bg-white overflow-hidden">
-                  <div className="absolute inset-0 overflow-y-auto scrollbar-hide">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={400}
-                      height={2000}
-                      className="w-full h-auto"
-                      style={{ minHeight: '100%' }}
-                    />
-                  </div>
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={400}
+                    height={800}
+                    className="w-full h-auto object-cover object-top"
+                  />
                   
                   {/* Phone notch/dynamic island */}
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-10" />
+                  
+                  {/* Click to expand hint */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                    <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">Click to expand</span>
+                  </div>
                 </div>
                 
                 {/* Info overlay */}
@@ -853,27 +894,25 @@ export function HeroSection() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="relative overflow-hidden rounded-[2rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl"
+                  onClick={() => openLightbox(currentPortfolioIndex)}
+                  className="relative overflow-hidden rounded-[2rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl cursor-pointer"
                 >
-                  {/* Scrollable screenshot in phone frame */}
+                  {/* Screenshot preview in phone frame */}
                   <div className="relative aspect-[9/16] bg-white overflow-hidden">
-                    <div className="absolute inset-0 overflow-y-auto scrollbar-hide">
-                      <Image
-                        src={portfolioExamples[currentPortfolioIndex].image}
-                        alt={portfolioExamples[currentPortfolioIndex].title}
-                        width={300}
-                        height={1500}
-                        className="w-full h-auto"
-                        style={{ minHeight: '100%' }}
-                      />
-                    </div>
+                    <Image
+                      src={portfolioExamples[currentPortfolioIndex].image}
+                      alt={portfolioExamples[currentPortfolioIndex].title}
+                      width={300}
+                      height={600}
+                      className="w-full h-auto object-cover object-top"
+                    />
                     
                     {/* Phone notch/dynamic island */}
                     <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black rounded-full z-10" />
                     
-                    {/* Scroll indicator */}
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 animate-bounce">
-                      <ChevronDown className="w-4 h-4 text-black/40" />
+                    {/* Tap to expand hint */}
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center z-10">
+                      <span className="text-black/50 text-xs">Tap to expand</span>
                     </div>
                   </div>
                   
@@ -925,6 +964,101 @@ export function HeroSection() {
           </div>
         </div>
       </section>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+            onClick={closeLightbox}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 flex items-center justify-center text-white hover:text-white/80 transition-colors z-20"
+              aria-label="Close lightbox"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Previous arrow */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                goToPrevLightbox();
+              }}
+              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center text-white hover:text-white/80 transition-colors z-20"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-8 h-8" />
+            </button>
+
+            {/* Next arrow */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                goToNextLightbox();
+              }}
+              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center text-white hover:text-white/80 transition-colors z-20"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-8 h-8" />
+            </button>
+
+            {/* Phone frame with scrollable screenshot */}
+            <motion.div
+              key={lightboxIndex}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-[280px] md:w-[320px] max-h-[85vh] rounded-[2.5rem] border-4 border-gray-800 bg-white overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Phone notch */}
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-20" />
+              
+              {/* Scrollable screenshot container */}
+              <div className="h-[70vh] md:h-[75vh] overflow-y-auto scrollbar-hide">
+                <Image
+                  src={portfolioExamples[lightboxIndex].image}
+                  alt={portfolioExamples[lightboxIndex].title}
+                  width={400}
+                  height={2500}
+                  className="w-full h-auto"
+                />
+              </div>
+              
+              {/* Info bar at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent z-10">
+                <h3 className="text-white font-medium text-base">{portfolioExamples[lightboxIndex].title}</h3>
+                <p className="text-white/60 text-sm">{portfolioExamples[lightboxIndex].category}</p>
+              </div>
+            </motion.div>
+
+            {/* Dot indicators */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+              {portfolioExamples.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightboxIndex(index);
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === lightboxIndex ? 'bg-white w-6' : 'bg-white/40'
+                  }`}
+                  aria-label={`Go to image ${index + 1}`}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
