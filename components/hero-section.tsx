@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -72,11 +72,63 @@ const clientLogos = [
   },
 ];
 
+// Form step types
+interface FormStep {
+  question: string;
+  type: "radio" | "dropdown" | "text" | "email" | "phone";
+  options?: string[];
+  placeholder?: string;
+  required: boolean;
+}
+
+const formSteps: FormStep[] = [
+  {
+    question: "What's your position?",
+    type: "radio",
+    options: ["CEO/Owner", "Manager", "Sales Rep"],
+    required: true,
+  },
+  {
+    question: "What kind of company do you own?",
+    type: "dropdown",
+    options: ["Welding", "Hardscape", "Patio Covers", "Home Remodeling", "Concrete", "Plumbing", "Fencing", "Roofing", "Painting"],
+    required: true,
+  },
+  {
+    question: "What's your full name?",
+    type: "text",
+    placeholder: "John Smith",
+    required: true,
+  },
+  {
+    question: "What's your email address?",
+    type: "email",
+    placeholder: "john@company.com",
+    required: true,
+  },
+  {
+    question: "What's your phone number?",
+    type: "phone",
+    placeholder: "(555) 123-4567",
+    required: true,
+  },
+];
+
 export function HeroSection() {
+  // Review carousel state
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [userInteracted, setUserInteracted] = useState(false);
+
+  // Form state
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState<string[]>(new Array(formSteps.length).fill(""));
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [hoveredOption, setHoveredOption] = useState<string | null>(null);
 
   // Swipe handlers for mobile review carousel
   const minSwipeDistance = 50;
@@ -127,6 +179,229 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, [userInteracted]);
 
+  // Form handlers
+  const handleInputChange = (value: string) => {
+    const newFormData = [...formData];
+    newFormData[currentStep] = value;
+    setFormData(newFormData);
+    setError("");
+  };
+
+  const validateCurrentStep = (): boolean => {
+    const currentValue = formData[currentStep];
+    const step = formSteps[currentStep];
+
+    if (step.required && !currentValue.trim()) {
+      setError("This field is required");
+      return false;
+    }
+
+    if (step.type === "email" && currentValue) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(currentValue)) {
+        setError("Please enter a valid email address");
+        return false;
+      }
+    }
+
+    if (step.type === "phone" && currentValue) {
+      const phoneRegex = /^[\d\s\-\(\)\+]{10,}$/;
+      if (!phoneRegex.test(currentValue.replace(/\s/g, ""))) {
+        setError("Please enter a valid phone number");
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const handleNext = () => {
+    if (!validateCurrentStep()) return;
+
+    if (currentStep < formSteps.length - 1) {
+      setCurrentStep(currentStep + 1);
+      setError("");
+    } else {
+      handleSubmit();
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+      setError("");
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!validateCurrentStep()) return;
+
+    setIsSubmitting(true);
+
+    // Simulate submission delay (no webhook)
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Log form data to console for debugging/testing
+    console.log("Form submitted:", {
+      position: formData[0],
+      companyType: formData[1],
+      fullName: formData[2],
+      email: formData[3],
+      phone: formData[4],
+      submittedAt: new Date().toISOString(),
+    });
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+  };
+
+  const formatPhoneNumber = (value: string): string => {
+    const numbers = value.replace(/\D/g, "");
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 6) return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
+    return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6, 10)}`;
+  };
+
+  const renderFormStep = () => {
+    const step = formSteps[currentStep];
+    const currentValue = formData[currentStep];
+
+    switch (step.type) {
+      case "radio":
+        return (
+          <div className="space-y-3">
+            {step.options?.map((option, idx) => (
+              <motion.button
+                key={option}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: idx * 0.05 }}
+                onClick={() => handleInputChange(option)}
+                onMouseEnter={() => setHoveredOption(option)}
+                onMouseLeave={() => setHoveredOption(null)}
+                whileHover={{ scale: 1.02, x: 4 }}
+                whileTap={{ scale: 0.98 }}
+                className={`w-full px-5 py-4 text-left border rounded-xl transition-all duration-300 flex items-center justify-between group ${
+                  currentValue === option
+                    ? "border-white bg-white text-[#1a4a4a]"
+                    : hoveredOption === option
+                    ? "border-white/40 bg-white/10"
+                    : "border-white/20 bg-white/5 text-white"
+                }`}
+              >
+                <span className="text-sm font-medium">{option}</span>
+                <motion.div
+                  initial={false}
+                  animate={{ 
+                    scale: currentValue === option ? 1 : 0,
+                    opacity: currentValue === option ? 1 : 0
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <Check className="w-5 h-5" />
+                </motion.div>
+              </motion.button>
+            ))}
+          </div>
+        );
+
+      case "dropdown":
+        return (
+          <div className="relative">
+            <motion.button
+              whileTap={{ scale: 0.99 }}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`w-full px-5 py-4 text-left border rounded-xl transition-all duration-300 flex items-center justify-between ${
+                dropdownOpen ? "border-white/60 bg-white/10" : "border-white/20 bg-white/5"
+              }`}
+            >
+              <span className={`text-sm ${currentValue ? "text-white" : "text-white/50"}`}>
+                {currentValue || "Select an option"}
+              </span>
+              <motion.div
+                animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ChevronDown className="w-5 h-5 text-white/50" />
+              </motion.div>
+            </motion.button>
+            
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full left-0 right-0 mt-2 border border-white/20 bg-[#1a4a4a] rounded-xl shadow-2xl z-50 max-h-60 overflow-y-auto overflow-hidden"
+                >
+                  {step.options?.map((option, idx) => (
+                    <motion.button
+                      key={option}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.2, delay: idx * 0.03 }}
+                      onClick={() => {
+                        handleInputChange(option);
+                        setDropdownOpen(false);
+                      }}
+                      className={`w-full px-5 py-3 text-left text-sm transition-all duration-200 ${
+                        currentValue === option
+                          ? "bg-white text-[#1a4a4a] font-medium"
+                          : "text-white hover:bg-white/10"
+                      }`}
+                    >
+                      {option}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+
+      case "text":
+      case "email":
+        return (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <input
+              type={step.type}
+              value={currentValue}
+              onChange={(e) => handleInputChange(e.target.value)}
+              placeholder={step.placeholder}
+              className="w-full px-5 py-4 border border-white/20 bg-white/5 rounded-xl text-white text-sm placeholder:text-white/40 focus:outline-none focus:border-white/60 focus:bg-white/10 transition-all duration-300"
+              autoFocus
+            />
+          </motion.div>
+        );
+
+      case "phone":
+        return (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <input
+              type="tel"
+              value={currentValue}
+              onChange={(e) => handleInputChange(formatPhoneNumber(e.target.value))}
+              placeholder={step.placeholder}
+              className="w-full px-5 py-4 border border-white/20 bg-white/5 rounded-xl text-white text-sm placeholder:text-white/40 focus:outline-none focus:border-white/60 focus:bg-white/10 transition-all duration-300"
+              autoFocus
+            />
+          </motion.div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       {/* Hero Section - Minimal Editorial Style */}
@@ -139,7 +414,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8"
           >
-            A Growth Partner for Home Service Contractors
+            A Growth Partner
           </motion.p>
 
           {/* Main headline - Fraunces serif */}
@@ -158,24 +433,178 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="text-[#1A1A1A]/60 text-base leading-[1.6] max-w-2xl mx-auto mb-12"
+            className="text-[#1A1A1A]/60 text-2xl leading-[1.6] max-w-2xl mx-auto mb-12"
           >
-            We build contractor businesses the way they should be built. With data guiding every decision and nothing left to guesswork.
+            $300 Flat Pricing instead of overpaying insane prices.
           </motion.p>
 
-          {/* Single CTA Button - Editorial style */}
+          {/* Multi-step Form - Dark Teal Contrast Style */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            className="max-w-lg mx-auto mt-4"
           >
-            <button 
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
-            >
-              Apply Now
-              <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
-            </button>
+            {/* Outer glow effect */}
+            <div className="relative">
+              <motion.div 
+                animate={{ 
+                  boxShadow: [
+                    "0 0 40px rgba(26, 74, 74, 0.3)",
+                    "0 0 60px rgba(26, 74, 74, 0.4)",
+                    "0 0 40px rgba(26, 74, 74, 0.3)"
+                  ]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] blur-sm"
+              />
+              
+              <div className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border border-white/10 backdrop-blur-xl overflow-hidden">
+                {/* Animated background orbs */}
+                <motion.div 
+                  animate={{ 
+                    scale: [1, 1.2, 1],
+                    opacity: [0.1, 0.2, 0.1]
+                  }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#3d8a8a] to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" 
+                />
+                <motion.div 
+                  animate={{ 
+                    scale: [1.2, 1, 1.2],
+                    opacity: [0.1, 0.15, 0.1]
+                  }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#2a6666] to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" 
+                />
+
+                {isSubmitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-8 relative z-10"
+                  >
+                    <motion.div
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                      className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30"
+                    >
+                      <Check className="w-10 h-10 text-white" />
+                    </motion.div>
+                    <h3 className="font-serif text-2xl text-white mb-3">Application Received!</h3>
+                    <p className="text-white/60 text-sm">
+                      We&apos;ll review your application and get back to you within 24-48 hours.
+                    </p>
+                  </motion.div>
+                ) : (
+                  <div className="relative z-10">
+                    {/* Animated step dots */}
+                    <div className="flex justify-center gap-3 mb-8">
+                      {formSteps.map((_, index) => (
+                        <motion.div
+                          key={index}
+                          animate={{
+                            scale: index === currentStep ? 1 : 0.8,
+                            opacity: index === currentStep ? 1 : index < currentStep ? 0.7 : 0.3,
+                          }}
+                          transition={{ duration: 0.3 }}
+                          className={`h-2 rounded-full transition-all duration-500 ${
+                            index === currentStep 
+                              ? "w-10 bg-white" 
+                              : index < currentStep 
+                              ? "w-2 bg-white/70" 
+                              : "w-2 bg-white/30"
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Step counter with animation */}
+                    <motion.p 
+                      key={`step-${currentStep}`}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-white/40 text-xs uppercase tracking-[0.2em] mb-4 text-center"
+                    >
+                      Step {currentStep + 1} of {formSteps.length}
+                    </motion.p>
+
+                    {/* Question with slide animation */}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentStep}
+                        initial={{ opacity: 0, x: 30, scale: 0.98 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: -30, scale: 0.98 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                      >
+                        <h3 className="font-serif text-xl md:text-2xl text-white mb-6 text-center">
+                          {formSteps[currentStep].question}
+                        </h3>
+
+                        {renderFormStep()}
+
+                        {/* Error message */}
+                        <AnimatePresence>
+                          {error && (
+                            <motion.p
+                              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                              className="text-red-400 text-xs mt-4 text-center bg-red-500/10 py-2 px-4 rounded-lg border border-red-500/20"
+                            >
+                              {error}
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    </AnimatePresence>
+
+                    {/* Navigation buttons */}
+                    <div className="flex items-center justify-between mt-10">
+                      {currentStep > 0 ? (
+                        <motion.button
+                          whileHover={{ x: -3 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={handleBack}
+                          className="flex items-center text-white/60 text-sm hover:text-white transition-colors duration-300"
+                        >
+                          <ArrowLeft className="w-4 h-4 mr-2" />
+                          Back
+                        </motion.button>
+                      ) : (
+                        <div />
+                      )}
+
+                      <motion.button
+                        whileHover={{ scale: 1.02, boxShadow: "0 8px 30px rgba(255,255,255,0.2)" }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={handleNext}
+                        disabled={isSubmitting}
+                        className="inline-flex items-center bg-white text-[#1a4a4a] hover:bg-white/90 px-8 py-4 rounded-full text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 shadow-lg shadow-black/20"
+                      >
+                        {isSubmitting ? (
+                          <span className="flex items-center">
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                              className="w-5 h-5 border-2 border-[#1a4a4a]/30 border-t-[#1a4a4a] rounded-full mr-2"
+                            />
+                            Submitting...
+                          </span>
+                        ) : (
+                          <>
+                            {currentStep === formSteps.length - 1 ? "Submit Application" : "Continue"}
+                            <ArrowRight className="ml-2 w-4 h-4" />
+                          </>
+                        )}
+                      </motion.button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -331,7 +760,7 @@ export function HeroSection() {
             className="text-center mt-16 md:mt-24"
           >
             <button
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
             >
               Apply Now
