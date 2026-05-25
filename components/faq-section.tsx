@@ -11,28 +11,28 @@ import {
 
 const faqs = [
   {
-    question: "What industries do you work with?",
-    answer: "We specialize in home service contractors including welding, hardscape, patio covers, remodeling, and concrete companies. Our proven 4-step system is specifically designed for trades businesses looking to generate more qualified leads.",
+    question: "Why does my business need a website?",
+    answer: "Your website is your digital storefront that works 24/7. It builds credibility, helps customers find you online, and converts visitors into paying customers. Studies show that 75% of consumers judge a company's credibility based on their website design.",
   },
   {
-    question: "What's the difference between Performance Based and Flat Fee?",
-    answer: "With Performance Based pricing, you only pay per qualified lead generated - no upfront costs or retainers. With Flat Fee, you get predictable monthly pricing with full-service marketing included. Both models deliver measurable results, and we'll help you choose the right fit during your free strategy session.",
+    question: "How long does it take to build a website?",
+    answer: "Most websites are completed within 1-2 weeks depending on complexity. We handle everything from design to development to launch, so you can focus on running your business while we build your online presence.",
   },
   {
-    question: "How does your lead qualification process work?",
-    answer: "Every lead goes through our proven 4-step system: We target and attract homeowners through ads on ALL platforms, qualify and filter out tire-kickers, verify contact info, address and project budget, then handle follow-up and appointment setting. You just show up and close the deal.",
+    question: "What's included in the website package?",
+    answer: "Every website includes custom design, mobile optimization, SEO setup, fast hosting, contact forms, and ongoing support. We also integrate with your existing tools and can add features like appointment booking, galleries, and more.",
   },
   {
-    question: "Do you set appointments for me?",
-    answer: "Yes. Our service includes follow-up and appointment setting directly on your calendar. We handle the lead nurturing and scheduling so you can focus on what you do best - your trade.",
+    question: "Will my website work on mobile devices?",
+    answer: "Absolutely. All our websites are built mobile-first, meaning they look and function perfectly on smartphones, tablets, and desktops. With over 60% of web traffic coming from mobile devices, this is essential for your business.",
   },
   {
-    question: "How long before I see results?",
-    answer: "Most clients start seeing qualified leads within 1-4 weeks of campaign launch. We run targeted ad campaigns on all platforms to place your business in front of homeowners already looking for what you do.",
+    question: "Do you help with content and images?",
+    answer: "Yes! We can help with copywriting, source professional stock images, or work with photos you provide. Our goal is to make the process as easy as possible for you.",
   },
   {
-    question: "What happens on the free strategy session?",
-    answer: "We'll discuss your current situation, analyze your market opportunity, create a custom growth plan tailored to your business, and outline clear next steps. No commitment required - just a conversation about your growth.",
+    question: "What happens after my website is live?",
+    answer: "We provide ongoing support and maintenance to keep your site secure and up-to-date. We're always available to make updates, add new features, or answer questions as your business grows.",
   },
 ];
 
@@ -54,7 +54,7 @@ export function FAQSection() {
             Frequently Asked <em className="italic">Questions</em>
           </h2>
           <p className="text-[#1A1A1A]/60 text-base leading-[1.6]">
-            Additional information about our lead generation service.
+            Additional information about our website building service.
           </p>
         </motion.div>
 
@@ -91,10 +91,10 @@ export function FAQSection() {
         >
           <p className="text-[#1A1A1A]/50 mb-8 text-sm">Still have questions?</p>
           <button 
-            onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
           >
-            Book a Free Discovery Call
+            Get Started
             <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
           </button>
         </motion.div>

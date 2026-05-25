@@ -40,14 +40,11 @@ export function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-12">
-              <Link href="#pricing" className="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors duration-400 text-sm tracking-wide">
-                Pricing
+              <Link href="#portfolio" className="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors duration-400 text-sm tracking-wide">
+                Our Work
               </Link>
-              <Link href="#services" className="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors duration-400 text-sm tracking-wide">
-                Services
-              </Link>
-              <Link href="#testimonials" className="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors duration-400 text-sm tracking-wide">
-                Reviews
+              <Link href="#faq" className="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors duration-400 text-sm tracking-wide">
+                FAQ
               </Link>
             </nav>
 
@@ -74,25 +71,18 @@ export function Header() {
             <div className="md:hidden py-6 border-t border-[#1A1A1A]/10">
               <nav className="flex flex-col gap-6">
                 <Link
-                  href="#pricing"
+                  href="#portfolio"
                   className="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors text-sm tracking-wide"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Pricing
+                  Our Work
                 </Link>
                 <Link
-                  href="#services"
+                  href="#faq"
                   className="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors text-sm tracking-wide"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Services
-                </Link>
-                <Link
-                  href="#testimonials"
-                  className="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors text-sm tracking-wide"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Reviews
+                  FAQ
                 </Link>
                 <button 
                   onClick={() => {
