@@ -330,20 +330,29 @@ export function HeroSection() {
             {step.options?.map((option, idx) => (
               <motion.button
                 key={option}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: idx * 0.05 }}
-                onClick={() => handleInputChange(option)}
+                transition={{ duration: 0.3, delay: idx * 0.08, type: "spring", stiffness: 300 }}
+                onClick={() => {
+                  handleInputChange(option);
+                  // Auto-advance after selection with a slight delay
+                  setTimeout(() => {
+                    if (currentStep < formSteps.length - 1) {
+                      setCurrentStep(currentStep + 1);
+                      setError("");
+                    }
+                  }, 400);
+                }}
                 onMouseEnter={() => setHoveredOption(option)}
                 onMouseLeave={() => setHoveredOption(null)}
-                whileHover={{ scale: 1.02, x: 4 }}
-                whileTap={{ scale: 0.98 }}
-                className={`w-full px-5 py-4 text-left border rounded-xl transition-all duration-300 flex items-center justify-between group ${
+                whileHover={{ scale: 1.03, x: 8, boxShadow: "0 8px 25px rgba(245, 158, 11, 0.2)" }}
+                whileTap={{ scale: 0.97 }}
+                className={`w-full px-5 py-4 text-left border-2 rounded-xl transition-all duration-300 flex items-center justify-between group ${
                   currentValue === option
-                    ? "border-white bg-white text-[#1a4a4a]"
+                    ? "border-amber-500 bg-amber-500 text-white shadow-lg shadow-amber-500/30"
                     : hoveredOption === option
-                    ? "border-white/40 bg-white/10"
-                    : "border-white/20 bg-white/5 text-white"
+                    ? "border-amber-500/50 bg-amber-500/10 text-[#1A1A1A]"
+                    : "border-[#1A1A1A]/15 bg-white/50 text-[#1A1A1A]"
                 }`}
               >
                 <span className="text-sm font-medium">{option}</span>
@@ -351,9 +360,10 @@ export function HeroSection() {
                   initial={false}
                   animate={{ 
                     scale: currentValue === option ? 1 : 0,
-                    opacity: currentValue === option ? 1 : 0
+                    opacity: currentValue === option ? 1 : 0,
+                    rotate: currentValue === option ? 0 : -90
                   }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 >
                   <Check className="w-5 h-5" />
                 </motion.div>
@@ -367,19 +377,20 @@ export function HeroSection() {
           <div className="relative">
             <motion.button
               whileTap={{ scale: 0.99 }}
+              whileHover={{ borderColor: "rgba(245, 158, 11, 0.5)" }}
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className={`w-full px-5 py-4 text-left border rounded-xl transition-all duration-300 flex items-center justify-between ${
-                dropdownOpen ? "border-white/60 bg-white/10" : "border-white/20 bg-white/5"
+              className={`w-full px-5 py-4 text-left border-2 rounded-xl transition-all duration-300 flex items-center justify-between bg-white/50 ${
+                dropdownOpen ? "border-amber-500 shadow-lg shadow-amber-500/20" : "border-[#1A1A1A]/15"
               }`}
             >
-              <span className={`text-sm ${currentValue ? "text-white" : "text-white/50"}`}>
+              <span className={`text-sm ${currentValue ? "text-[#1A1A1A]" : "text-[#1A1A1A]/50"}`}>
                 {currentValue || "Select an option"}
               </span>
               <motion.div
                 animate={{ rotate: dropdownOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
               >
-                <ChevronDown className="w-5 h-5 text-white/50" />
+                <ChevronDown className={`w-5 h-5 ${dropdownOpen ? "text-amber-500" : "text-[#1A1A1A]/50"}`} />
               </motion.div>
             </motion.button>
             
@@ -389,23 +400,32 @@ export function HeroSection() {
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute top-full left-0 right-0 mt-2 border border-white/20 bg-[#1a4a4a] rounded-xl shadow-2xl z-50 max-h-60 overflow-y-auto overflow-hidden"
+                  transition={{ duration: 0.2, type: "spring", stiffness: 400, damping: 25 }}
+                  className="fixed left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-lg mt-2 border-2 border-amber-500/30 bg-white rounded-xl shadow-2xl shadow-amber-500/10 z-[100] max-h-80 overflow-y-auto"
+                  style={{ top: "auto" }}
                 >
                   {step.options?.map((option, idx) => (
                     <motion.button
                       key={option}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.2, delay: idx * 0.03 }}
+                      transition={{ duration: 0.15, delay: idx * 0.03 }}
                       onClick={() => {
                         handleInputChange(option);
                         setDropdownOpen(false);
+                        // Auto-advance after selection
+                        setTimeout(() => {
+                          if (currentStep < formSteps.length - 1) {
+                            setCurrentStep(currentStep + 1);
+                            setError("");
+                          }
+                        }, 300);
                       }}
-                      className={`w-full px-5 py-3 text-left text-sm transition-all duration-200 ${
+                      whileHover={{ backgroundColor: "rgba(245, 158, 11, 0.1)", x: 4 }}
+                      className={`w-full px-5 py-3.5 text-left text-sm transition-all duration-200 ${
                         currentValue === option
-                          ? "bg-white text-[#1a4a4a] font-medium"
-                          : "text-white hover:bg-white/10"
+                          ? "bg-amber-500 text-white font-medium"
+                          : "text-[#1A1A1A] hover:text-amber-600"
                       }`}
                     >
                       {option}
@@ -421,8 +441,8 @@ export function HeroSection() {
       case "email":
         return (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
             <input
@@ -430,7 +450,12 @@ export function HeroSection() {
               value={currentValue}
               onChange={(e) => handleInputChange(e.target.value)}
               placeholder={step.placeholder}
-              className="w-full px-5 py-4 border border-white/20 bg-white/5 rounded-xl text-white text-sm placeholder:text-white/40 focus:outline-none focus:border-white/60 focus:bg-white/10 transition-all duration-300"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && currentValue.trim()) {
+                  handleNext();
+                }
+              }}
+              className="w-full px-5 py-4 border-2 border-[#1A1A1A]/15 bg-white/50 rounded-xl text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-amber-500 focus:bg-white focus:shadow-lg focus:shadow-amber-500/10 transition-all duration-300"
               autoFocus
             />
           </motion.div>
@@ -439,8 +464,8 @@ export function HeroSection() {
       case "phone":
         return (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
             <input
@@ -448,7 +473,12 @@ export function HeroSection() {
               value={currentValue}
               onChange={(e) => handleInputChange(formatPhoneNumber(e.target.value))}
               placeholder={step.placeholder}
-              className="w-full px-5 py-4 border border-white/20 bg-white/5 rounded-xl text-white text-sm placeholder:text-white/40 focus:outline-none focus:border-white/60 focus:bg-white/10 transition-all duration-300"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && currentValue.trim()) {
+                  handleNext();
+                }
+              }}
+              className="w-full px-5 py-4 border-2 border-[#1A1A1A]/15 bg-white/50 rounded-xl text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-amber-500 focus:bg-white focus:shadow-lg focus:shadow-amber-500/10 transition-all duration-300"
               autoFocus
             />
           </motion.div>
@@ -496,32 +526,36 @@ export function HeroSection() {
             $300 Flat Pricing instead of overpaying insane prices.
           </motion.p>
 
-          {/* Multi-step Form - Dark Teal Contrast Style */}
+          {/* Multi-step Form - Orange Aesthetic Style */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             className="max-w-lg mx-auto mt-4"
           >
-            {/* Form with border outline instead of glow */}
+            {/* Form with orange gradient and border */}
             <div className="relative">
-              <div className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a] overflow-hidden">
-                {/* Animated background orbs */}
+              <motion.div 
+                className="relative bg-gradient-to-br from-amber-500/20 to-orange-600/30 rounded-2xl p-8 md:p-10 border-2 border-amber-500/40 backdrop-blur-xl"
+                whileHover={{ borderColor: "rgba(245, 158, 11, 0.6)" }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Animated background orbs - orange themed */}
                 <motion.div 
                   animate={{ 
                     scale: [1, 1.2, 1],
-                    opacity: [0.1, 0.2, 0.1]
+                    opacity: [0.15, 0.25, 0.15]
                   }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#3d8a8a] to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" 
+                  className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-amber-500/30 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" 
                 />
                 <motion.div 
                   animate={{ 
                     scale: [1.2, 1, 1.2],
-                    opacity: [0.1, 0.15, 0.1]
+                    opacity: [0.1, 0.2, 0.1]
                   }}
                   transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#2a6666] to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" 
+                  className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-orange-600/30 to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" 
                 />
 
                 {isSubmitted ? (
@@ -534,38 +568,49 @@ export function HeroSection() {
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                      className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6"
+                      className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6"
                     >
                       <Check className="w-10 h-10 text-white" />
                     </motion.div>
-                    <h3 className="font-serif text-2xl text-white mb-3">Application Received!</h3>
-                    <p className="text-white/60 text-sm">
+                    <h3 className="font-serif text-2xl text-[#1A1A1A] mb-3">Application Received!</h3>
+                    <p className="text-[#1A1A1A]/60 text-sm">
                       We&apos;ll review your application and get back to you within 24-48 hours.
                     </p>
                   </motion.div>
                 ) : (
                   <div className="relative z-10">
                     {/* Form headline */}
-                    <h2 className="font-serif text-xl md:text-[30px] text-white text-center mb-6 leading-tight">
+                    <h2 className="font-serif text-xl md:text-[28px] text-[#1A1A1A] text-center mb-2 leading-tight">
                       Get Your Website Made ASAP Without Overpaying for It!
                     </h2>
+                    
+                    {/* Form subheadline */}
+                    <p className="text-[#1A1A1A]/50 text-sm text-center mb-6">
+                      Fill Out our quick form! Less than 12 seconds
+                    </p>
 
-                    {/* Animated step dots */}
-                    <div className="flex justify-center gap-3 mb-8">
+                    {/* Animated step dots - orange themed */}
+                    <div className="flex justify-center gap-3 mb-6">
                       {formSteps.map((_, index) => (
-                        <motion.div
+                        <motion.button
                           key={index}
-                          animate={{
-                            scale: index === currentStep ? 1 : 0.8,
-                            opacity: index === currentStep ? 1 : index < currentStep ? 0.7 : 0.3,
+                          onClick={() => {
+                            if (index < currentStep) {
+                              setCurrentStep(index);
+                            }
                           }}
-                          transition={{ duration: 0.3 }}
-                          className={`h-2 rounded-full transition-all duration-500 ${
+                          animate={{
+                            scale: index === currentStep ? 1.2 : 1,
+                          }}
+                          whileHover={{ scale: 1.3 }}
+                          whileTap={{ scale: 0.9 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                          className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                             index === currentStep 
-                              ? "w-10 bg-white" 
+                              ? "w-10 bg-amber-500" 
                               : index < currentStep 
-                              ? "w-2 bg-white/70" 
-                              : "w-2 bg-white/30"
+                              ? "w-2.5 bg-amber-500/70 hover:bg-amber-500" 
+                              : "w-2.5 bg-[#1A1A1A]/20"
                           }`}
                         />
                       ))}
@@ -576,7 +621,7 @@ export function HeroSection() {
                       key={`step-${currentStep}`}
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="text-white/40 text-xs uppercase tracking-[0.2em] mb-4 text-center"
+                      className="text-[#1A1A1A]/40 text-xs uppercase tracking-[0.2em] mb-4 text-center"
                     >
                       Step {currentStep + 1} of {formSteps.length}
                     </motion.p>
@@ -590,7 +635,7 @@ export function HeroSection() {
                         exit={{ opacity: 0, x: -30, scale: 0.98 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                       >
-                        <h3 className="font-serif text-xl md:text-2xl text-white mb-6 text-center">
+                        <h3 className="font-serif text-xl md:text-2xl text-[#1A1A1A] mb-6 text-center">
                           {formSteps[currentStep].question}
                         </h3>
 
@@ -603,7 +648,7 @@ export function HeroSection() {
                               initial={{ opacity: 0, y: -10, scale: 0.95 }}
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                              className="text-red-400 text-xs mt-4 text-center bg-red-500/10 py-2 px-4 rounded-lg border border-red-500/20"
+                              className="text-red-600 text-xs mt-4 text-center bg-red-500/10 py-2 px-4 rounded-lg border border-red-500/20"
                             >
                               {error}
                             </motion.p>
@@ -616,10 +661,10 @@ export function HeroSection() {
                     <div className="flex items-center justify-between mt-10">
                       {currentStep > 0 ? (
                         <motion.button
-                          whileHover={{ x: -3 }}
+                          whileHover={{ x: -3, color: "#1A1A1A" }}
                           whileTap={{ scale: 0.98 }}
                           onClick={handleBack}
-                          className="flex items-center text-white/60 text-sm hover:text-white transition-colors duration-300"
+                          className="flex items-center text-[#1A1A1A]/60 text-sm transition-colors duration-300"
                         >
                           <ArrowLeft className="w-4 h-4 mr-2" />
                           Back
@@ -629,18 +674,18 @@ export function HeroSection() {
                       )}
 
                       <motion.button
-                        whileHover={{ scale: 1.02, boxShadow: "0 8px 30px rgba(255,255,255,0.2)" }}
-                        whileTap={{ scale: 0.98 }}
+                        whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(245, 158, 11, 0.4)" }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={handleNext}
                         disabled={isSubmitting}
-                        className="inline-flex items-center bg-white text-[#1a4a4a] hover:bg-white/90 px-8 py-4 rounded-full text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 shadow-lg shadow-black/20"
+                        className="inline-flex items-center bg-amber-500 text-white hover:bg-amber-600 px-8 py-4 rounded-full text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 shadow-lg shadow-amber-500/30"
                       >
                         {isSubmitting ? (
                           <span className="flex items-center">
                             <motion.div
                               animate={{ rotate: 360 }}
                               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                              className="w-5 h-5 border-2 border-[#1a4a4a]/30 border-t-[#1a4a4a] rounded-full mr-2"
+                              className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full mr-2"
                             />
                             Submitting...
                           </span>
@@ -654,7 +699,7 @@ export function HeroSection() {
                     </div>
                   </div>
                 )}
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -676,9 +721,9 @@ export function HeroSection() {
                 <Image
                   src={logo.src}
                   alt={logo.name}
-                  width={logo.width}
-                  height={logo.height}
-                  className="object-contain h-14 md:h-16 w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
+                  width={Math.round(logo.width * 1.3)}
+                  height={Math.round(logo.height * 1.3)}
+                  className="object-contain h-[72px] md:h-[84px] w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
                 />
               </div>
             ))}
