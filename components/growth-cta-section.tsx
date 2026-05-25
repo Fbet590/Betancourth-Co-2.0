@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
 const benefits = [
   "Consistent flow of qualified leads",
@@ -13,29 +12,27 @@ const benefits = [
 
 export function GrowthCTASection() {
   return (
-    <section className="py-24 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #143838 0%, #1a4545 50%, #143838 100%)' }}>
-      {/* Decorative gradient orbs */}
-      <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-gradient-to-r from-[#2a5555]/25 to-transparent rounded-full blur-[100px]" />
-      <div className="absolute bottom-1/3 right-0 w-[500px] h-[500px] bg-gradient-to-l from-[#1f4545]/30 to-transparent rounded-full blur-[100px]" />
-      
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="py-24 md:py-40 relative overflow-hidden bg-[#FAFAF7]">
+      <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <p className="text-white/50 text-sm uppercase tracking-[0.15em] mb-4">About Us</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            {/* Section number as design element */}
+            <span className="font-serif text-[80px] md:text-[120px] font-light text-[#1A1A1A]/10 block leading-none mb-4">004</span>
+            <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-6">About Us</p>
+            <h2 className="font-serif text-[#1A1A1A] text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em] mb-8">
               A small team obsessed with{" "}
-              <span className="italic font-serif">compounding growth.</span>
+              <em className="italic">compounding growth.</em>
             </h2>
-            <p className="text-white/60 text-lg mb-8 leading-relaxed">
+            <p className="text-[#1A1A1A]/60 text-base leading-[1.6] mb-10">
               Majority of the brand owners we talk to face the same problems. Tons of marketing, but no real results. We fix that.
             </p>
             
-            <ul className="space-y-4 mb-8">
+            <ul className="space-y-4 mb-10">
               {benefits.map((benefit, index) => (
                 <motion.li
                   key={index}
@@ -43,52 +40,51 @@ export function GrowthCTASection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-3"
+                  className="flex items-center gap-4"
                 >
-                  <CheckCircle className="w-5 h-5 text-white/60 flex-shrink-0" />
-                  <span className="text-white/80">{benefit}</span>
+                  <Check className="w-4 h-4 text-[#1A1A1A]/40 flex-shrink-0" />
+                  <span className="text-[#1A1A1A]/70">{benefit}</span>
                 </motion.li>
               ))}
             </ul>
 
-            <Button
-              size="lg"
-              onClick={() => document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white text-[#1a4a4a] hover:bg-white/90 px-8 py-6 rounded-full group"
+            <button
+              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
             >
               Apply Now
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
+              <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
+            </button>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="glass-card rounded-2xl p-8 border border-white/10">
+            <div className="border border-[#1A1A1A]/10 p-10">
               <div className="text-center">
-                <p className="text-white/50 text-sm uppercase tracking-wide mb-2">What You Get</p>
-                <h3 className="text-2xl font-bold text-white mb-6">A Complete Growth System</h3>
+                <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-4">What You Get</p>
+                <h3 className="font-serif text-2xl text-[#1A1A1A] mb-10 tracking-[-0.02em]">A Complete Growth System</h3>
                 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                    <p className="text-3xl font-bold text-white mb-1">24/7</p>
-                    <p className="text-white/50 text-sm">Lead Capture</p>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="border border-[#1A1A1A]/10 p-6">
+                    <p className="font-serif text-3xl text-[#1A1A1A] mb-2">24/7</p>
+                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Lead Capture</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                    <p className="text-3xl font-bold text-white mb-1">100%</p>
-                    <p className="text-white/50 text-sm">Verified Leads</p>
+                  <div className="border border-[#1A1A1A]/10 p-6">
+                    <p className="font-serif text-3xl text-[#1A1A1A] mb-2">100%</p>
+                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Verified Leads</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                    <p className="text-3xl font-bold text-white mb-1">Auto</p>
-                    <p className="text-white/50 text-sm">Follow-Up</p>
+                  <div className="border border-[#1A1A1A]/10 p-6">
+                    <p className="font-serif text-3xl text-[#1A1A1A] mb-2">Auto</p>
+                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Follow-Up</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                    <p className="text-3xl font-bold text-white mb-1">Done</p>
-                    <p className="text-white/50 text-sm">For You</p>
+                  <div className="border border-[#1A1A1A]/10 p-6">
+                    <p className="font-serif text-3xl text-[#1A1A1A] mb-2">Done</p>
+                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">For You</p>
                   </div>
                 </div>
               </div>

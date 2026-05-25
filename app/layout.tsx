@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Space_Grotesk, Lora, Poppins } from 'next/font/google'
+import { Inter, Fraunces } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -8,21 +8,11 @@ const inter = Inter({
   variable: "--font-inter"
 });
 
-const spaceGrotesk = Space_Grotesk({ 
+const fraunces = Fraunces({ 
   subsets: ["latin"],
-  variable: "--font-space-grotesk"
-});
-
-const lora = Lora({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-lora"
-});
-
-const poppins = Poppins({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins"
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces"
 });
 
 export const metadata: Metadata = {
@@ -54,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${lora.variable} ${poppins.variable} bg-background`}>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable} bg-background`}>
       <head>
         {/* Facebook Pixel Code */}
         <script
