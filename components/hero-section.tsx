@@ -139,7 +139,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8"
           >
-            A Growth Partner for Home Service Contractors
+            A Growth Partner
           </motion.p>
 
           {/* Main headline - Fraunces serif */}
