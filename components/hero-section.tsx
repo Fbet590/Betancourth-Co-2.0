@@ -32,25 +32,16 @@ const portfolioExamples = [
     title: "5-O Turf & Pavers",
     category: "Turf & Paver Installation",
     url: "https://5oturf.nocostestimate.com/",
-    color: "from-emerald-500/20 to-green-600/20",
-    borderColor: "border-emerald-500/30",
-    accentColor: "bg-emerald-500",
   },
   {
     title: "Saucedo's Landscape",
     category: "Landscaping",
     url: "https://saucedo.nocostestimate.com/",
-    color: "from-lime-500/20 to-green-600/20",
-    borderColor: "border-lime-500/30",
-    accentColor: "bg-lime-500",
   },
   {
     title: "AZ Elite Granite",
     category: "Countertop Installation",
     url: "https://azelitegranite.nocostestimate.com/",
-    color: "from-amber-500/20 to-orange-600/20",
-    borderColor: "border-amber-500/30",
-    accentColor: "bg-amber-500",
   },
 ];
 
@@ -625,7 +616,7 @@ export function HeroSection() {
                   <div className="relative z-10">
                     {/* Form headline */}
                     <h2 className="font-serif text-2xl md:text-[36px] text-white text-center mb-2 leading-tight">
-                      Get Your Website Made ASAP Without Overpaying for It!
+                      Get Your Website Made ASAP - Forget Overpaying!
                     </h2>
                     
                     {/* Form subheadline */}
@@ -806,10 +797,10 @@ export function HeroSection() {
                 transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, y: -8 }}
-                className={`group relative overflow-hidden rounded-[2.5rem] border-2 ${item.borderColor} bg-gradient-to-br ${item.color} backdrop-blur-xl cursor-pointer transition-all duration-500`}
+                className="group relative overflow-hidden rounded-[2.5rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl cursor-pointer transition-all duration-500"
               >
                 {/* Animated glow effect on hover */}
-                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color}`} />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-emerald-500/20 to-green-600/20" />
                 
                 {/* Live website iframe in phone frame */}
                 <div className="relative aspect-[9/19] bg-black overflow-hidden">
@@ -839,18 +830,18 @@ export function HeroSection() {
 
           {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style with live website */}
           <div className="lg:hidden flex justify-center px-4">
-            <div className="w-full max-w-[360px]">
+            <div className="w-full max-w-[260px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPortfolioIndex}
-                  initial={{ opacity: 0, x: 50, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -50, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className={`relative overflow-hidden rounded-[2.5rem] border-2 ${portfolioExamples[currentPortfolioIndex].borderColor} bg-gradient-to-br ${portfolioExamples[currentPortfolioIndex].color} backdrop-blur-xl`}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="relative overflow-hidden rounded-[2rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl"
                 >
                   {/* Live website iframe in phone frame */}
-                  <div className="relative aspect-[9/19] bg-black overflow-hidden">
+                  <div className="relative aspect-[9/16] bg-black overflow-hidden">
                     <iframe
                       src={portfolioExamples[currentPortfolioIndex].url}
                       title={portfolioExamples[currentPortfolioIndex].title}
@@ -887,7 +878,7 @@ export function HeroSection() {
               </button>
               
               <div className="flex gap-3">
-                {portfolioExamples.map((item, index) => (
+                {portfolioExamples.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => {
@@ -896,7 +887,7 @@ export function HeroSection() {
                     }}
                     className={`h-2 rounded-full transition-all duration-400 ${
                       index === currentPortfolioIndex 
-                        ? `w-8 ${item.accentColor}` 
+                        ? "w-8 bg-emerald-500" 
                         : "w-2 bg-white/20"
                     }`}
                     aria-label={`Go to project ${index + 1}`}
