@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -72,11 +72,63 @@ const clientLogos = [
   },
 ];
 
+// Form step types
+interface FormStep {
+  question: string;
+  type: "radio" | "dropdown" | "text" | "email" | "phone";
+  options?: string[];
+  placeholder?: string;
+  required: boolean;
+}
+
+const formSteps: FormStep[] = [
+  {
+    question: "What's your position?",
+    type: "radio",
+    options: ["CEO/Owner", "Manager", "Sales Rep"],
+    required: true,
+  },
+  {
+    question: "What kind of company do you own?",
+    type: "dropdown",
+    options: ["Welding", "Hardscape", "Patio Covers", "Home Remodeling", "Concrete", "Plumbing", "Fencing", "Roofing", "Painting"],
+    required: true,
+  },
+  {
+    question: "What's your full name?",
+    type: "text",
+    placeholder: "John Smith",
+    required: true,
+  },
+  {
+    question: "What's your email address?",
+    type: "email",
+    placeholder: "john@company.com",
+    required: true,
+  },
+  {
+    question: "What's your phone number?",
+    type: "phone",
+    placeholder: "(555) 123-4567",
+    required: true,
+  },
+];
+
 export function HeroSection() {
+  // Review carousel state
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [userInteracted, setUserInteracted] = useState(false);
+
+  // Form state
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState<string[]>(new Array(formSteps.length).fill(""));
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [hoveredOption, setHoveredOption] = useState<string | null>(null);
 
   // Swipe handlers for mobile review carousel
   const minSwipeDistance = 50;
@@ -127,6 +179,194 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, [userInteracted]);
 
+  // Form handlers
+  const handleInputChange = (value: string) => {
+    const newFormData = [...formData];
+    newFormData[currentStep] = value;
+    setFormData(newFormData);
+    setError("");
+  };
+
+  const validateCurrentStep = (): boolean => {
+    const currentValue = formData[currentStep];
+    const step = formSteps[currentStep];
+
+    if (step.required && !currentValue.trim()) {
+      setError("This field is required");
+      return false;
+    }
+
+    if (step.type === "email" && currentValue) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(currentValue)) {
+        setError("Please enter a valid email address");
+        return false;
+      }
+    }
+
+    if (step.type === "phone" && currentValue) {
+      const phoneRegex = /^[\d\s\-\(\)\+]{10,}$/;
+      if (!phoneRegex.test(currentValue.replace(/\s/g, ""))) {
+        setError("Please enter a valid phone number");
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const handleNext = () => {
+    if (!validateCurrentStep()) return;
+
+    if (currentStep < formSteps.length - 1) {
+      setCurrentStep(currentStep + 1);
+      setError("");
+    } else {
+      handleSubmit();
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+      setError("");
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!validateCurrentStep()) return;
+
+    setIsSubmitting(true);
+
+    // Simulate submission delay (no webhook)
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Log form data to console for debugging/testing
+    console.log("Form submitted:", {
+      position: formData[0],
+      companyType: formData[1],
+      fullName: formData[2],
+      email: formData[3],
+      phone: formData[4],
+      submittedAt: new Date().toISOString(),
+    });
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+  };
+
+  const formatPhoneNumber = (value: string): string => {
+    const numbers = value.replace(/\D/g, "");
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 6) return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
+    return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6, 10)}`;
+  };
+
+  const renderFormStep = () => {
+    const step = formSteps[currentStep];
+    const currentValue = formData[currentStep];
+
+    switch (step.type) {
+      case "radio":
+        return (
+          <div className="space-y-3">
+            {step.options?.map((option) => (
+              <button
+                key={option}
+                onClick={() => handleInputChange(option)}
+                onMouseEnter={() => setHoveredOption(option)}
+                onMouseLeave={() => setHoveredOption(null)}
+                className={`w-full px-5 py-4 text-left border transition-all duration-300 flex items-center justify-between ${
+                  currentValue === option
+                    ? "border-[#6B1F2B] bg-[#6B1F2B] text-white"
+                    : hoveredOption === option
+                    ? "border-[#1A1A1A]/30 bg-[#1A1A1A]/5"
+                    : "border-[#1A1A1A]/20 bg-transparent text-[#1A1A1A]"
+                }`}
+              >
+                <span className="text-sm">{option}</span>
+                {currentValue === option && <Check className="w-4 h-4" />}
+              </button>
+            ))}
+          </div>
+        );
+
+      case "dropdown":
+        return (
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`w-full px-5 py-4 text-left border transition-all duration-300 flex items-center justify-between ${
+                dropdownOpen ? "border-[#6B1F2B]" : "border-[#1A1A1A]/20"
+              } bg-transparent`}
+            >
+              <span className={`text-sm ${currentValue ? "text-[#1A1A1A]" : "text-[#1A1A1A]/50"}`}>
+                {currentValue || "Select an option"}
+              </span>
+              <ChevronDown className={`w-4 h-4 text-[#1A1A1A]/50 transition-transform duration-300 ${dropdownOpen ? "rotate-180" : ""}`} />
+            </button>
+            
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full left-0 right-0 mt-2 border border-[#1A1A1A]/20 bg-[#FAFAF7] shadow-lg z-50 max-h-60 overflow-y-auto"
+                >
+                  {step.options?.map((option) => (
+                    <button
+                      key={option}
+                      onClick={() => {
+                        handleInputChange(option);
+                        setDropdownOpen(false);
+                      }}
+                      className={`w-full px-5 py-3 text-left text-sm transition-colors duration-200 ${
+                        currentValue === option
+                          ? "bg-[#6B1F2B] text-white"
+                          : "text-[#1A1A1A] hover:bg-[#1A1A1A]/5"
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+
+      case "text":
+      case "email":
+        return (
+          <input
+            type={step.type}
+            value={currentValue}
+            onChange={(e) => handleInputChange(e.target.value)}
+            placeholder={step.placeholder}
+            className="w-full px-5 py-4 border border-[#1A1A1A]/20 bg-transparent text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#6B1F2B] transition-colors duration-300"
+            autoFocus
+          />
+        );
+
+      case "phone":
+        return (
+          <input
+            type="tel"
+            value={currentValue}
+            onChange={(e) => handleInputChange(formatPhoneNumber(e.target.value))}
+            placeholder={step.placeholder}
+            className="w-full px-5 py-4 border border-[#1A1A1A]/20 bg-transparent text-[#1A1A1A] text-sm placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#6B1F2B] transition-colors duration-300"
+            autoFocus
+          />
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       {/* Hero Section - Minimal Editorial Style */}
@@ -163,19 +403,121 @@ export function HeroSection() {
             $300 Flat Pricing instead of overpaying insane prices.
           </motion.p>
 
-          {/* Single CTA Button - Editorial style */}
+          {/* Multi-step Form */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            className="max-w-md mx-auto"
           >
-            <button 
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
-            >
-              Apply Now
-              <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
-            </button>
+            <div className="border border-[#1A1A1A]/10 bg-white p-8">
+              {isSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-8"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                    className="w-16 h-16 border-2 border-[#6B1F2B] flex items-center justify-center mx-auto mb-6"
+                  >
+                    <Check className="w-8 h-8 text-[#6B1F2B]" />
+                  </motion.div>
+                  <h3 className="font-serif text-2xl text-[#1A1A1A] mb-3">Application Received</h3>
+                  <p className="text-[#1A1A1A]/60 text-sm">
+                    We&apos;ll review your application and get back to you within 24-48 hours.
+                  </p>
+                </motion.div>
+              ) : (
+                <>
+                  {/* Progress indicator */}
+                  <div className="flex justify-center gap-2 mb-8">
+                    {formSteps.map((_, index) => (
+                      <div
+                        key={index}
+                        className={`h-1 transition-all duration-300 ${
+                          index === currentStep ? "w-8 bg-[#6B1F2B]" : index < currentStep ? "w-4 bg-[#6B1F2B]/50" : "w-4 bg-[#1A1A1A]/10"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Step counter */}
+                  <p className="text-[#1A1A1A]/40 text-xs uppercase tracking-wide mb-4">
+                    Step {currentStep + 1} of {formSteps.length}
+                  </p>
+
+                  {/* Question */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentStep}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <h3 className="font-serif text-xl text-[#1A1A1A] mb-6">
+                        {formSteps[currentStep].question}
+                      </h3>
+
+                      {renderFormStep()}
+
+                      {/* Error message */}
+                      <AnimatePresence>
+                        {error && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="text-red-500 text-xs mt-3"
+                          >
+                            {error}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Navigation buttons */}
+                  <div className="flex items-center justify-between mt-8">
+                    {currentStep > 0 ? (
+                      <button
+                        onClick={handleBack}
+                        className="flex items-center text-[#1A1A1A]/60 text-sm hover:text-[#1A1A1A] transition-colors duration-300"
+                      >
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back
+                      </button>
+                    ) : (
+                      <div />
+                    )}
+
+                    <button
+                      onClick={handleNext}
+                      disabled={isSubmitting}
+                      className="inline-flex items-center border border-[#6B1F2B] bg-[#6B1F2B] text-white hover:bg-transparent hover:text-[#6B1F2B] px-6 py-3 text-sm tracking-wide transition-all duration-300 disabled:opacity-50"
+                    >
+                      {isSubmitting ? (
+                        <span className="flex items-center">
+                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Submitting...
+                        </span>
+                      ) : (
+                        <>
+                          {currentStep === formSteps.length - 1 ? "Submit" : "Continue"}
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -331,7 +673,7 @@ export function HeroSection() {
             className="text-center mt-16 md:mt-24"
           >
             <button
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
             >
               Apply Now
