@@ -620,7 +620,7 @@ export function HeroSection() {
                   alt={logo.name}
                   width={logo.width}
                   height={logo.height}
-                  className="object-contain h-20 md:h-24 w-auto opacity-70 hover:opacity-100 transition-opacity duration-400"
+                  className="object-contain h-20 md:h-24 w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
                 />
               </div>
             ))}
