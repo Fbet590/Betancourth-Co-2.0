@@ -287,18 +287,30 @@ export function HeroSection() {
 
     setIsSubmitting(true);
 
-    // Simulate submission delay (no webhook)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Send data to webhook
+      const response = await fetch('https://services.leadconnectorhq.com/hooks/u1wGvQAHeabFrjX36spu/webhook-trigger/XAlQRcw3h4inHUwFTNz0', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          position: formData[0],
+          companyType: formData[1],
+          fullName: formData[2],
+          email: formData[3],
+          phone: formData[4],
+          submittedAt: new Date().toISOString(),
+        }),
+      });
 
-    // Log form data to console for debugging/testing
-    console.log("Form submitted:", {
-      position: formData[0],
-      companyType: formData[1],
-      fullName: formData[2],
-      email: formData[3],
-      phone: formData[4],
-      submittedAt: new Date().toISOString(),
-    });
+      if (!response.ok) {
+        throw new Error('Webhook submission failed');
+      }
+    } catch (error) {
+      console.error('Webhook error:', error);
+      // Still mark as submitted even if webhook fails to not block user
+    }
 
     setIsSubmitting(false);
     setIsSubmitted(true);
@@ -572,7 +584,7 @@ export function HeroSection() {
                 ) : (
                   <div className="relative z-10">
                     {/* Form headline */}
-                    <h2 className="font-serif text-xl md:text-[36px] text-white text-center mb-2 leading-tight">
+                    <h2 className="font-serif text-2xl md:text-[36px] text-white text-center mb-2 leading-tight">
                       Get Your Website Made ASAP Without Overpaying for It!
                     </h2>
                     
