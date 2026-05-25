@@ -79,7 +79,7 @@
   }
 }
 
-/* Marquee animation - slowed down by 50% */
+/* Marquee animation - fast scrolling */
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -90,12 +90,12 @@
 }
 
 .animate-marquee {
-  animation: marquee 12s linear infinite;
+  animation: marquee 8s linear infinite;
 }
 
 @media (min-width: 768px) {
   .animate-marquee {
-    animation: marquee 60s linear infinite;
+    animation: marquee 15s linear infinite;
   }
 }
 
