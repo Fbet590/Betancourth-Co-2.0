@@ -9,24 +9,24 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
-            <span className="text-white font-sans text-lg font-medium tracking-tight">
+            <span className="text-[#1a4a4a] font-sans text-lg font-semibold tracking-tight">
               Betancourth & Co
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="#pricing" className="text-white/70 hover:text-white transition-colors text-sm">
+            <Link href="#pricing" className="text-gray-600 hover:text-[#1a4a4a] transition-colors text-sm font-medium">
               Pricing
             </Link>
-            <Link href="#services" className="text-white/70 hover:text-white transition-colors text-sm">
+            <Link href="#services" className="text-gray-600 hover:text-[#1a4a4a] transition-colors text-sm font-medium">
               Services
             </Link>
-            <Link href="#testimonials" className="text-white/70 hover:text-white transition-colors text-sm">
+            <Link href="#testimonials" className="text-gray-600 hover:text-[#1a4a4a] transition-colors text-sm font-medium">
               Reviews
             </Link>
           </nav>
@@ -34,7 +34,7 @@ export function Header() {
           <div className="hidden md:block">
             <Button 
               variant="outline" 
-              className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white rounded-full px-6"
+              className="border-[#1a4a4a] bg-transparent text-[#1a4a4a] hover:bg-[#1a4a4a] hover:text-white rounded-full px-6"
             >
               Get in touch
             </Button>
@@ -42,7 +42,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-[#1a4a4a]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -51,32 +51,32 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-white/10">
+          <div className="md:hidden py-4 border-t border-gray-100">
             <nav className="flex flex-col gap-4">
               <Link
                 href="#pricing"
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-gray-600 hover:text-[#1a4a4a] transition-colors font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Pricing
               </Link>
               <Link
                 href="#services"
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-gray-600 hover:text-[#1a4a4a] transition-colors font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Services
               </Link>
               <Link
                 href="#testimonials"
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-gray-600 hover:text-[#1a4a4a] transition-colors font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Reviews
               </Link>
               <Button 
                 variant="outline" 
-                className="border-white/30 bg-transparent text-white hover:bg-white/10 rounded-full w-full mt-2"
+                className="border-[#1a4a4a] bg-transparent text-[#1a4a4a] hover:bg-[#1a4a4a] hover:text-white rounded-full w-full mt-2"
               >
                 Get in touch
               </Button>

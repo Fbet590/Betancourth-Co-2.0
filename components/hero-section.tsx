@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -72,6 +72,36 @@ const reviews = [
 // Client logos for marquee - using actual client logos
 const clientLogos = [
   {
+    name: "AZ Elite Granite LLC",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-G6kegAD164ugND1GXJp5JvtQVtzwlz.png",
+    width: 120,
+    height: 60,
+  },
+  {
+    name: "Desert Valley Patio Covers",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-desert-valley_prev_ui-m7VkBygKrrIxOE6E-aOp0plN2hDuzWstFcSLP63mFIecNuA.png",
+    width: 160,
+    height: 60,
+  },
+  {
+    name: "Landscaping Perez LLC",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2%20copy-eVx7J8BLedihjJMFsLQhz0QBfkEr87.png",
+    width: 140,
+    height: 70,
+  },
+  {
+    name: "Vibrant Vistas Landscape",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed-BZdqK19fjOZy4B9ZmSV9RpmOmLTcZg.png",
+    width: 180,
+    height: 50,
+  },
+  {
+    name: "Abrusci Interior & Exterior",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura_de_Pantalla_2019-04-09_a_la_s_11.07.45_a._m._360x-8miT5Db211qW5gkO5AoQeJbJDoBMdp.png",
+    width: 150,
+    height: 50,
+  },
+  {
     name: "Elegant Landscape Inc.",
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/elegantlandscape-zNawjRmgECfVmbjmt3d6awGUv7of63.jpg",
     width: 180,
@@ -115,7 +145,6 @@ export function HeroSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDisqualified, setIsDisqualified] = useState(false);
-  const [showForm, setShowForm] = useState(false);
   const [hoveredOption, setHoveredOption] = useState<string | null>(null);
 
   const QUALIFIED_POSITION = "CEO/Owner";
@@ -398,75 +427,54 @@ export function HeroSection() {
             We build contractor businesses the way they should be built. With data guiding every decision and nothing left to guesswork.
           </motion.p>
 
-          {/* CTA Button - Shows form when clicked */}
-          <AnimatePresence mode="wait">
-            {!showForm ? (
-              <motion.div
-                key="cta-button"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-              >
-                <Button
-                  size="lg"
-                  onClick={() => setShowForm(true)}
-                  className="bg-white text-[#1a4a4a] hover:bg-white/90 text-base px-8 py-6 rounded-full group font-medium shadow-lg shadow-black/20"
-                >
-                  <Sparkles className="mr-2 w-5 h-5" />
-                  Apply Now
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="form"
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="max-w-lg mx-auto mt-4"
-              >
-                {/* Form Card with enhanced styling */}
-                <div className="relative">
-                  {/* Glow effect behind form */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9999]/30 via-white/20 to-[#4a9999]/30 rounded-3xl blur-xl opacity-70" />
-                  
-                  <div className="relative glass-card rounded-3xl p-6 md:p-8 border border-white/20 backdrop-blur-xl bg-white/[0.08]">
-                    {isSubmitted ? (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="text-center py-8"
-                      >
-                        {isDisqualified ? (
-                          <>
-                            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                              <span className="text-2xl">Thank you</span>
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-2">Thanks for Your Interest</h3>
-                            <p className="text-white/60 text-sm">
-                              Based on your responses, we may not be the best fit right now. We appreciate your time.
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <motion.div 
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                              className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30"
-                            >
-                              <Check className="w-8 h-8 text-white" />
-                            </motion.div>
-                            <h3 className="text-xl font-bold text-white mb-2">Application Received!</h3>
-                            <p className="text-white/60 text-sm">
-                              We will review your application and get back to you within 24-48 hours.
-                            </p>
-                          </>
-                        )}
-                      </motion.div>
+          {/* Form - Always visible below headline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+            className="max-w-lg mx-auto mt-4"
+          >
+            {/* Form Card with enhanced styling */}
+            <div className="relative">
+              {/* Glow effect behind form */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9999]/30 via-white/20 to-[#4a9999]/30 rounded-3xl blur-xl opacity-70" />
+              
+              <div className="relative glass-card rounded-3xl p-6 md:p-8 border border-white/20 backdrop-blur-xl bg-white/[0.08]">
+                {isSubmitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-8"
+                  >
+                    {isDisqualified ? (
+                      <>
+                        <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-2xl">Thank you</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">Thanks for Your Interest</h3>
+                        <p className="text-white/60 text-sm">
+                          Based on your responses, we may not be the best fit right now. We appreciate your time.
+                        </p>
+                      </>
                     ) : (
                       <>
+                        <motion.div 
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                          className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30"
+                        >
+                          <Check className="w-8 h-8 text-white" />
+                        </motion.div>
+                        <h3 className="text-xl font-bold text-white mb-2">Application Received!</h3>
+                        <p className="text-white/60 text-sm">
+                          We will review your application and get back to you within 24-48 hours.
+                        </p>
+                      </>
+                    )}
+                  </motion.div>
+                ) : (
+                  <>
                         {/* Progress indicator with step dots */}
                         <div className="mb-6">
                           <div className="flex items-center justify-center gap-2 mb-3">
@@ -682,8 +690,6 @@ export function HeroSection() {
                   </div>
                 </div>
               </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </section>
 
@@ -705,7 +711,7 @@ export function HeroSection() {
                   alt={logo.name}
                   width={logo.width}
                   height={logo.height}
-                  className="object-contain h-12 md:h-16 w-auto opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                  className="object-contain h-12 md:h-16 w-auto brightness-0 invert opacity-60 hover:opacity-100 transition-opacity"
                 />
               </div>
             ))}
@@ -838,7 +844,6 @@ export function HeroSection() {
           >
             <Button
               onClick={() => {
-                setShowForm(true);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="bg-white text-[#1a4a4a] hover:bg-white/90 rounded-full px-8 py-6 font-medium"
