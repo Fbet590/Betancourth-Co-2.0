@@ -158,9 +158,9 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="text-[#1A1A1A]/60 text-base leading-[1.6] max-w-2xl mx-auto mb-12"
+            className="text-[#1A1A1A]/60 text-2xl leading-[1.6] max-w-2xl mx-auto mb-12"
           >
-            We build contractor businesses the way they should be built. With data guiding every decision and nothing left to guesswork.
+            $300 Flat Pricing instead of overpaying insane prices.
           </motion.p>
 
           {/* Single CTA Button - Editorial style */}
