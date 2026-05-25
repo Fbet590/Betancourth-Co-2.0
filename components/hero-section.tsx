@@ -445,21 +445,9 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             className="max-w-lg mx-auto mt-4"
           >
-            {/* Outer glow effect */}
+            {/* Form with border outline instead of glow */}
             <div className="relative">
-              <motion.div 
-                animate={{ 
-                  boxShadow: [
-                    "0 0 40px rgba(26, 74, 74, 0.3)",
-                    "0 0 60px rgba(26, 74, 74, 0.4)",
-                    "0 0 40px rgba(26, 74, 74, 0.3)"
-                  ]
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] blur-sm"
-              />
-              
-              <div className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border border-white/10 backdrop-blur-xl overflow-hidden">
+              <div className="relative bg-gradient-to-br from-[#1a4a4a] to-[#0d2626] rounded-2xl p-8 md:p-10 border-2 border-[#3d8a8a] overflow-hidden">
                 {/* Animated background orbs */}
                 <motion.div 
                   animate={{ 
@@ -488,7 +476,7 @@ export function HeroSection() {
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                      className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30"
+                      className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6"
                     >
                       <Check className="w-10 h-10 text-white" />
                     </motion.div>
@@ -499,6 +487,11 @@ export function HeroSection() {
                   </motion.div>
                 ) : (
                   <div className="relative z-10">
+                    {/* Form headline */}
+                    <h2 className="font-serif text-xl md:text-2xl text-white text-center mb-6 leading-tight">
+                      Get Your Website Made ASAP Without Overpaying for It!
+                    </h2>
+
                     {/* Animated step dots */}
                     <div className="flex justify-center gap-3 mb-8">
                       {formSteps.map((_, index) => (
@@ -609,12 +602,12 @@ export function HeroSection() {
         </div>
       </section>
 
-      {/* Logo Marquee - Moved below hero, not in it */}
-      <section className="py-16 md:py-24 bg-[#FAFAF7] overflow-hidden border-y border-[#1A1A1A]/10">
+      {/* Logo Marquee - Black background for contrast */}
+      <section className="py-16 md:py-24 bg-black overflow-hidden">
         <div className="relative">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#FAFAF7] to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#FAFAF7] to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10" />
           
           <div className="flex animate-marquee">
             {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, index) => (
@@ -627,7 +620,7 @@ export function HeroSection() {
                   alt={logo.name}
                   width={logo.width}
                   height={logo.height}
-                  className="object-contain h-20 md:h-24 w-auto opacity-40 hover:opacity-70 transition-opacity duration-400"
+                  className="object-contain h-20 md:h-24 w-auto opacity-70 hover:opacity-100 transition-opacity duration-400"
                 />
               </div>
             ))}
