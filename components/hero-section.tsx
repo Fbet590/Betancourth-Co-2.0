@@ -31,7 +31,7 @@ const portfolioExamples = [
   {
     title: "5-O Turf & Pavers",
     category: "Turf & Paver Installation",
-    image: "/portfolio/5th-element.jpg",
+    url: "https://5oturf.nocostestimate.com/",
     color: "from-emerald-500/20 to-green-600/20",
     borderColor: "border-emerald-500/30",
     accentColor: "bg-emerald-500",
@@ -39,7 +39,7 @@ const portfolioExamples = [
   {
     title: "Saucedo's Landscape",
     category: "Landscaping",
-    image: "/portfolio/saucedo.jpg",
+    url: "https://saucedo.nocostestimate.com/",
     color: "from-lime-500/20 to-green-600/20",
     borderColor: "border-lime-500/30",
     accentColor: "bg-lime-500",
@@ -47,7 +47,7 @@ const portfolioExamples = [
   {
     title: "AZ Elite Granite",
     category: "Countertop Installation",
-    image: "/portfolio/az-elite.jpg",
+    url: "https://azelitegranite.nocostestimate.com/",
     color: "from-amber-500/20 to-orange-600/20",
     borderColor: "border-amber-500/30",
     accentColor: "bg-amber-500",
@@ -744,7 +744,7 @@ export function HeroSection() {
             </h2>
           </motion.div>
 
-          {/* Desktop: Show all portfolio items in a grid - Mobile phone style */}
+          {/* Desktop: Show all portfolio items in a grid - Mobile phone style with live websites */}
           <div className="hidden lg:grid grid-cols-3 gap-8">
             {portfolioExamples.map((item, index) => (
               <motion.div
@@ -753,27 +753,34 @@ export function HeroSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -12 }}
+                whileHover={{ scale: 1.02, y: -8 }}
                 className={`group relative overflow-hidden rounded-[2.5rem] border-2 ${item.borderColor} bg-gradient-to-br ${item.color} backdrop-blur-xl cursor-pointer transition-all duration-500`}
               >
                 {/* Animated glow effect on hover */}
                 <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color}`} />
                 
-                {/* Mobile phone screenshot */}
+                {/* Live website iframe in phone frame */}
                 <div className="relative aspect-[9/16] bg-black overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover object-top"
-                  />
+                  <div className="absolute inset-0 overflow-hidden">
+                    <iframe
+                      src={item.url}
+                      title={item.title}
+                      className="w-[375px] h-[812px] origin-top-left border-0"
+                      style={{
+                        transform: 'scale(0.48)',
+                        pointerEvents: 'auto',
+                      }}
+                      loading="lazy"
+                      sandbox="allow-scripts allow-same-origin"
+                    />
+                  </div>
                   
                   {/* Phone notch/dynamic island */}
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black/80 rounded-full z-10" />
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-10" />
                 </div>
                 
                 {/* Info overlay */}
-                <div className="p-4 bg-black/40 backdrop-blur-sm">
+                <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
                   <h3 className="text-white font-medium text-sm mb-1 truncate">{item.title}</h3>
                   <p className="text-white/50 text-xs uppercase tracking-wide truncate">{item.category}</p>
                 </div>
@@ -781,7 +788,7 @@ export function HeroSection() {
             ))}
           </div>
 
-          {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style */}
+          {/* Mobile: Show 1 portfolio item at a time with swipe - Phone style with live website */}
           <div className="lg:hidden flex justify-center">
             <div className="w-[280px]">
               <AnimatePresence mode="wait">
@@ -793,21 +800,28 @@ export function HeroSection() {
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   className={`relative overflow-hidden rounded-[2.5rem] border-2 ${portfolioExamples[currentPortfolioIndex].borderColor} bg-gradient-to-br ${portfolioExamples[currentPortfolioIndex].color} backdrop-blur-xl`}
                 >
-                  {/* Mobile phone screenshot */}
+                  {/* Live website iframe in phone frame */}
                   <div className="relative aspect-[9/16] bg-black overflow-hidden">
-                    <Image
-                      src={portfolioExamples[currentPortfolioIndex].image}
-                      alt={portfolioExamples[currentPortfolioIndex].title}
-                      fill
-                      className="object-cover object-top"
-                    />
+                    <div className="absolute inset-0 overflow-hidden">
+                      <iframe
+                        src={portfolioExamples[currentPortfolioIndex].url}
+                        title={portfolioExamples[currentPortfolioIndex].title}
+                        className="w-[375px] h-[812px] origin-top-left border-0"
+                        style={{
+                          transform: 'scale(0.43)',
+                          pointerEvents: 'auto',
+                        }}
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin"
+                      />
+                    </div>
                     
                     {/* Phone notch/dynamic island */}
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black/80 rounded-full z-10" />
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black rounded-full z-10" />
                   </div>
                   
                   {/* Info overlay */}
-                  <div className="p-4 bg-black/40 backdrop-blur-sm">
+                  <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
                     <h3 className="text-white font-medium text-sm mb-1">{portfolioExamples[currentPortfolioIndex].title}</h3>
                     <p className="text-white/50 text-xs uppercase tracking-wide">{portfolioExamples[currentPortfolioIndex].category}</p>
                   </div>
