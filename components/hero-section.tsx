@@ -26,6 +26,42 @@ const reviews = [
   },
 ];
 
+// Portfolio examples - websites we've made
+const portfolioExamples = [
+  {
+    title: "Desert Valley Patio Covers",
+    category: "Patio Installation",
+    image: "/portfolio/desert-valley.jpg",
+    color: "from-amber-500/20 to-orange-600/20",
+    borderColor: "border-amber-500/30",
+    accentColor: "bg-amber-500",
+  },
+  {
+    title: "Vibrant Vistas Landscape",
+    category: "Landscaping",
+    image: "/portfolio/vibrant-vistas.jpg",
+    color: "from-emerald-500/20 to-teal-600/20",
+    borderColor: "border-emerald-500/30",
+    accentColor: "bg-emerald-500",
+  },
+  {
+    title: "AZ Elite Granite",
+    category: "Countertop Installation",
+    image: "/portfolio/az-elite.jpg",
+    color: "from-slate-500/20 to-zinc-600/20",
+    borderColor: "border-slate-500/30",
+    accentColor: "bg-slate-500",
+  },
+  {
+    title: "5th Element Outdoor",
+    category: "Outdoor Living",
+    image: "/portfolio/5th-element.jpg",
+    color: "from-sky-500/20 to-blue-600/20",
+    borderColor: "border-sky-500/30",
+    accentColor: "bg-sky-500",
+  },
+];
+
 // Client logos for marquee (sizes increased by 25% on desktop, now 25% bigger on mobile too)
 const clientLogos = [
   {
@@ -117,9 +153,11 @@ const formSteps: FormStep[] = [
 export function HeroSection() {
   // Review carousel state
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+  const [currentPortfolioIndex, setCurrentPortfolioIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [userInteracted, setUserInteracted] = useState(false);
+  const [portfolioUserInteracted, setPortfolioUserInteracted] = useState(false);
 
   // Form state
   const [currentStep, setCurrentStep] = useState(0);
@@ -178,6 +216,25 @@ export function HeroSection() {
     }, 5000);
     return () => clearInterval(interval);
   }, [userInteracted]);
+
+  // Auto-rotate portfolio (pauses when user interacts)
+  useEffect(() => {
+    if (portfolioUserInteracted) return;
+    const interval = setInterval(() => {
+      setCurrentPortfolioIndex((prev) => (prev + 1) % portfolioExamples.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [portfolioUserInteracted]);
+
+  const goToNextPortfolio = () => {
+    setPortfolioUserInteracted(true);
+    setCurrentPortfolioIndex((prev) => (prev + 1) % portfolioExamples.length);
+  };
+
+  const goToPrevPortfolio = () => {
+    setPortfolioUserInteracted(true);
+    setCurrentPortfolioIndex((prev) => (prev - 1 + portfolioExamples.length) % portfolioExamples.length);
+  };
 
   // Form handlers
   const handleInputChange = (value: string) => {
@@ -424,7 +481,8 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
             className="font-serif text-[#1A1A1A] text-[56px] md:text-[72px] lg:text-[96px] font-medium leading-[1.0] tracking-[-0.03em] mb-8"
           >
-            Yeah, you need a <em className="italic">website.</em><br />
+            Yeah, you need a <em className="italic">website.</em>
+            <span className="block h-4 md:h-6" />
             No, you don&apos;t need to spend $3,000.
           </motion.h1>
 
@@ -488,7 +546,7 @@ export function HeroSection() {
                 ) : (
                   <div className="relative z-10">
                     {/* Form headline */}
-                    <h2 className="font-serif text-xl md:text-2xl text-white text-center mb-6 leading-tight">
+                    <h2 className="font-serif text-xl md:text-[30px] text-white text-center mb-6 leading-tight">
                       Get Your Website Made ASAP Without Overpaying for It!
                     </h2>
 
@@ -603,7 +661,7 @@ export function HeroSection() {
       </section>
 
       {/* Logo Marquee - Black background for contrast */}
-      <section className="py-16 md:py-24 bg-black overflow-hidden">
+      <section className="py-8 md:py-12 bg-black overflow-hidden">
         <div className="relative">
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10" />
@@ -613,14 +671,14 @@ export function HeroSection() {
             {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 mx-10 md:mx-16 flex items-center justify-center h-24 md:h-28"
+                className="flex-shrink-0 mx-8 md:mx-16 flex items-center justify-center h-16 md:h-20"
               >
                 <Image
                   src={logo.src}
                   alt={logo.name}
                   width={logo.width}
                   height={logo.height}
-                  className="object-contain h-20 md:h-24 w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
+                  className="object-contain h-14 md:h-16 w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
                 />
               </div>
             ))}
@@ -628,9 +686,12 @@ export function HeroSection() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-24 md:py-40 bg-[#FAFAF7] relative overflow-hidden">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+      {/* Examples of Our Work Section */}
+      <section id="portfolio" className="py-24 md:py-40 bg-[#0d1a1a] relative overflow-hidden">
+        {/* Background gradient effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a4a4a]/20 via-transparent to-[#6B1F2B]/10" />
+        
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -639,71 +700,100 @@ export function HeroSection() {
             className="text-center mb-16 md:mb-24"
           >
             {/* Section number as design element */}
-            <span className="font-serif text-[80px] md:text-[120px] font-light text-[#1A1A1A]/10 block leading-none mb-4">001</span>
-            <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-6">Client Wins</p>
-            <h2 className="font-serif text-[#1A1A1A] text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em]">
-              Results that <em className="italic">speak.</em>
+            <span className="font-serif text-[80px] md:text-[120px] font-light text-white/5 block leading-none mb-4">001</span>
+            <p className="text-white/50 text-xs uppercase tracking-[0.2em] mb-6">Our Portfolio</p>
+            <h2 className="font-serif text-white text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em]">
+              Examples of Our <em className="italic">Work.</em>
             </h2>
           </motion.div>
 
-          {/* Desktop: Show 3 reviews */}
-          <div className="hidden lg:grid grid-cols-3 gap-8">
-            {reviews.map((review, index) => (
+          {/* Desktop: Show all portfolio items in a grid */}
+          <div className="hidden lg:grid grid-cols-2 gap-6">
+            {portfolioExamples.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="border border-[#1A1A1A]/10 p-8"
+                whileHover={{ scale: 1.02, y: -8 }}
+                className={`group relative overflow-hidden rounded-2xl border-2 ${item.borderColor} bg-gradient-to-br ${item.color} backdrop-blur-xl cursor-pointer transition-all duration-500`}
               >
-                <p className="text-[#1A1A1A]/70 text-base leading-[1.6] mb-8 line-clamp-4">
-                  &quot;{review.text}&quot;
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#1A1A1A]/5 flex items-center justify-center">
-                    <span className="text-[#1A1A1A]/60 text-sm font-medium">
-                      {review.name.split(" ").map(n => n[0]).join("")}
-                    </span>
+                {/* Animated glow effect on hover */}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color}`} />
+                
+                {/* Website screenshot placeholder */}
+                <div className="relative aspect-[16/10] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className={`w-16 h-16 ${item.accentColor} rounded-xl mx-auto mb-4 flex items-center justify-center`}>
+                        <span className="text-white text-2xl font-bold">{item.title.charAt(0)}</span>
+                      </div>
+                      <p className="text-white/40 text-sm">Screenshot Coming Soon</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-medium text-[#1A1A1A] text-sm">{review.name}</p>
-                    <p className="text-xs text-[#1A1A1A]/50 uppercase tracking-wide">{review.company}</p>
+                  
+                  {/* Decorative browser chrome */}
+                  <div className="absolute top-4 left-4 right-4 h-8 bg-white/10 rounded-t-lg flex items-center px-3 gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-400/60" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+                    <div className="w-3 h-3 rounded-full bg-green-400/60" />
+                  </div>
+                </div>
+                
+                {/* Info overlay */}
+                <div className="p-6 bg-black/40 backdrop-blur-sm">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-white font-medium text-lg mb-1">{item.title}</h3>
+                      <p className="text-white/50 text-sm uppercase tracking-wide">{item.category}</p>
+                    </div>
+                    <motion.div 
+                      whileHover={{ scale: 1.1, rotate: -45 }}
+                      className={`w-10 h-10 ${item.accentColor} rounded-full flex items-center justify-center`}
+                    >
+                      <ArrowRight className="w-5 h-5 text-white" />
+                    </motion.div>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Mobile: Show 1 review at a time with swipe */}
-          <div 
-            className="lg:hidden"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
+          {/* Mobile: Show 1 portfolio item at a time with swipe */}
+          <div className="lg:hidden">
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentReviewIndex}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="border border-[#1A1A1A]/10 p-8"
+                key={currentPortfolioIndex}
+                initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -50, scale: 0.95 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className={`relative overflow-hidden rounded-2xl border-2 ${portfolioExamples[currentPortfolioIndex].borderColor} bg-gradient-to-br ${portfolioExamples[currentPortfolioIndex].color} backdrop-blur-xl`}
               >
-                <p className="text-[#1A1A1A]/70 text-base leading-[1.6] mb-8">
-                  &quot;{reviews[currentReviewIndex].text}&quot;
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#1A1A1A]/5 flex items-center justify-center">
-                    <span className="text-[#1A1A1A]/60 text-sm font-medium">
-                      {reviews[currentReviewIndex].name.split(" ").map(n => n[0]).join("")}
-                    </span>
+                {/* Website screenshot placeholder */}
+                <div className="relative aspect-[16/10] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className={`w-14 h-14 ${portfolioExamples[currentPortfolioIndex].accentColor} rounded-xl mx-auto mb-3 flex items-center justify-center`}>
+                        <span className="text-white text-xl font-bold">{portfolioExamples[currentPortfolioIndex].title.charAt(0)}</span>
+                      </div>
+                      <p className="text-white/40 text-xs">Screenshot Coming Soon</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-medium text-[#1A1A1A] text-sm">{reviews[currentReviewIndex].name}</p>
-                    <p className="text-xs text-[#1A1A1A]/50 uppercase tracking-wide">{reviews[currentReviewIndex].company}</p>
+                  
+                  {/* Decorative browser chrome */}
+                  <div className="absolute top-4 left-4 right-4 h-6 bg-white/10 rounded-t-lg flex items-center px-2 gap-1.5">
+                    <div className="w-2 h-2 rounded-full bg-red-400/60" />
+                    <div className="w-2 h-2 rounded-full bg-yellow-400/60" />
+                    <div className="w-2 h-2 rounded-full bg-green-400/60" />
                   </div>
+                </div>
+                
+                {/* Info overlay */}
+                <div className="p-5 bg-black/40 backdrop-blur-sm">
+                  <h3 className="text-white font-medium text-lg mb-1">{portfolioExamples[currentPortfolioIndex].title}</h3>
+                  <p className="text-white/50 text-sm uppercase tracking-wide">{portfolioExamples[currentPortfolioIndex].category}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -711,33 +801,35 @@ export function HeroSection() {
             {/* Navigation controls */}
             <div className="flex items-center justify-center gap-6 mt-8">
               <button
-                onClick={goToPrevReview}
-                className="w-12 h-12 border border-[#1A1A1A]/20 text-[#1A1A1A]/60 flex items-center justify-center hover:border-[#1A1A1A]/40 transition-colors duration-400"
-                aria-label="Previous review"
+                onClick={goToPrevPortfolio}
+                className="w-12 h-12 border border-white/20 text-white/60 flex items-center justify-center hover:border-white/40 hover:bg-white/5 transition-all duration-400 rounded-full"
+                aria-label="Previous project"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               
               <div className="flex gap-3">
-                {reviews.map((_, index) => (
+                {portfolioExamples.map((item, index) => (
                   <button
                     key={index}
                     onClick={() => {
-                      setUserInteracted(true);
-                      setCurrentReviewIndex(index);
+                      setPortfolioUserInteracted(true);
+                      setCurrentPortfolioIndex(index);
                     }}
-                    className={`w-2 h-2 transition-colors duration-400 ${
-                      index === currentReviewIndex ? "bg-[#1A1A1A]" : "bg-[#1A1A1A]/20"
+                    className={`h-2 rounded-full transition-all duration-400 ${
+                      index === currentPortfolioIndex 
+                        ? `w-8 ${item.accentColor}` 
+                        : "w-2 bg-white/20"
                     }`}
-                    aria-label={`Go to review ${index + 1}`}
+                    aria-label={`Go to project ${index + 1}`}
                   />
                 ))}
               </div>
               
               <button
-                onClick={goToNextReview}
-                className="w-12 h-12 border border-[#1A1A1A]/20 text-[#1A1A1A]/60 flex items-center justify-center hover:border-[#1A1A1A]/40 transition-colors duration-400"
-                aria-label="Next review"
+                onClick={goToNextPortfolio}
+                className="w-12 h-12 border border-white/20 text-white/60 flex items-center justify-center hover:border-white/40 hover:bg-white/5 transition-all duration-400 rounded-full"
+                aria-label="Next project"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -752,11 +844,14 @@ export function HeroSection() {
             viewport={{ once: true }}
             className="text-center mt-16 md:mt-24"
           >
+            <p className="text-white/50 text-sm mb-8">
+              Ready to get a website that actually converts?
+            </p>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
+              className="inline-flex items-center border border-white/30 bg-white text-[#0d1a1a] hover:bg-transparent hover:text-white px-10 py-4 text-sm tracking-wide transition-all duration-400 group rounded-full font-medium"
             >
-              Apply Now
+              Get Started
               <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
             </button>
           </motion.div>
