@@ -798,24 +798,24 @@ export function HeroSection() {
       </section>
 
       {/* Logo Marquee - Black background for contrast */}
-      <section className="py-8 md:py-12 bg-black overflow-hidden">
+      <section className="py-6 md:py-12 bg-black overflow-hidden">
         <div className="relative">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black to-transparent z-10" />
           
-          <div className="flex animate-marquee">
-            {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, index) => (
+          <div className="flex animate-marquee w-max">
+            {[...clientLogos, ...clientLogos].map((logo, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 mx-8 md:mx-16 flex items-center justify-center h-16 md:h-20"
+                className="flex-shrink-0 mx-4 md:mx-16 flex items-center justify-center h-10 md:h-20"
               >
                 <Image
                   src={logo.src}
                   alt={logo.name}
                   width={Math.round(logo.width * 1.3)}
                   height={Math.round(logo.height * 1.3)}
-                  className="object-contain h-[72px] md:h-[84px] w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
+                  className="object-contain h-8 md:h-[84px] w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
                 />
               </div>
             ))}
