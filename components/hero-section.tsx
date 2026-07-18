@@ -608,7 +608,10 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-[#1A1A1A]/60 text-2xl leading-[1.6] max-w-2xl mx-auto mb-12"
           >
-            Fair, upfront pricing instead of overpaying insane prices.
+            Metal Roofing.
+            <br />
+            <br />
+            The best material for your home.
           </motion.p>
 
           {/* Multi-step Form - Solid Dark Teal Style */}
@@ -664,10 +667,10 @@ export function HeroSection() {
                   </motion.div>
                 ) : (
                   <div className="relative z-10">
-                    {/* Form headline */}
-                    <h2 className="font-serif text-2xl md:text-[36px] text-white text-center mb-2 leading-tight">
-                      Get Your New Roof ASAP - Forget Overpaying!
-                    </h2>
+                  {/* Form headline */}
+                  <h2 className="font-serif text-2xl md:text-[36px] text-white text-center mb-2 leading-tight">
+                    Get Your New Roof ASAP
+                  </h2>
                     
                     {/* Form subheadline */}
                     <p className="text-white/50 text-sm text-center mb-6">
