@@ -26,93 +26,102 @@ const reviews = [
   },
 ];
 
-// Portfolio examples - websites we've made (scrollable screenshots)
-const portfolioExamples = [
+// Project galleries - completed metal roofing installations
+// Each project is named by shingle style + color, with a one-sentence location description
+const projects = [
   {
-    title: "Aluma Covers",
-    category: "Patio Covers",
-    image: "/portfolio/aluma-covers.jpg",
+    style: "Como",
+    color: "Raven Black",
+    location: "A striking modern residence in Fort Lauderdale, Florida.",
+    images: [
+      "/projects/como-raven-black/1.webp",
+      "/projects/como-raven-black/2.jpg",
+    ],
   },
   {
-    title: "360 Backyards",
-    category: "Patio Covers",
-    image: "/portfolio/360-backyards.jpg",
+    style: "Como",
+    color: "Atlantic Sand",
+    location: "A warm-toned commercial building along the Florida coast.",
+    images: [
+      "/projects/como-atlantic-sand/1.webp",
+      "/projects/como-atlantic-sand/2.webp",
+    ],
   },
   {
-    title: "Luis Painting",
-    category: "House Painting",
-    image: "/portfolio/luis-painting.jpg",
+    style: "Como",
+    color: "Atlantic Grey",
+    location: "A contemporary waterfront home on Cobalt Court, Cape Coral, Florida.",
+    images: [
+      "/projects/como-atlantic-grey/1.webp",
+    ],
   },
   {
-    title: "Deco Abrusci",
-    category: "Patio Covers",
-    image: "/portfolio/deco-abrusci.jpg",
+    style: "Ulta",
+    color: "Pacific Grey",
+    location: "A sleek modern build on SW 57th Terrace, Cape Coral, Florida.",
+    images: [
+      "/projects/ulta-pacific-grey/1.webp",
+      "/projects/ulta-pacific-grey/2.jpg",
+      "/projects/ulta-pacific-grey/3.webp",
+    ],
   },
   {
-    title: "Deluxe Blinds",
-    category: "Awnings & Outscreens",
-    image: "/portfolio/deluxe-blinds.jpg",
+    style: "Ulta",
+    color: "Canyon Red",
+    location: "A Spanish-style residence on SW 14th Ave, Fort Lauderdale, Florida.",
+    images: [
+      "/projects/ulta-canyon-red/1.webp",
+      "/projects/ulta-canyon-red/2.webp",
+    ],
   },
   {
-    title: "Swanson",
-    category: "Kitchen & Bath Remodeling",
-    image: "/portfolio/swanson.jpg",
+    style: "Supre",
+    color: "Canyon Red",
+    location: "A luxury waterfront home on Marco Island, Florida.",
+    images: [
+      "/projects/supre-canyon-red/1.webp",
+      "/projects/supre-canyon-red/2.jpg",
+      "/projects/supre-canyon-red/3.jpg",
+    ],
   },
   {
-    title: "Saucedo's Landscape",
-    category: "Landscaping",
-    image: "/portfolio/saucedo-landscape.jpg",
+    style: "Dura",
+    color: "Sierra Brown",
+    location: "A classic tile-look roof on Brentwood Court, Punta Gorda, Florida.",
+    images: [
+      "/projects/dura-sierra-brown/1.jpg",
+      "/projects/dura-sierra-brown/2.jpg",
+    ],
   },
   {
-    title: "CV Property Solutions",
-    category: "Patio Covers",
-    image: "/portfolio/cv-property-solutions.jpg",
+    style: "Dura",
+    color: "Canyon Red",
+    location: "A vibrant terracotta roof installed in Sarasota, Florida.",
+    images: [
+      "/projects/dura-canyon-red/1.jpg",
+      "/projects/dura-canyon-red/2.jpg",
+      "/projects/dura-canyon-red/3.webp",
+    ],
   },
 ];
 
-// Client logos for marquee (sizes increased by 25% on desktop, now 25% bigger on mobile too)
-const clientLogos = [
+// Metal roofing product profiles for marquee
+const products = [
   {
-    name: "Vibrant Vistas Landscape",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed-BZdqK19fjOZy4B9ZmSV9RpmOmLTcZg.png",
-    width: 225,
-    height: 63,
+    name: "Supre",
+    src: "/products/supre.webp",
   },
   {
-    name: "Desert Valley Patio Covers",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-desert-valley_prev_ui-m7VkBygKrrIxOE6E-aOp0plN2hDuzWstFcSLP63mFIecNuA.png",
-    width: 200,
-    height: 75,
+    name: "Dura",
+    src: "/products/dura.webp",
   },
   {
-    name: "AZ Elite Granite LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_16_36%20PM-5nS8Ow08sgZs9FyUk2TgA6vzMcB4o5.png",
-    width: 175,
-    height: 88,
+    name: "Ulta",
+    src: "/products/ulta.png",
   },
   {
-    name: "5th Element Outdoor Creations",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_15_05%20PM-M7d24da4J7zflIL4lOa2zulphLVW54.png",
-    width: 175,
-    height: 88,
-  },
-  {
-    name: "CV",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_19_28%20PM-5FDfsJO1iGLSJmEze6VOYfDlFsVNg1.png",
-    width: 100,
-    height: 100,
-  },
-  {
-    name: "Desert Valley Structures LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_21_06%20PM-TdlOu6IpB8ZmZI0EFZ3yNLAfV12FiI.png",
-    width: 200,
-    height: 88,
-  },
-  {
-    name: "Landscaping Perez LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_18_00%20PM-yGj5qGvn3Td5xog2qZwIFGaH7D6KhC.png",
-    width: 200,
-    height: 88,
+    name: "Como",
+    src: "/products/como.webp",
   },
 ];
 
@@ -158,6 +167,7 @@ export function HeroSection() {
   // Lightbox state
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxImageIndex, setLightboxImageIndex] = useState(0);
   
   // Form state
   const [currentStep, setCurrentStep] = useState(0);
@@ -233,24 +243,25 @@ export function HeroSection() {
   useEffect(() => {
     if (portfolioUserInteracted) return;
     const interval = setInterval(() => {
-      setCurrentPortfolioIndex((prev) => (prev + 1) % portfolioExamples.length);
+      setCurrentPortfolioIndex((prev) => (prev + 1) % projects.length);
     }, 4000);
     return () => clearInterval(interval);
   }, [portfolioUserInteracted]);
 
   const goToNextPortfolio = () => {
     setPortfolioUserInteracted(true);
-    setCurrentPortfolioIndex((prev) => (prev + 1) % portfolioExamples.length);
+    setCurrentPortfolioIndex((prev) => (prev + 1) % projects.length);
   };
 
   const goToPrevPortfolio = () => {
     setPortfolioUserInteracted(true);
-    setCurrentPortfolioIndex((prev) => (prev - 1 + portfolioExamples.length) % portfolioExamples.length);
+    setCurrentPortfolioIndex((prev) => (prev - 1 + projects.length) % projects.length);
   };
   
-  // Lightbox functions
+  // Lightbox functions - opens a project gallery starting at its first image
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
+    setLightboxImageIndex(0);
     setLightboxOpen(true);
     document.body.style.overflow = 'hidden';
   };
@@ -260,12 +271,15 @@ export function HeroSection() {
     document.body.style.overflow = '';
   };
   
+  // Navigate images within the currently open project's gallery
   const goToNextLightbox = () => {
-    setLightboxIndex((prev) => (prev + 1) % portfolioExamples.length);
+    const count = projects[lightboxIndex].images.length;
+    setLightboxImageIndex((prev) => (prev + 1) % count);
   };
   
   const goToPrevLightbox = () => {
-    setLightboxIndex((prev) => (prev - 1 + portfolioExamples.length) % portfolioExamples.length);
+    const count = projects[lightboxIndex].images.length;
+    setLightboxImageIndex((prev) => (prev - 1 + count) % count);
   };
   
   // Lightbox keyboard navigation
@@ -569,7 +583,7 @@ export function HeroSection() {
             suppressHydrationWarning
           >
             Yeah, you need a new <em className="italic">roof.</em>
-            <span className="block h-4 md:h-6" />
+            <span className="block h-10 md:h-16" />
             No, it doesn&apos;t have to be the{" "}
             <span className="relative inline-block whitespace-nowrap">
               <span className="relative z-10">flimsy kind.</span>
@@ -608,7 +622,10 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-[#1A1A1A]/60 text-2xl leading-[1.6] max-w-2xl mx-auto mb-12"
           >
-            Fair, upfront pricing instead of overpaying insane prices.
+            Metal Roofing.
+            <br />
+            <br />
+            The best material for your home.
           </motion.p>
 
           {/* Multi-step Form - Solid Dark Teal Style */}
@@ -664,10 +681,10 @@ export function HeroSection() {
                   </motion.div>
                 ) : (
                   <div className="relative z-10">
-                    {/* Form headline */}
-                    <h2 className="font-serif text-2xl md:text-[36px] text-white text-center mb-2 leading-tight">
-                      Get Your New Roof ASAP - Forget Overpaying!
-                    </h2>
+                  {/* Form headline */}
+                  <h2 className="font-serif text-2xl md:text-[36px] text-white text-center mb-2 leading-tight">
+                    Get Your New Roof ASAP
+                  </h2>
                     
                     {/* Form subheadline */}
                     <p className="text-white/50 text-sm text-center mb-6">
@@ -798,18 +815,21 @@ export function HeroSection() {
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black to-transparent z-10" />
           
           <div className="flex animate-marquee w-max">
-            {[...clientLogos, ...clientLogos].map((logo, index) => (
+            {[...products, ...products, ...products, ...products].map((product, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 mx-8 md:mx-16 flex items-center justify-center h-16 md:h-20"
+                className="flex-shrink-0 mx-8 md:mx-16 flex flex-col items-center justify-center gap-3"
               >
                 <Image
-                  src={logo.src}
-                  alt={logo.name}
-                  width={Math.round(logo.width * 1.3)}
-                  height={Math.round(logo.height * 1.3)}
-                  className="object-contain h-[72px] md:h-[84px] w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
+                  src={product.src}
+                  alt={`${product.name} metal roofing panel`}
+                  width={200}
+                  height={120}
+                  className="object-contain h-16 md:h-24 w-auto"
                 />
+                <span className="text-white font-serif text-lg md:text-2xl tracking-[-0.01em]">
+                  {product.name}
+                </span>
               </div>
             ))}
           </div>
@@ -837,9 +857,9 @@ export function HeroSection() {
             </h2>
           </motion.div>
 
-          {/* Desktop: Show all portfolio items in a grid - Scrollable screenshots */}
+          {/* Desktop: Show all project galleries in a grid */}
           <div className="hidden lg:grid grid-cols-3 gap-8">
-            {portfolioExamples.map((item, index) => (
+            {projects.map((project, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 40 }}
@@ -848,42 +868,46 @@ export function HeroSection() {
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, y: -8 }}
                 onClick={() => openLightbox(index)}
-                className="group relative overflow-hidden rounded-[2.5rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl cursor-pointer transition-all duration-500"
+                className="group relative overflow-hidden rounded-[2rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl cursor-pointer transition-all duration-500"
               >
                 {/* Animated glow effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-emerald-500/20 to-green-600/20" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-emerald-500/20 to-green-600/20 z-10 pointer-events-none" />
                 
-                {/* Screenshot preview in phone frame */}
-                <div className="relative aspect-[9/19] bg-white overflow-hidden">
+                {/* Cover photo */}
+                <div className="relative aspect-[4/3] bg-[#0d1a1a] overflow-hidden">
                   <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={400}
-                    height={800}
-                    className="w-full h-auto object-cover object-top"
+                    src={project.images[0]}
+                    alt={`${project.style} ${project.color} metal roof — ${project.location}`}
+                    width={600}
+                    height={450}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   
-                  {/* Phone notch/dynamic island */}
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-10" />
+                  {/* Photo count badge */}
+                  {project.images.length > 1 && (
+                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-xs font-medium z-20">
+                      {project.images.length} photos
+                    </div>
+                  )}
                   
-                  {/* Click to expand hint */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                    <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">Click to expand</span>
+                  {/* View gallery hint */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center z-20">
+                    <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">View gallery</span>
                   </div>
                 </div>
                 
                 {/* Info overlay */}
-                <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
-                  <h3 className="text-white font-medium text-sm mb-1 truncate">{item.title}</h3>
-                  <p className="text-white/50 text-xs uppercase tracking-wide truncate">{item.category}</p>
+                <div className="p-5 bg-black/60 backdrop-blur-sm relative z-20">
+                  <h3 className="text-white font-serif text-lg mb-1 tracking-[-0.01em]">{project.style} — {project.color}</h3>
+                  <p className="text-white/50 text-sm leading-snug">{project.location}</p>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Mobile: Show 1 portfolio item at a time - Scrollable screenshot */}
+          {/* Mobile: Show 1 project gallery at a time */}
           <div className="lg:hidden flex justify-center px-4">
-            <div className="w-full max-w-[220px]">
+            <div className="w-full max-w-[320px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPortfolioIndex}
@@ -892,31 +916,35 @@ export function HeroSection() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
                   onClick={() => openLightbox(currentPortfolioIndex)}
-                  className="relative overflow-hidden rounded-[2rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl cursor-pointer"
+                  className="relative overflow-hidden rounded-[1.5rem] border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 to-green-600/20 backdrop-blur-xl cursor-pointer"
                 >
-                  {/* Screenshot preview in phone frame */}
-                  <div className="relative aspect-[9/16] bg-white overflow-hidden">
+                  {/* Cover photo */}
+                  <div className="relative aspect-[4/3] bg-[#0d1a1a] overflow-hidden">
                     <Image
-                      src={portfolioExamples[currentPortfolioIndex].image}
-                      alt={portfolioExamples[currentPortfolioIndex].title}
-                      width={300}
-                      height={600}
-                      className="w-full h-auto object-cover object-top"
+                      src={projects[currentPortfolioIndex].images[0]}
+                      alt={`${projects[currentPortfolioIndex].style} ${projects[currentPortfolioIndex].color} metal roof — ${projects[currentPortfolioIndex].location}`}
+                      width={400}
+                      height={300}
+                      className="w-full h-full object-cover"
                     />
                     
-                    {/* Phone notch/dynamic island */}
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black rounded-full z-10" />
+                    {/* Photo count badge */}
+                    {projects[currentPortfolioIndex].images.length > 1 && (
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-xs font-medium z-10">
+                        {projects[currentPortfolioIndex].images.length} photos
+                      </div>
+                    )}
                     
                     {/* Tap to expand hint */}
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center z-10">
-                      <span className="text-black/50 text-xs">Tap to expand</span>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center z-10">
+                      <span className="text-white/90 text-xs bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">Tap to view gallery</span>
                     </div>
                   </div>
                   
                   {/* Info overlay */}
-                  <div className="p-3 bg-black/60 backdrop-blur-sm relative z-10">
-                    <h3 className="text-white font-medium text-sm mb-1">{portfolioExamples[currentPortfolioIndex].title}</h3>
-                    <p className="text-white/50 text-xs uppercase tracking-wide">{portfolioExamples[currentPortfolioIndex].category}</p>
+                  <div className="p-4 bg-black/60 backdrop-blur-sm relative z-10">
+                    <h3 className="text-white font-serif text-base mb-1 tracking-[-0.01em]">{projects[currentPortfolioIndex].style} — {projects[currentPortfolioIndex].color}</h3>
+                    <p className="text-white/50 text-xs leading-snug">{projects[currentPortfolioIndex].location}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -934,7 +962,7 @@ export function HeroSection() {
               </button>
               
               <div className="flex gap-3">
-                {portfolioExamples.map((_, index) => (
+                {projects.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => {
@@ -982,77 +1010,88 @@ export function HeroSection() {
               <X className="w-8 h-8" />
             </button>
 
-            {/* Previous arrow */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goToPrevLightbox();
-              }}
-              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center text-white hover:text-white/80 transition-colors z-20"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-8 h-8" />
-            </button>
+            {/* Previous arrow (only when the gallery has more than one photo) */}
+            {projects[lightboxIndex].images.length > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToPrevLightbox();
+                }}
+                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm text-white hover:bg-black/60 transition-colors z-20"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft className="w-7 h-7" />
+              </button>
+            )}
 
-            {/* Next arrow */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goToNextLightbox();
-              }}
-              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center text-white hover:text-white/80 transition-colors z-20"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-8 h-8" />
-            </button>
+            {/* Next arrow (only when the gallery has more than one photo) */}
+            {projects[lightboxIndex].images.length > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToNextLightbox();
+                }}
+                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm text-white hover:bg-black/60 transition-colors z-20"
+                aria-label="Next photo"
+              >
+                <ChevronRight className="w-7 h-7" />
+              </button>
+            )}
 
-            {/* Phone frame with scrollable screenshot */}
+            {/* Gallery photo */}
             <motion.div
-              key={lightboxIndex}
-              initial={{ opacity: 0, scale: 0.9 }}
+              key={`${lightboxIndex}-${lightboxImageIndex}`}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
+              exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.2 }}
-              className="relative w-[280px] md:w-[320px] max-h-[85vh] rounded-[2.5rem] border-4 border-gray-800 bg-white overflow-hidden"
+              className="relative w-[90vw] max-w-3xl rounded-2xl overflow-hidden bg-[#0d1a1a] shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Phone notch */}
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-20" />
-              
-              {/* Scrollable screenshot container */}
-              <div className="h-[70vh] md:h-[75vh] overflow-y-auto scrollbar-hide">
+              <div className="relative aspect-[4/3] w-full">
                 <Image
-                  src={portfolioExamples[lightboxIndex].image}
-                  alt={portfolioExamples[lightboxIndex].title}
-                  width={400}
-                  height={2500}
-                  className="w-full h-auto"
+                  src={projects[lightboxIndex].images[lightboxImageIndex]}
+                  alt={`${projects[lightboxIndex].style} ${projects[lightboxIndex].color} metal roof — ${projects[lightboxIndex].location}`}
+                  fill
+                  sizes="(max-width: 768px) 90vw, 768px"
+                  className="object-cover"
                 />
               </div>
               
               {/* Info bar at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent z-10">
-                <h3 className="text-white font-medium text-base">{portfolioExamples[lightboxIndex].title}</h3>
-                <p className="text-white/60 text-sm">{portfolioExamples[lightboxIndex].category}</p>
+              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 bg-gradient-to-t from-black/85 via-black/40 to-transparent z-10">
+                <div className="flex items-end justify-between gap-3">
+                  <div>
+                    <h3 className="text-white font-serif text-lg md:text-xl tracking-[-0.01em]">{projects[lightboxIndex].style} — {projects[lightboxIndex].color}</h3>
+                    <p className="text-white/70 text-sm leading-snug">{projects[lightboxIndex].location}</p>
+                  </div>
+                  {projects[lightboxIndex].images.length > 1 && (
+                    <span className="text-white/60 text-xs whitespace-nowrap">
+                      {lightboxImageIndex + 1} / {projects[lightboxIndex].images.length}
+                    </span>
+                  )}
+                </div>
               </div>
             </motion.div>
 
-            {/* Dot indicators */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-              {portfolioExamples.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLightboxIndex(index);
-                  }}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === lightboxIndex ? 'bg-white w-6' : 'bg-white/40'
-                  }`}
-                  aria-label={`Go to image ${index + 1}`}
-                />
-              ))}
-            </div>
+            {/* Dot indicators for photos within the current gallery */}
+            {projects[lightboxIndex].images.length > 1 && (
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                {projects[lightboxIndex].images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setLightboxImageIndex(index);
+                    }}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === lightboxImageIndex ? 'bg-white w-6' : 'bg-white/40'
+                    }`}
+                    aria-label={`Go to photo ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
