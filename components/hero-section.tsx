@@ -70,49 +70,23 @@ const portfolioExamples = [
   },
 ];
 
-// Client logos for marquee (sizes increased by 25% on desktop, now 25% bigger on mobile too)
-const clientLogos = [
+// Metal roofing product profiles for marquee
+const products = [
   {
-    name: "Vibrant Vistas Landscape",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed-BZdqK19fjOZy4B9ZmSV9RpmOmLTcZg.png",
-    width: 225,
-    height: 63,
+    name: "Supre",
+    src: "/products/supre.webp",
   },
   {
-    name: "Desert Valley Patio Covers",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-desert-valley_prev_ui-m7VkBygKrrIxOE6E-aOp0plN2hDuzWstFcSLP63mFIecNuA.png",
-    width: 200,
-    height: 75,
+    name: "Dura",
+    src: "/products/dura.webp",
   },
   {
-    name: "AZ Elite Granite LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_16_36%20PM-5nS8Ow08sgZs9FyUk2TgA6vzMcB4o5.png",
-    width: 175,
-    height: 88,
+    name: "Ulta",
+    src: "/products/ulta.png",
   },
   {
-    name: "5th Element Outdoor Creations",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_15_05%20PM-M7d24da4J7zflIL4lOa2zulphLVW54.png",
-    width: 175,
-    height: 88,
-  },
-  {
-    name: "CV",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_19_28%20PM-5FDfsJO1iGLSJmEze6VOYfDlFsVNg1.png",
-    width: 100,
-    height: 100,
-  },
-  {
-    name: "Desert Valley Structures LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_21_06%20PM-TdlOu6IpB8ZmZI0EFZ3yNLAfV12FiI.png",
-    width: 200,
-    height: 88,
-  },
-  {
-    name: "Landscaping Perez LLC",
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%2024%2C%202026%20at%2006_18_00%20PM-yGj5qGvn3Td5xog2qZwIFGaH7D6KhC.png",
-    width: 200,
-    height: 88,
+    name: "Como",
+    src: "/products/como.webp",
   },
 ];
 
@@ -569,7 +543,7 @@ export function HeroSection() {
             suppressHydrationWarning
           >
             Yeah, you need a new <em className="italic">roof.</em>
-            <span className="block h-4 md:h-6" />
+            <span className="block h-10 md:h-16" />
             No, it doesn&apos;t have to be the{" "}
             <span className="relative inline-block whitespace-nowrap">
               <span className="relative z-10">flimsy kind.</span>
@@ -801,18 +775,21 @@ export function HeroSection() {
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black to-transparent z-10" />
           
           <div className="flex animate-marquee w-max">
-            {[...clientLogos, ...clientLogos].map((logo, index) => (
+            {[...products, ...products, ...products, ...products].map((product, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 mx-8 md:mx-16 flex items-center justify-center h-16 md:h-20"
+                className="flex-shrink-0 mx-8 md:mx-16 flex flex-col items-center justify-center gap-3"
               >
                 <Image
-                  src={logo.src}
-                  alt={logo.name}
-                  width={Math.round(logo.width * 1.3)}
-                  height={Math.round(logo.height * 1.3)}
-                  className="object-contain h-[72px] md:h-[84px] w-auto brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-400"
+                  src={product.src}
+                  alt={`${product.name} metal roofing panel`}
+                  width={200}
+                  height={120}
+                  className="object-contain h-16 md:h-24 w-auto"
                 />
+                <span className="text-white font-serif text-lg md:text-2xl tracking-[-0.01em]">
+                  {product.name}
+                </span>
               </div>
             ))}
           </div>
