@@ -564,7 +564,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8"
           >
-            A Growth Partner
+            Top Tier Roofing Partner
           </motion.p>
 
           {/* Main headline - Fraunces serif */}
@@ -574,7 +574,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
             className="font-serif text-[#1A1A1A] text-[56px] md:text-[72px] lg:text-[96px] font-medium leading-[1.0] tracking-[-0.03em] mb-8"
           >
-            Yeah, you need a <em className="italic">website.</em>
+            Yeah, you need a new <em className="italic">roof.</em>
             <span className="block h-4 md:h-6" />
             No, you{" "}
             <span className="relative inline-block">
@@ -605,7 +605,7 @@ export function HeroSection() {
                 />
               </svg>
             </span>
-            {" "}need to spend $3,000.
+            {" "}need to spend $30,000.
           </motion.h1>
 
           {/* Subheadline */}
