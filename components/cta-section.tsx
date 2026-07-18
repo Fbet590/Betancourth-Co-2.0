@@ -19,11 +19,11 @@ export function CTASection() {
           <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8">Learn More</p>
           
           <h2 className="font-serif text-[#1A1A1A] text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em] mb-8 text-balance">
-            Ready to transform your <em className="italic">lead generation?</em>
+            Ready to protect your home with a <em className="italic">new roof?</em>
           </h2>
 
           <p className="text-[#1A1A1A]/60 max-w-2xl mx-auto mb-12 text-base leading-[1.6]">
-            Book a free discovery call and let&apos;s discuss your growth strategy. 
+            Book a free roof inspection and let&apos;s discuss your options. 
             No commitment required.
           </p>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Fraunces } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import './globals.css'
 
 const inter = Inter({ 
@@ -16,8 +17,8 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'Betancourth & Co | Digital Marketing That Delivers Real Revenue',
-  description: 'We help growth-minded businesses attract better leads, convert more customers, and scale profitably with smart marketing strategies.',
+  title: 'Betancourth & Co | Quality Roofing Without Overpaying',
+  description: 'Get a durable, professionally installed new roof at honest, upfront pricing. No pushy sales tactics, no inflated quotes — just quality roofing done right.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -45,9 +46,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable} bg-background`}>
-      <head>
+      <body className="font-sans antialiased bg-background text-foreground">
+        {children}
+        <Analytics />
         {/* Facebook Pixel Code */}
-        <script
+        <Script
+          id="facebook-pixel"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               !function(f,b,e,v,n,t,s)
@@ -72,10 +77,6 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
-      </head>
-      <body className="font-sans antialiased bg-background text-foreground">
-        {children}
-        <Analytics />
       </body>
     </html>
   )

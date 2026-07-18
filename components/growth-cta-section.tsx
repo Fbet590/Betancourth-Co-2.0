@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 
 const benefits = [
-  "Professional website that converts visitors to customers",
-  "Mobile-optimized for all devices",
-  "Fast loading speeds for better SEO",
-  "Easy to update and maintain",
+  "Durable materials built to last for decades",
+  "Professional installation done right the first time",
+  "Protection from leaks, storms, and harsh weather",
+  "Backed by warranty and ongoing support",
 ];
 
 export function GrowthCTASection() {
@@ -25,11 +25,11 @@ export function GrowthCTASection() {
             <span className="font-serif text-[80px] md:text-[120px] font-light text-[#1A1A1A]/10 block leading-none mb-4">004</span>
             <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-6">About Us</p>
             <h2 className="font-serif text-[#1A1A1A] text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em] mb-8">
-              Your website is your{" "}
-              <em className="italic">24/7 salesperson.</em>
+              Your roof is your home&apos;s{" "}
+              <em className="italic">first line of defense.</em>
             </h2>
             <p className="text-[#1A1A1A]/60 text-base leading-[1.6] mb-10">
-              In today&apos;s digital world, your website is often the first impression customers have of your business. A professional, fast-loading website builds trust and converts visitors into paying customers around the clock.
+              A strong, well-built roof protects everything underneath it. Our expert installations shield your home from leaks, storms, and weather damage — giving you lasting protection and peace of mind for years to come.
             </p>
             
             <ul className="space-y-4 mb-10">
@@ -67,24 +67,24 @@ export function GrowthCTASection() {
             <div className="border border-[#1A1A1A]/10 p-10">
               <div className="text-center">
                 <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-4">What You Get</p>
-                <h3 className="font-serif text-2xl text-[#1A1A1A] mb-10 tracking-[-0.02em]">A Complete Website Solution</h3>
+                <h3 className="font-serif text-2xl text-[#1A1A1A] mb-10 tracking-[-0.02em]">A Complete Roofing Solution</h3>
                 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="border border-[#1A1A1A]/10 p-6">
+                    <p className="font-serif text-3xl text-[#1A1A1A] mb-2">Durable</p>
+                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Materials</p>
+                  </div>
+                  <div className="border border-[#1A1A1A]/10 p-6">
                     <p className="font-serif text-3xl text-[#1A1A1A] mb-2">Fast</p>
-                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Load Times</p>
+                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Installation</p>
                   </div>
                   <div className="border border-[#1A1A1A]/10 p-6">
-                    <p className="font-serif text-3xl text-[#1A1A1A] mb-2">Mobile</p>
-                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Optimized</p>
-                  </div>
-                  <div className="border border-[#1A1A1A]/10 p-6">
-                    <p className="font-serif text-3xl text-[#1A1A1A] mb-2">SEO</p>
-                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Ready</p>
+                    <p className="font-serif text-3xl text-[#1A1A1A] mb-2">Warranty</p>
+                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Backed</p>
                   </div>
                   <div className="border border-[#1A1A1A]/10 p-6">
                     <p className="font-serif text-3xl text-[#1A1A1A] mb-2">Done</p>
-                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">For You</p>
+                    <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-wide">Right</p>
                   </div>
                 </div>
               </div>
