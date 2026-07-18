@@ -571,7 +571,7 @@ export function HeroSection() {
             Yeah, you need a new <em className="italic">roof.</em>
             <span className="block h-4 md:h-6" />
             No, it doesn&apos;t have to be the{" "}
-            <span className="relative inline-block">
+            <span className="relative inline-block whitespace-nowrap">
               <span className="relative z-10">flimsy kind.</span>
               {/* Hand-drawn marker underline - graffiti style */}
               <svg
