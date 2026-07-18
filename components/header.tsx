@@ -34,7 +34,7 @@ export function Header() {
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center">
               <span className="text-[#1A1A1A] font-serif text-xl tracking-[-0.02em]">
-                Betancourth & Co
+                NexRoof Roofing & Exteriors
               </span>
             </Link>
 
