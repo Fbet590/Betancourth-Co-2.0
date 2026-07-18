@@ -563,6 +563,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8"
+            suppressHydrationWarning
           >
             Top Tier Roofing Partner
           </motion.p>
@@ -573,6 +574,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
             className="font-serif text-[#1A1A1A] text-[56px] md:text-[72px] lg:text-[96px] font-medium leading-[1.0] tracking-[-0.03em] mb-8"
+            suppressHydrationWarning
           >
             Yeah, you need a new <em className="italic">roof.</em>
             <span className="block h-4 md:h-6" />
