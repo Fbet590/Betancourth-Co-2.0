@@ -17,8 +17,8 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'Betancourth & Co | Digital Marketing That Delivers Real Revenue',
-  description: 'We help growth-minded businesses attract better leads, convert more customers, and scale profitably with smart marketing strategies.',
+  title: 'Betancourth & Co | Quality Roofing Without Overpaying',
+  description: 'Get a durable, professionally installed new roof at honest, upfront pricing. No pushy sales tactics, no inflated quotes — just quality roofing done right.',
   generator: 'v0.app',
   icons: {
     icon: [

@@ -127,12 +127,6 @@ interface FormStep {
 
 const formSteps: FormStep[] = [
   {
-  question: "What kind of company do you own?",
-  type: "dropdown",
-  options: ["Hardscape", "Photography", "Carpet Cleaning", "Jewelry Brand", "Clothing Brand", "Plumbing", "Vet Clinic", "Restaurant"],
-  required: true,
-  },
-  {
   question: "What's your full name?",
     type: "text",
     placeholder: "John Smith",
@@ -355,11 +349,9 @@ export function HeroSection() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          position: formData[0],
-          companyType: formData[1],
-          fullName: formData[2],
-          email: formData[3],
-          phone: formData[4],
+          fullName: formData[0],
+          email: formData[1],
+          phone: formData[2],
           submittedAt: new Date().toISOString(),
         }),
       });
@@ -617,7 +609,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-[#1A1A1A]/60 text-2xl leading-[1.6] max-w-2xl mx-auto mb-12"
           >
-            $300 Flat Pricing instead of overpaying insane prices.
+            Fair, upfront pricing instead of overpaying insane prices.
           </motion.p>
 
           {/* Multi-step Form - Solid Dark Teal Style */}
@@ -675,7 +667,7 @@ export function HeroSection() {
                   <div className="relative z-10">
                     {/* Form headline */}
                     <h2 className="font-serif text-2xl md:text-[36px] text-white text-center mb-2 leading-tight">
-                      Get Your Website Made ASAP - Forget Overpaying!
+                      Get Your New Roof ASAP - Forget Overpaying!
                     </h2>
                     
                     {/* Form subheadline */}

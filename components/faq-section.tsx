@@ -11,28 +11,28 @@ import {
 
 const faqs = [
   {
-    question: "Why does my business need a website?",
-    answer: "Your website is your digital storefront that works 24/7. It builds credibility, helps customers find you online, and converts visitors into paying customers. Studies show that 75% of consumers judge a company's credibility based on their website design.",
+    question: "Why should I replace my roof?",
+    answer: "Your roof is your home's first line of defense against the elements. Replacing an aging or damaged roof protects your home from leaks, water damage, and costly structural repairs, while also boosting your property value and curb appeal.",
   },
   {
-    question: "How long does it take to build a website?",
-    answer: "Most websites are completed within 1-2 weeks depending on complexity. We handle everything from design to development to launch, so you can focus on running your business while we build your online presence.",
+    question: "How long does a roof replacement take?",
+    answer: "Most roof replacements are completed within 1-3 days depending on the size and complexity of your home. We handle everything from tear-off to cleanup, so you can get back to normal as quickly as possible.",
   },
   {
-    question: "What's included in the website package?",
-    answer: "Every website includes custom design, mobile optimization, SEO setup, fast hosting, contact forms, and ongoing support. We also integrate with your existing tools and can add features like appointment booking, galleries, and more.",
+    question: "What's included in a new roof?",
+    answer: "Every roofing project includes removal of your old roof, premium materials, professional installation, thorough cleanup, and a workmanship warranty. We walk you through your material and color options so you get exactly the look you want.",
   },
   {
-    question: "Will my website work on mobile devices?",
-    answer: "Absolutely. All our websites are built mobile-first, meaning they look and function perfectly on smartphones, tablets, and desktops. With over 60% of web traffic coming from mobile devices, this is essential for your business.",
+    question: "Do you offer warranties on your work?",
+    answer: "Absolutely. We back every installation with both manufacturer material warranties and our own workmanship warranty, so you can have complete peace of mind that your new roof is built to last.",
   },
   {
-    question: "Do you help with content and images?",
-    answer: "Yes! We can help with copywriting, source professional stock images, or work with photos you provide. Our goal is to make the process as easy as possible for you.",
+    question: "Do you help with insurance claims?",
+    answer: "Yes! If your roof was damaged by a storm or other covered event, we can help guide you through the insurance claim process and work directly with your adjuster to make everything as smooth as possible.",
   },
   {
-    question: "What happens after my website is live?",
-    answer: "We provide ongoing support and maintenance to keep your site secure and up-to-date. We're always available to make updates, add new features, or answer questions as your business grows.",
+    question: "What happens after my roof is installed?",
+    answer: "We perform a final inspection, complete a full site cleanup, and make sure you're happy with the finished result. We're always available afterward for any questions, maintenance, or support you may need down the road.",
   },
 ];
 
@@ -54,7 +54,7 @@ export function FAQSection() {
             Frequently Asked <em className="italic">Questions</em>
           </h2>
           <p className="text-[#1A1A1A]/60 text-base leading-[1.6]">
-            Additional information about our website building service.
+            Additional information about our roofing service.
           </p>
         </motion.div>
 
