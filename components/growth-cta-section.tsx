@@ -1,14 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
-
-const benefits = [
-  "Durable materials built to last for decades",
-  "Professional installation done right the first time",
-  "Protection from leaks, storms, and harsh weather",
-  "Backed by warranty and ongoing support",
-];
 
 export function GrowthCTASection() {
   return (
@@ -25,36 +17,8 @@ export function GrowthCTASection() {
             <span className="font-serif text-[80px] md:text-[120px] font-light text-[#1A1A1A]/10 block leading-none mb-4">004</span>
             <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-6">About Us</p>
             <h2 className="font-serif text-[#1A1A1A] text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em] mb-8">
-              Your roof is your home&apos;s{" "}
-              <em className="italic">first line of defense.</em>
+              Your roof is your home&apos;s
             </h2>
-            <p className="text-[#1A1A1A]/60 text-base leading-[1.6] mb-10">
-              A strong, well-built roof protects everything underneath it. Our expert installations shield your home from leaks, storms, and weather damage — giving you lasting protection and peace of mind for years to come.
-            </p>
-            
-            <ul className="space-y-4 mb-10">
-              {benefits.map((benefit, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-center gap-4"
-                >
-                  <Check className="w-4 h-4 text-[#1A1A1A]/40 flex-shrink-0" />
-                  <span className="text-[#1A1A1A]/70">{benefit}</span>
-                </motion.li>
-              ))}
-            </ul>
-
-            <button
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
-            >
-              Apply Now
-              <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-400" />
-            </button>
           </motion.div>
 
           <motion.div
