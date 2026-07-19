@@ -15,7 +15,7 @@ export function CTASection() {
           className="text-center"
         >
           {/* Section number as design element */}
-          <span className="font-serif text-[80px] md:text-[120px] font-light text-[#1A1A1A]/10 block leading-none mb-4">006</span>
+          <span className="font-serif text-[80px] md:text-[120px] font-light text-[#1A1A1A]/10 block leading-none mb-4">003</span>
           <p className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8">Learn More</p>
           
           <h2 className="font-serif text-[#1A1A1A] text-[40px] md:text-[64px] font-medium leading-[1.0] tracking-[-0.03em] mb-8 text-balance">
