@@ -582,9 +582,36 @@ export function HeroSection() {
             className="font-serif text-[#1A1A1A] text-[56px] md:text-[72px] lg:text-[96px] font-medium leading-[1.0] tracking-[-0.03em] mb-8"
             suppressHydrationWarning
           >
-            Your new metal roof.
+            Your new metal <em className="italic">roof.</em>
             <span className="block h-4 md:h-6" />
-            Done right.
+            <span className="relative inline-block whitespace-nowrap">
+              <span className="relative z-10">Done right.</span>
+              {/* Hand-drawn marker underline - graffiti style */}
+              <svg
+                className="absolute left-0 -bottom-1 md:-bottom-2 w-full h-3 md:h-4 pointer-events-none"
+                viewBox="0 0 100 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+              >
+                <motion.path
+                  d="M 2 7 
+                     C 8 5, 15 8, 25 6 
+                     C 35 4, 45 7, 55 5 
+                     C 65 3, 75 6, 85 4 
+                     C 92 3, 96 5, 98 6"
+                  stroke="#5EE085"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+                />
+              </svg>
+            </span>
           </motion.h1>
 
           {/* Subheadline */}
