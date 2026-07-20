@@ -63,7 +63,7 @@ export default function RootLayout({
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '512235081317513');
+              fbq('init', '1860717901488442');
               fbq('track', 'PageView');
             `,
           }}
@@ -73,7 +73,7 @@ export default function RootLayout({
             height="1"
             width="1"
             style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=512235081317513&ev=PageView&noscript=1"
+            src="https://www.facebook.com/tr?id=1860717901488442&ev=PageView&noscript=1"
             alt=""
           />
         </noscript>
