@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/u1wGvQAHeabFrjX36spu/webhook-trigger/5a6c0a61-6dfb-48b6-a134-da8599fce972';
+const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/HvRg0mcpt7255xUMWAiF/webhook-trigger/a004ed24-8696-45e2-8c61-0b2bb82026c9';
 const QUALIFIED_POSITION = 'CEO/Owner';
 
 export async function POST(request: NextRequest) {
