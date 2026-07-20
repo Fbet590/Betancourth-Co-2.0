@@ -568,7 +568,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8"
+            className="text-[#1A1A1A]/50 text-xs uppercase tracking-[0.2em] mb-8 font-semibold"
             suppressHydrationWarning
           >
             Top Tier Roofing Partner
