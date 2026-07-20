@@ -33,8 +33,8 @@ export function Header() {
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center">
-              <span className="text-[#1A1A1A] font-serif text-xl tracking-[-0.02em]">
-                NexRoof Roofing & Exteriors
+              <span className="text-[#1A1A1A] font-serif font-medium text-xl tracking-[-0.02em]">
+                NexRoof
               </span>
             </Link>
 
