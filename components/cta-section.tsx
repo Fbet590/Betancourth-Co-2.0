@@ -28,7 +28,7 @@ export function CTASection() {
           </p>
 
           <button
-            onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
             className="inline-flex items-center border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-10 py-4 text-sm tracking-wide transition-all duration-400 group"
           >
             Apply Now

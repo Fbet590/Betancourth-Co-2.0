@@ -633,6 +633,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             className="max-w-lg mx-auto mt-4"
+            id="contact-form"
           >
             {/* Form with solid teal background */}
             <div className="relative">
@@ -792,7 +793,7 @@ export function HeroSection() {
                           </span>
                         ) : (
                           <>
-                            {currentStep === formSteps.length - 1 ? "Submit Application" : "Continue"}
+                            {currentStep === formSteps.length - 1 ? "Submit" : "Continue"}
                             <ArrowRight className="ml-2 w-4 h-4" />
                           </>
                         )}

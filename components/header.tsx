@@ -50,7 +50,7 @@ export function Header() {
 
             <div className="hidden md:block">
               <button 
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] px-6 py-3 text-sm tracking-wide transition-all duration-400"
               >
                 Get in touch
@@ -87,7 +87,7 @@ export function Header() {
                 <button 
                   onClick={() => {
                     setIsMenuOpen(false);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   className="border border-[#6B1F2B] bg-transparent text-[#6B1F2B] hover:bg-[#6B1F2B] hover:text-[#FAFAF7] py-3 text-sm tracking-wide transition-all duration-400 w-full mt-2"
                 >
