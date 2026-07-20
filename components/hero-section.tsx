@@ -357,7 +357,7 @@ export function HeroSection() {
 
     try {
       // Send data to webhook
-      const response = await fetch('https://services.leadconnectorhq.com/hooks/u1wGvQAHeabFrjX36spu/webhook-trigger/XAlQRcw3h4inHUwFTNz0', {
+      const response = await fetch('https://services.leadconnectorhq.com/hooks/HvRg0mcpt7255xUMWAiF/webhook-trigger/a004ed24-8696-45e2-8c61-0b2bb82026c9', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
